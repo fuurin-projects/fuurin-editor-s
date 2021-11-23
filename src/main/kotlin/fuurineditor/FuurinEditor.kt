@@ -8,10 +8,10 @@ object FuurinEditor {
 
     fun init() {
         application {
-
             var windowSize = remember { mutableListOf<Int>(1) }
 
             Launcher(onCloseRequest = ::exitApplication)
+
 
         }
 
