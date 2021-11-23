@@ -19,6 +19,8 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation(compose.desktop.currentOs)
+
+    implementation("org.springframework:spring-context:5.3.13")
 }
 
 tasks.test {
