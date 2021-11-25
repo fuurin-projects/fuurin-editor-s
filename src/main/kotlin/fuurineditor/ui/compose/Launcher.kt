@@ -17,7 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import fuurineditor.service.SystemService
 import fuurineditor.ui.LocalSpringContext
+import fuurineditor.ui.stringResource
 import fuurineditor.ui.theme.FuurinEditorTheme
+import java.util.*
 
 @Composable
 fun Launcher(onCloseRequest: () -> Unit) {
@@ -48,7 +50,9 @@ fun Launcher(onCloseRequest: () -> Unit) {
                 Text(text = "Fuurin Editor", modifier = Modifier.align(Alignment.CenterHorizontally))
                 Spacer(modifier = Modifier.height(16.dp).align(Alignment.CenterHorizontally))
                 Text(
-                    text = "バージョン : ${systemService.getVersion()}",
+                    text = stringResource(
+                        "system_version_number", systemService.getVersion(), Locale.JAPANESE
+                    ),
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
             }

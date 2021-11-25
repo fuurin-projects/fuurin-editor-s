@@ -1,0 +1,6 @@
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
+<properties>
+    <entry key="system_version">バージョン</entry>
+    <entry key="system_version_number">バージョン : {0}</entry>
+</properties>
