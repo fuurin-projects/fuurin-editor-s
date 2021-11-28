@@ -13,6 +13,11 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,7 +39,7 @@ import fuurineditor.ui.theme.FuurinEditorTheme
 import java.util.*
 
 @Composable
-fun Launcher(onCloseRequest: () -> Unit, onNewGameClick: () -> Unit = {}) {
+fun Launcher(onCloseRequest: () -> Unit) {
 
     val state: WindowState = rememberWindowState(
         size = WindowSize(680.dp, 510.dp), position = WindowPosition(Alignment.Center)
@@ -46,10 +51,16 @@ fun Launcher(onCloseRequest: () -> Unit, onNewGameClick: () -> Unit = {}) {
         state = state
     ) {
 
+        var openNewGame by remember { mutableStateOf(false) }
+
         FuurinEditorTheme {
 
-            LauncherScreen(onNewGameClick = onNewGameClick)
+            LauncherScreen(
+                onNewGameClick = { openNewGame = true })
+        }
 
+        if (openNewGame) {
+            NewGameProjectWindow(onCloseRequest = { openNewGame = false })
         }
 
     }
@@ -57,7 +68,9 @@ fun Launcher(onCloseRequest: () -> Unit, onNewGameClick: () -> Unit = {}) {
 }
 
 @Composable
-fun LauncherScreen(onNewGameClick: () -> Unit = {}) {
+fun LauncherScreen(
+    onNewGameClick: () -> Unit = {}
+) {
 
     val systemService = LocalSpringContext.current.getBean(
         SystemService::class.java
@@ -94,6 +107,8 @@ fun LauncherScreen(onNewGameClick: () -> Unit = {}) {
             Text(text = "既存のゲームプロジェクトを開く")
         }
     }
+
+
 }
 
 @Composable
