@@ -52,15 +52,22 @@ fun Launcher(onCloseRequest: () -> Unit) {
     ) {
 
         var openNewGame by remember { mutableStateOf(false) }
+        var openOpenGame by remember { mutableStateOf(false) }
 
         FuurinEditorTheme {
 
             LauncherScreen(
-                onNewGameClick = { openNewGame = true })
+                onNewGameClick = { openNewGame = true },
+                onOpenGameClick = { openOpenGame = true }
+            )
         }
 
         if (openNewGame) {
             NewGameProjectWindow(onCloseRequest = { openNewGame = false })
+        }
+
+        if (openOpenGame) {
+            BrowserWindow(onCloseRequest = { openOpenGame = false }, url = "https://www.google.com/?hl=ja")
         }
 
     }
@@ -69,7 +76,8 @@ fun Launcher(onCloseRequest: () -> Unit) {
 
 @Composable
 fun LauncherScreen(
-    onNewGameClick: () -> Unit = {}
+    onNewGameClick: () -> Unit = {},
+    onOpenGameClick: () -> Unit = {}
 ) {
 
     val systemService = LocalSpringContext.current.getBean(
@@ -103,7 +111,10 @@ fun LauncherScreen(
             Text(text = "新規でゲームを作成する")
         }
         Spacer(modifier = Modifier.height(24.dp).align(Alignment.CenterHorizontally))
-        Button(onClick = {}, modifier = Modifier.align(Alignment.CenterHorizontally).widthIn(min = 280.dp)) {
+        Button(
+            onClick = onOpenGameClick,
+            modifier = Modifier.align(Alignment.CenterHorizontally).widthIn(min = 280.dp)
+        ) {
             Text(text = "既存のゲームプロジェクトを開く")
         }
     }
