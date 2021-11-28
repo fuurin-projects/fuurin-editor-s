@@ -14,9 +14,9 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,15 +31,30 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowSize
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
+import com.sun.glass.ui.Application
+import com.sun.glass.ui.CommonDialogs
+import com.sun.javafx.stage.StageHelper
 import fuurineditor.service.SystemService
 import fuurineditor.ui.LocalSpringContext
+import fuurineditor.ui.data.ProjectState
 import fuurineditor.ui.stringResource
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.FuurinEditorTheme
+import javafx.application.Platform
+import javafx.embed.swing.JFXPanel
+import javafx.scene.Group
+import javafx.scene.Scene
+import javafx.stage.DirectoryChooser
+import javafx.stage.Stage
+import kotlinx.coroutines.launch
+import java.io.File
 import java.util.*
 
+
 @Composable
-fun Launcher(onCloseRequest: () -> Unit) {
+fun Launcher(onCloseRequest: () -> Unit, openProject: (ProjectState) -> Unit = {}) {
+
+    var dialogBlock by remember { mutableStateOf(false) }
 
     val state: WindowState = rememberWindowState(
         size = WindowSize(680.dp, 510.dp), position = WindowPosition(Alignment.Center)
@@ -48,17 +63,87 @@ fun Launcher(onCloseRequest: () -> Unit) {
         title = "Fuurin Editor",
         onCloseRequest = onCloseRequest,
         icon = painterResource("fuurin_icon_16.png"),
-        state = state
+        state = state,
+        enabled = dialogBlock.not()
     ) {
 
         var openNewGame by remember { mutableStateOf(false) }
         var openOpenGame by remember { mutableStateOf(false) }
+        var isFileChooserOpen by remember { mutableStateOf(false) }
+
+        //val jFXPanel = remember { JFXPanel() }
+
+        val rememberCoroutineScope = rememberCoroutineScope()
 
         FuurinEditorTheme {
 
             LauncherScreen(
                 onNewGameClick = { openNewGame = true },
-                onOpenGameClick = { openOpenGame = true }
+                onOpenGameClick = {
+
+                    isFileChooserOpen = true
+
+                    rememberCoroutineScope.launch {
+
+
+                        val jfxPanel = JFXPanel()
+                        Platform.runLater {
+
+                            var directoryChooser = DirectoryChooser()
+
+                            directoryChooser.title = "ゲームプロジェクトを選択"
+
+                            val stage = object : Stage() {
+                            }
+                            StageHelper.initHelper(stage)
+                            val root = Group()
+                            jfxPanel.scene = Scene(root);
+
+                            val nativeWindow = Application.GetApplication().createWindow(window.windowHandle);
+
+                            try {
+                                dialogBlock = true
+                                //val file: File? = directoryChooser.showDialog(object : javafx.stage.Window() {
+//
+                                // });
+
+                                val file: File? = CommonDialogs.showFolderChooser(
+                                    nativeWindow,
+                                    directoryChooser.initialDirectory,
+                                    directoryChooser.title
+                                )
+
+                                println(file)
+                                if (file != null) {
+                                    //Toolkit.getDefaultToolkit().beep();
+                                    openProject(ProjectState(name = "test", path = file.toPath()))
+                                };
+
+                            } finally {
+                                dialogBlock = false
+                            }
+
+                        }
+
+                        /*
+                        val jFileChooser = JFileChooser()
+                        jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+                        //fileChooser.fileFilter = FileNameExtensionFilter("テキストファイル", "txt")
+                        val result = jFileChooser.showOpenDialog(window)
+                        if (result == JFileChooser.APPROVE_OPTION) {
+                            val file = jFileChooser.selectedFile
+                            println(file)
+                            if (file != null) {
+                                openProject(ProjectState(name = "ゲームプロジェクトを選択", path = file.toPath()))
+                            }
+                            //text.value = file.readText(Charsets.UTF_8)
+                            //currentFile.value = file
+                            //modified.value = false
+                        }*/
+                    }
+
+                }
             )
         }
 
@@ -66,9 +151,21 @@ fun Launcher(onCloseRequest: () -> Unit) {
             NewGameProjectWindow(onCloseRequest = { openNewGame = false })
         }
 
-        if (openOpenGame) {
-            BrowserWindow(onCloseRequest = { openOpenGame = false }, url = "https://www.google.com/?hl=ja")
-        }
+
+        //JavaFXPanel(root = window, jFXPanel, onCreate = {})
+
+        /*
+        if (isFileChooserOpen) {
+            FileDialog(
+                parent = window,
+                onCloseRequest = {
+                    isFileChooserOpen = false
+                    println("Result $it")
+                }
+            )
+
+            //BrowserWindow(onCloseRequest = { openOpenGame = false }, url = "https://www.google.com/?hl=ja")
+        }*/
 
     }
 
