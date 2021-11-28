@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.5.21"
     id("org.jetbrains.compose") version "1.0.0-alpha3"
+    id("org.openjfx.javafxplugin") version "0.0.8"
 }
 
 group = "fuurineditor"
@@ -40,4 +41,9 @@ compose.desktop {
             packageVersion = "1.0.0"
         }
     }
+}
+
+javafx {
+    version = "11.0.2"
+    modules = ArrayList(listOf("javafx.web", "javafx.swing"))
 }
