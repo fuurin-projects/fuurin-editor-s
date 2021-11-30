@@ -8,7 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.application
 import fuurineditor.ui.LocalSpringContext
-import fuurineditor.ui.compose.Editor
+import fuurineditor.ui.compose.EditorWindow
 import fuurineditor.ui.compose.LauncherWindow
 import fuurineditor.viewmodel.SystemViewModel
 import javafx.application.Platform
@@ -46,7 +46,7 @@ object FuurinEditor {
 
                     for (projectState in openProjectList) {
                         key(projectState.path) {
-                            Editor(title = projectState.name, projectPath = projectState.path) {
+                            EditorWindow(projectName = projectState.name, projectPath = projectState.path) {
                                 systemViewModel.closeProject(projectState)
                             }
                         }
