@@ -9,8 +9,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.window.application
 import fuurineditor.ui.LocalSpringContext
 import fuurineditor.ui.compose.Editor
-import fuurineditor.ui.compose.Launcher
-import fuurineditor.ui.viewmodel.SystemViewModel
+import fuurineditor.ui.compose.LauncherWindow
+import fuurineditor.viewmodel.SystemViewModel
 import javafx.application.Platform
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import javax.swing.UIManager
@@ -37,7 +37,7 @@ object FuurinEditor {
 
 
                     if (openLauncher) {
-                        Launcher(onCloseRequest = ::exitApplication, openProject = {
+                        LauncherWindow(onCloseRequest = ::exitApplication, openProject = {
                             systemViewModel.openProject(it)
                         })
                     }

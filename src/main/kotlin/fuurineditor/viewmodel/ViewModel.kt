@@ -1,4 +1,4 @@
-package fuurineditor.ui.viewmodel
+package fuurineditor.viewmodel
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory
 import org.springframework.context.annotation.Scope

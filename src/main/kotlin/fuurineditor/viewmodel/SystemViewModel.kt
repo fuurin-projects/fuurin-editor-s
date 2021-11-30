@@ -1,4 +1,4 @@
-package fuurineditor.ui.viewmodel
+package fuurineditor.viewmodel
 
 import fuurineditor.ui.data.ProjectState
 import kotlinx.coroutines.flow.MutableStateFlow

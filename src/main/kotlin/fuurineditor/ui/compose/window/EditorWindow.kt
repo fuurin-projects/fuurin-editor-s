@@ -15,7 +15,7 @@ import androidx.compose.ui.window.WindowSize
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
 import fuurineditor.ui.viewModel
-import fuurineditor.ui.viewmodel.EditorViewModel
+import fuurineditor.viewmodel.EditorViewModel
 import java.nio.file.Path
 
 @Composable
@@ -28,7 +28,7 @@ fun Editor(title: String, projectPath: Path, onCloseRequest: () -> Unit) {
     Window(state = state, onCloseRequest = onCloseRequest) {
 
         val editorViewModel: EditorViewModel = viewModel()
-        
+
         val count by editorViewModel.count.collectAsState()
 
         Column {
