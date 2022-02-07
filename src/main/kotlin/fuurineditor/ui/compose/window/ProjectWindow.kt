@@ -16,9 +16,11 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowSize
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
+import fuurineditor.service.data.ProjectData
+import fuurineditor.ui.compose.screen.EditorScreen
 import fuurineditor.ui.theme.FuurinEditorTheme
 import fuurineditor.ui.viewModel
-import fuurineditor.viewmodel.EditorViewModel
+import fuurineditor.viewmodel.ProjectViewModel
 import java.nio.file.Path
 
 /**
@@ -46,15 +48,19 @@ fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> 
 
         FuurinEditorTheme {
 
-            val editorViewModel: EditorViewModel = viewModel()
+            val editorViewModel: ProjectViewModel = viewModel(projectPath)
 
             val count by editorViewModel.count.collectAsState()
+            val projectData by editorViewModel.projectData.collectAsState(ProjectData(name = "loading..."))
 
-            //EditorScreen()
+            EditorScreen()
 
             Column {
 
-                Text(text = "title ${projectPath}", modifier = Modifier)
+                Text(
+                    text = "title ${projectPath} ${projectData.name}",
+                    modifier = Modifier
+                )
 
                 Button(onClick = { editorViewModel.increment() }) {
                     Text(text = "${count}", modifier = Modifier)

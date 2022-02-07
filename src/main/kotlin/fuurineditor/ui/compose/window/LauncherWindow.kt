@@ -29,8 +29,6 @@ import java.io.File
 @Composable
 fun LauncherWindow(onCloseRequest: () -> Unit, openProject: (ProjectState) -> Unit = {}) {
 
-    var dialogBlock by remember { mutableStateOf(false) }
-
     val state: WindowState = rememberWindowState(
         size = WindowSize(680.dp, 510.dp), position = WindowPosition(Alignment.Center)
     )
@@ -39,12 +37,9 @@ fun LauncherWindow(onCloseRequest: () -> Unit, openProject: (ProjectState) -> Un
         onCloseRequest = onCloseRequest,
         icon = painterResource("fuurin_icon_16.png"),
         state = state,
-        //enabled = dialogBlock.not()
     ) {
 
         var openNewGame by remember { mutableStateOf(false) }
-        var openOpenGame by remember { mutableStateOf(false) }
-        var isFileChooserOpen by remember { mutableStateOf(false) }
 
         val rememberCoroutineScope = rememberCoroutineScope()
 
@@ -53,8 +48,6 @@ fun LauncherWindow(onCloseRequest: () -> Unit, openProject: (ProjectState) -> Un
             LauncherScreen(
                 onNewGameClick = { openNewGame = true },
                 onOpenGameClick = {
-
-                    isFileChooserOpen = true
 
                     rememberCoroutineScope.launch {
 
@@ -66,7 +59,6 @@ fun LauncherWindow(onCloseRequest: () -> Unit, openProject: (ProjectState) -> Un
 
                             try {
 
-                                dialogBlock = true
 
                                 val nativeWindow = Application.GetApplication().createWindow(window.windowHandle)
 
@@ -80,7 +72,7 @@ fun LauncherWindow(onCloseRequest: () -> Unit, openProject: (ProjectState) -> Un
                                 };
 
                             } finally {
-                                dialogBlock = false
+
                             }
 
                         }

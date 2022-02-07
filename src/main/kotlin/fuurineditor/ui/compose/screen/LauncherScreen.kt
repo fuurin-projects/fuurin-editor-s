@@ -40,6 +40,7 @@ fun LauncherScreen(
     Column(
         modifier = Modifier.background(Color(0x00cccccc)).fillMaxWidth().fillMaxHeight().background(Background)
     ) {
+
         Spacer(modifier = Modifier.height(56.dp).align(Alignment.CenterHorizontally))
         Image(
             bitmap = useResource("fuurin_icon_16.png") { loadImageBitmap(it) },
@@ -70,6 +71,7 @@ fun LauncherScreen(
         ) {
             Text(text = "既存のゲームプロジェクトを開く")
         }
+        
     }
 
 
