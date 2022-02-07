@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose
+package fuurineditor.ui.compose.window
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Button
@@ -16,14 +16,16 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowSize
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
-import fuurineditor.ui.compose.screen.EditorScreen
 import fuurineditor.ui.theme.FuurinEditorTheme
 import fuurineditor.ui.viewModel
 import fuurineditor.viewmodel.EditorViewModel
 import java.nio.file.Path
 
+/**
+ * プロジェクトウィンドウ
+ */
 @Composable
-fun EditorWindow(projectName: String, projectPath: Path, onCloseRequest: () -> Unit) {
+fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> Unit) {
 
     val state: WindowState = rememberWindowState(
         size = WindowSize(680.dp, 510.dp), position = WindowPosition(Alignment.Center)
@@ -43,12 +45,12 @@ fun EditorWindow(projectName: String, projectPath: Path, onCloseRequest: () -> U
         }
 
         FuurinEditorTheme {
-            
+
             val editorViewModel: EditorViewModel = viewModel()
 
             val count by editorViewModel.count.collectAsState()
 
-            EditorScreen()
+            //EditorScreen()
 
             Column {
 
