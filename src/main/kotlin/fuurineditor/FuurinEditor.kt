@@ -10,6 +10,7 @@ import androidx.compose.ui.window.application
 import fuurineditor.ui.LocalSpringContext
 import fuurineditor.ui.compose.EditorWindow
 import fuurineditor.ui.compose.LauncherWindow
+import fuurineditor.ui.viewModel
 import fuurineditor.viewmodel.SystemViewModel
 import javafx.application.Platform
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
@@ -28,9 +29,7 @@ object FuurinEditor {
             application {
                 CompositionLocalProvider(LocalSpringContext provides applicationContext) {
 
-                    val systemViewModel = LocalSpringContext.current.getBean(
-                        SystemViewModel::class.java
-                    )
+                    val systemViewModel: SystemViewModel = viewModel()
                     val openLauncher by systemViewModel.openLauncher.collectAsState()
 
                     var windowSize = remember { mutableStateOf<Int>(1) }
