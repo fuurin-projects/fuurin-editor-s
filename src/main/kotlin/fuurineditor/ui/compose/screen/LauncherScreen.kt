@@ -10,7 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.material.Button
+import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -57,14 +57,14 @@ fun LauncherScreen(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Spacer(modifier = Modifier.height(48.dp).align(Alignment.CenterHorizontally))
-        Button(
+        OutlinedButton(
             onClick = onNewGameClick,
             modifier = Modifier.align(Alignment.CenterHorizontally).widthIn(min = 280.dp)
         ) {
             Text(text = "新規でゲームを作成する")
         }
         Spacer(modifier = Modifier.height(24.dp).align(Alignment.CenterHorizontally))
-        Button(
+        OutlinedButton(
             onClick = onOpenGameClick,
             modifier = Modifier.align(Alignment.CenterHorizontally).widthIn(min = 280.dp)
         ) {

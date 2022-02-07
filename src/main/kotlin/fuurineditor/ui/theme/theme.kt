@@ -1,6 +1,6 @@
 package fuurineditor.ui.theme
 
-import androidx.compose.desktop.DesktopMaterialTheme
+import androidx.compose.desktop.DesktopTheme
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 
@@ -10,7 +10,7 @@ fun FuurinEditorTheme(
     content: @Composable() () -> Unit
 ) {
 
-    DesktopMaterialTheme(
+    DesktopTheme(
         content = content
     )
 

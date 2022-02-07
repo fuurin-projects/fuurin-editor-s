@@ -10,12 +10,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowSize
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
 import fuurineditor.ui.compose.screen.EditorScreen
+import fuurineditor.ui.theme.FuurinEditorTheme
 import fuurineditor.ui.viewModel
 import fuurineditor.viewmodel.EditorViewModel
 import java.nio.file.Path
@@ -34,19 +36,29 @@ fun EditorWindow(projectName: String, projectPath: Path, onCloseRequest: () -> U
         icon = painterResource("fuurin_icon_16.png"),
     ) {
 
-        val editorViewModel: EditorViewModel = viewModel()
-
-        val count by editorViewModel.count.collectAsState()
-
-        EditorScreen()
-
-        Column {
-
-            Text(text = "title ${projectPath}", modifier = Modifier)
-
-            Button(onClick = { editorViewModel.increment() }) {
-                Text(text = "${count}", modifier = Modifier)
+        MenuBar {
+            Menu(text = "hoge") {
+                Item("New window", onClick = { })
             }
+        }
+
+        FuurinEditorTheme {
+            
+            val editorViewModel: EditorViewModel = viewModel()
+
+            val count by editorViewModel.count.collectAsState()
+
+            EditorScreen()
+
+            Column {
+
+                Text(text = "title ${projectPath}", modifier = Modifier)
+
+                Button(onClick = { editorViewModel.increment() }) {
+                    Text(text = "${count}", modifier = Modifier)
+                }
+            }
+
         }
 
     }

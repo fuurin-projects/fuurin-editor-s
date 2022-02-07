@@ -39,7 +39,7 @@ fun LauncherWindow(onCloseRequest: () -> Unit, openProject: (ProjectState) -> Un
         onCloseRequest = onCloseRequest,
         icon = painterResource("fuurin_icon_16.png"),
         state = state,
-        enabled = dialogBlock.not()
+        //enabled = dialogBlock.not()
     ) {
 
         var openNewGame by remember { mutableStateOf(false) }
