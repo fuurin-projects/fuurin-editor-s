@@ -3,7 +3,8 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.21"
+    kotlin("jvm") version "1.6.10"
+    kotlin("plugin.serialization") version "1.6.10"
     id("org.jetbrains.compose") version "1.0.0-alpha3"
     id("org.openjfx.javafxplugin") version "0.0.8"
 }
@@ -22,6 +23,8 @@ dependencies {
     implementation(compose.desktop.currentOs)
 
     implementation("org.springframework:spring-context:5.3.13")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 }
 
 tasks.test {
