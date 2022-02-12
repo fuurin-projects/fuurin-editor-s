@@ -5,6 +5,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.springframework.stereotype.Component
 
+/**
+ * GlobalなViewModel
+ *
+ * 基本的にはWindowの管理をおこなう
+ */
 @Component
 //@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 open class SystemViewModel {
