@@ -1,8 +1,12 @@
 package fuurineditor.viewmodel
 
+import fuurineditor.service.ProjectService
+import fuurineditor.service.SystemService
+import fuurineditor.service.data.ProjectInfoData
 import fuurineditor.ui.data.ProjectState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import org.springframework.stereotype.Component
 
 /**
@@ -12,7 +16,10 @@ import org.springframework.stereotype.Component
  */
 @Component
 //@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-open class SystemViewModel {
+open class GlobalViewModel(
+    private val projectService: ProjectService,
+    private val systemService: SystemService
+) : ViewModel() {
 
     //Launcherが起動しているかどうか
     private val _openLauncher = MutableStateFlow(true)
@@ -24,6 +31,16 @@ open class SystemViewModel {
     fun openProject(projectState: ProjectState) {
         val value = openProjectList.value
         _openProjectList.value = value + projectState
+
+        viewModelScope.launch {
+            systemService.addProjectInfoData(
+                ProjectInfoData(
+                    name = projectState.name,
+                    path = projectState.path
+                )
+            )
+        }
+
     }
 
     fun closeProject(projectState: ProjectState) {

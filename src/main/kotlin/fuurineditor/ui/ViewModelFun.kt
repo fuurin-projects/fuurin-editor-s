@@ -1,29 +1,40 @@
 package fuurineditor.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
+import fuurineditor.viewmodel.ViewModel
+import kotlinx.coroutines.cancel
 import java.lang.reflect.Constructor
 
 /**
  * ViewModelをDIから取得する
  */
 @Composable
-inline fun <reified VM : Any> viewModel(): VM {
+inline fun <reified VM : ViewModel> viewModel(): VM {
 
     val springContext = LocalSpringContext.current
 
-    return remember {
+    val bean = remember {
         springContext.getBean(VM::class.java)
     }
+
+    DisposableEffect(bean) {
+        onDispose {
+            bean.viewModelScope.cancel()
+        }
+    }
+
+    return bean
 
 }
 
 @Composable
-inline fun <reified VM : Any> viewModel(vararg param: Any): VM {
+inline fun <reified VM : ViewModel> viewModel(vararg param: Any): VM {
 
     val springContext = LocalSpringContext.current
 
-    return remember {
+    val bean = remember {
 
         //SpringにAssistedがないので似た感じの処理を実現させる
 
@@ -42,5 +53,13 @@ inline fun <reified VM : Any> viewModel(vararg param: Any): VM {
 
         springContext.getBean(VM::class.java, *diParam.toTypedArray())
     }
+
+    DisposableEffect(bean) {
+        onDispose {
+            bean.viewModelScope.cancel()
+        }
+    }
+
+    return bean
 
 }

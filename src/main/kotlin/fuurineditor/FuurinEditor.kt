@@ -9,7 +9,7 @@ import fuurineditor.ui.LocalSpringContext
 import fuurineditor.ui.compose.LauncherWindow
 import fuurineditor.ui.compose.window.ProjectWindow
 import fuurineditor.ui.viewModel
-import fuurineditor.viewmodel.SystemViewModel
+import fuurineditor.viewmodel.GlobalViewModel
 import javafx.application.Platform
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import javax.swing.UIManager
@@ -30,7 +30,7 @@ object FuurinEditor {
                 //DIコンテナをComposeのContextに載せてどこからでも取得できるようにする
                 CompositionLocalProvider(LocalSpringContext provides applicationContext) {
 
-                    val systemViewModel: SystemViewModel = viewModel()
+                    val systemViewModel: GlobalViewModel = viewModel()
                     val openLauncher by systemViewModel.openLauncher.collectAsState()
 
                     //---------

@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.nio.file.Path
 
-@ViewModel
+@ViewModelBean
 open class ProjectViewModel(
     private val projectPath: Path,
     private val projectService: ProjectService
-) {
+) : ViewModel() {
 
     private val _count = MutableStateFlow<Int>(0)
     val count: StateFlow<Int> = _count

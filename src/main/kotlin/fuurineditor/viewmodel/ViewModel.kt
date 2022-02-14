@@ -1,23 +1,14 @@
 package fuurineditor.viewmodel
 
-import org.springframework.beans.factory.config.ConfigurableBeanFactory
-import org.springframework.context.annotation.Scope
-import org.springframework.core.annotation.AliasFor
-import org.springframework.stereotype.Component
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 
-/**
- * コンポーネントからDIにアクセスするためのアノテーション
- */
-@Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.CLASS)
-@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
-@MustBeDocumented
-@Component
-@Scope(
-    scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE //このInstance自体は毎回生成する
-)
-annotation class ViewModel(
+open class ViewModel {
 
-    @get:AliasFor(annotation = Component::class)
-    val value: String = ""
+    val viewModelScope: CoroutineScope
+        get() {
+            return CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+        }
 
-)
+}

@@ -7,12 +7,12 @@ import org.springframework.stereotype.Repository
 import java.nio.file.Path
 
 @Repository
-open class ProjectRepository {
+open class ProjectRepository(
+) {
 
     fun getProjectData(path: Path): Flow<ProjectData> {
 
         return flow<ProjectData> {
-
 
             val text = path.resolve("game_info.json").toFile().readText()
             print(text)
@@ -21,5 +21,6 @@ open class ProjectRepository {
         }
 
     }
+
 
 }
