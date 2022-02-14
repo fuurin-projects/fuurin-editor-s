@@ -1,6 +1,7 @@
 package fuurineditor
 
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -30,8 +31,8 @@ object FuurinEditor {
                 //DIコンテナをComposeのContextに載せてどこからでも取得できるようにする
                 CompositionLocalProvider(LocalSpringContext provides applicationContext) {
 
-                    val systemViewModel: GlobalViewModel = viewModel()
-                    val openLauncher by systemViewModel.openLauncher.collectAsState()
+                    val globalViewModel: GlobalViewModel = viewModel()
+                    val openLauncher by globalViewModel.openLauncher.collectAsState()
 
                     //---------
                     //Window自体の表示制御
@@ -40,23 +41,31 @@ object FuurinEditor {
                     //ランチャー
                     if (openLauncher) {
                         LauncherWindow(onCloseRequest = ::exitApplication, openProject = {
-                            systemViewModel.openProject(it)
+                            globalViewModel.openProject(it)
                         })
                     }
 
                     //各種プロジェクト
-                    val openProjectList by systemViewModel.openProjectList.collectAsState()
+                    val openProjectList by globalViewModel.openProjectList.collectAsState()
 
                     for (projectState in openProjectList) {
                         //プロジェクトのパスをkeyにして重複防止をしている
                         key(projectState.path) {
                             ProjectWindow(projectName = projectState.name, projectPath = projectState.path) {
-                                systemViewModel.closeProject(projectState)
+                                globalViewModel.closeProject(projectState)
                             }
                         }
 
                     }
 
+                    //Windowの数が0になったらアプリを終了する
+                    LaunchedEffect(openLauncher || openProjectList.isEmpty().not()) {
+
+                        if ((openLauncher || openProjectList.isEmpty().not()).not()) {
+                            exitApplication()
+                        }
+
+                    }
                 }
 
             }

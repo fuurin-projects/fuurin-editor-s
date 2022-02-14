@@ -26,6 +26,11 @@ open class SystemRepository(
         val systemPreferenceJson: SystemPreferenceJson =
             Json.decodeFromString(systemPreferenceJsonPath.toFile().readText())
 
+        //同じデータを登録済みなら更新しない
+        if (systemPreferenceJson.projectDataList.contains(projectInfoData.toProjectData())) {
+            return
+        }
+
         val systemPreferenceJsonNew = systemPreferenceJson.copy(
             projectDataList = systemPreferenceJson.projectDataList + projectInfoData.toProjectData()
         )

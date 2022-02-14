@@ -2,6 +2,7 @@ package fuurineditor.service
 
 import fuurineditor.repository.SystemRepository
 import fuurineditor.service.data.ProjectInfoData
+import kotlinx.coroutines.flow.Flow
 import org.springframework.stereotype.Service
 
 @Service
@@ -15,6 +16,10 @@ class SystemService(
 
     suspend fun addProjectInfoData(projectInfoData: ProjectInfoData) {
         systemRepository.addProjectInfoData(projectInfoData)
+    }
+
+    fun getProjectInfoList(): Flow<List<ProjectInfoData>> {
+        return systemRepository.getProjectInfoList()
     }
 
 }
