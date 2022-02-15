@@ -45,6 +45,27 @@ open class SystemRepository(
 
     }
 
+    suspend fun deleteProjectInfo(projectInfoData: ProjectInfoData) {
+
+        val systemPreferenceJsonPath = getSystemPreferenceJsonPathAndInit()
+        val systemPreferenceJson: SystemPreferenceJson =
+            Json.decodeFromString(systemPreferenceJsonPath.toFile().readText())
+
+        //データがない場合は何もしない
+        if (systemPreferenceJson.projectDataList.contains(projectInfoData.toProjectData()).not()) {
+            return
+        }
+
+        val systemPreferenceJsonNew = systemPreferenceJson.copy(
+            projectDataList = systemPreferenceJson.projectDataList - projectInfoData.toProjectData()
+        )
+
+        systemPreferenceJsonPath.toFile().writeText(Json.encodeToString(systemPreferenceJsonNew))
+
+        retryState.value = Random.nextInt().toString()
+
+    }
+
     fun getProjectInfoList(): Flow<List<ProjectInfoData>> {
 
         return retryState.flatMapLatest {
@@ -65,6 +86,7 @@ open class SystemRepository(
         }
 
     }
+
 
     /**
      * アプリ設定のPathを取得

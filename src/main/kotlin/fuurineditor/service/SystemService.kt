@@ -18,6 +18,10 @@ class SystemService(
         systemRepository.addProjectInfoData(projectInfoData)
     }
 
+    suspend fun deleteProjectInfo(projectInfoData: ProjectInfoData) {
+        systemRepository.deleteProjectInfo(projectInfoData)
+    }
+
     fun getProjectInfoList(): Flow<List<ProjectInfoData>> {
         return systemRepository.getProjectInfoList()
     }

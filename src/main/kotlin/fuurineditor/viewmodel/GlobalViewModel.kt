@@ -42,7 +42,7 @@ open class GlobalViewModel(
         }
 
         _openLauncher.value = false
-        
+
     }
 
     fun closeProject(projectState: ProjectState) {
