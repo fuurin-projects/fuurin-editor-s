@@ -5,6 +5,8 @@ import fuurineditor.repository.data.SystemPreferenceJson
 import fuurineditor.repository.data.toProjectData
 import fuurineditor.service.data.ProjectInfoData
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -13,12 +15,14 @@ import org.springframework.stereotype.Repository
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.io.path.exists
+import kotlin.random.Random
 
 @Repository
 open class SystemRepository(
     private val osChecker: OSChecker
 ) {
 
+    private val retryState = MutableStateFlow<String>("")
 
     suspend fun addProjectInfoData(projectInfoData: ProjectInfoData) {
 
@@ -37,23 +41,27 @@ open class SystemRepository(
 
         systemPreferenceJsonPath.toFile().writeText(Json.encodeToString(systemPreferenceJsonNew))
 
+        retryState.value = Random.nextInt().toString()
+
     }
 
     fun getProjectInfoList(): Flow<List<ProjectInfoData>> {
 
-        return flow {
+        return retryState.flatMapLatest {
 
-            val systemPreferenceJson: SystemPreferenceJson =
-                Json.decodeFromString(getSystemPreferenceJsonPathAndInit().toFile().readText())
+            flow {
 
-            emit(systemPreferenceJson.projectDataList.map {
-                ProjectInfoData(
-                    name = it.name,
-                    path = Path.of(it.path)
-                )
-            })
+                val systemPreferenceJson: SystemPreferenceJson =
+                    Json.decodeFromString(getSystemPreferenceJsonPathAndInit().toFile().readText())
 
+                emit(systemPreferenceJson.projectDataList.map {
+                    ProjectInfoData(
+                        name = it.name,
+                        path = Path.of(it.path)
+                    )
+                })
 
+            }
         }
 
     }
