@@ -21,6 +21,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation(compose.desktop.currentOs)
+    implementation("org.jetbrains.compose.material:material-icons-extended-desktop:1.0.1")
 
     implementation("org.springframework:spring-context:5.3.13")
 
