@@ -1,13 +1,9 @@
 package fuurineditor.ui.compose.window
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Button
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.MenuBar
@@ -17,7 +13,7 @@ import androidx.compose.ui.window.WindowSize
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
 import fuurineditor.service.data.ProjectData
-import fuurineditor.ui.compose.screen.EditorScreen
+import fuurineditor.ui.compose.screen.ProjectScreen
 import fuurineditor.ui.theme.FuurinEditorTheme
 import fuurineditor.ui.viewModel
 import fuurineditor.viewmodel.ProjectViewModel
@@ -41,7 +37,7 @@ fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> 
     ) {
 
         MenuBar {
-            Menu(text = "hoge") {
+            Menu(text = "File") {
                 Item("New window", onClick = { })
             }
         }
@@ -53,19 +49,21 @@ fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> 
             val count by editorViewModel.count.collectAsState()
             val projectData by editorViewModel.projectData.collectAsState(ProjectData(name = "loading..."))
 
-            EditorScreen()
-
-            Column {
-
-                Text(
-                    text = "title ${projectPath} ${projectData.name}",
-                    modifier = Modifier
-                )
-
-                Button(onClick = { editorViewModel.increment() }) {
-                    Text(text = "${count}", modifier = Modifier)
-                }
-            }
+            ProjectScreen()
+//
+//            EditorScreen()
+//
+//            Column {
+//
+//                Text(
+//                    text = "title ${projectPath} ${projectData.name}",
+//                    modifier = Modifier
+//                )
+//
+//                Button(onClick = { editorViewModel.increment() }) {
+//                    Text(text = "${count}", modifier = Modifier)
+//                }
+//            }
 
         }
 
