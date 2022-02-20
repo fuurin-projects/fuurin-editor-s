@@ -9,15 +9,21 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.sharp.PlayArrow
+import androidx.compose.material.icons.sharp.Stop
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fuurineditor.ui.compose.parts.FunctionPanel
 import fuurineditor.ui.compose.parts.FunctionSubPanel
+import fuurineditor.ui.compose.parts.ToolButton
 import fuurineditor.ui.compose.parts.VerticalDivider
 import fuurineditor.ui.data.FunctionType
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.Border
+import fuurineditor.ui.theme.IconGreenColor
+import fuurineditor.ui.theme.IconRedColor
 
 data class ProjectScreenUIState(
     val functionType: FunctionType = FunctionType.General
@@ -34,7 +40,8 @@ fun ProjectScreen(
         Row(
             modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
         ) {
-            Text(text = "s")
+            ToolButton(imageVector = Icons.Sharp.PlayArrow, tint = IconGreenColor)
+            ToolButton(imageVector = Icons.Sharp.Stop, tint = IconRedColor)
         }
         Divider(color = Border, thickness = 1.dp)
         //真ん中の段
@@ -50,10 +57,10 @@ fun ProjectScreen(
             VerticalDivider(color = Border, thickness = 1.dp)
 
             FunctionSubPanel(
-                modifier = Modifier.fillMaxHeight().width(160.dp).background(Background),
+                modifier = Modifier.fillMaxHeight().width(160.dp),
                 functionType = usState.functionType
             )
-            
+
             VerticalDivider(color = Border, thickness = 1.dp)
             Column(
                 modifier = Modifier.weight(1f)

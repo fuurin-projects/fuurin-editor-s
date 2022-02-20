@@ -53,7 +53,7 @@ fun FunctionPanel(
             contentDescription = "Close project.",
             tint = IconColor,
             onClick = {
-                onClickFunctionButton(FunctionType.Resources)
+                onClickFunctionButton(FunctionType.Textures)
             }
         )
 
