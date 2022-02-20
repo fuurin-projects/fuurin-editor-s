@@ -5,11 +5,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowPosition
-import androidx.compose.ui.window.WindowSize
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
 import fuurineditor.service.data.ProjectData
@@ -26,7 +26,7 @@ import java.nio.file.Path
 fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> Unit) {
 
     val state: WindowState = rememberWindowState(
-        size = WindowSize(680.dp, 510.dp), position = WindowPosition(Alignment.Center)
+        size = DpSize(1280.dp, 720.dp), position = WindowPosition(Alignment.Center)
     )
 
     Window(
@@ -46,10 +46,16 @@ fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> 
 
             val editorViewModel: ProjectViewModel = viewModel(projectPath)
 
+            val usState by editorViewModel.uiState.collectAsState()
             val count by editorViewModel.count.collectAsState()
             val projectData by editorViewModel.projectData.collectAsState(ProjectData(name = "loading..."))
 
-            ProjectScreen()
+            ProjectScreen(
+                usState = usState,
+                onClickFunctionButton = {
+                    editorViewModel.changeFunctionType(it)
+                }
+            )
 //
 //            EditorScreen()
 //
