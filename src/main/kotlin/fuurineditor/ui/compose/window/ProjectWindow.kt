@@ -49,9 +49,11 @@ fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> 
             val usState by editorViewModel.uiState.collectAsState()
             val count by editorViewModel.count.collectAsState()
             val projectData by editorViewModel.projectData.collectAsState(ProjectData(name = "loading..."))
+            val tiletipList by editorViewModel.tiletipList.collectAsState(null)
 
             ProjectScreen(
                 usState = usState,
+                tiletipList = tiletipList,
                 onClickFunctionButton = {
                     editorViewModel.changeFunctionType(it)
                 }

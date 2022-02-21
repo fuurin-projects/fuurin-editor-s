@@ -15,6 +15,7 @@ import androidx.compose.material.icons.sharp.Stop
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import fuurineditor.service.data.File
 import fuurineditor.ui.compose.parts.FunctionPanel
 import fuurineditor.ui.compose.parts.FunctionSubPanel
 import fuurineditor.ui.compose.parts.ToolButton
@@ -32,6 +33,7 @@ data class ProjectScreenUIState(
 @Composable
 fun ProjectScreen(
     usState: ProjectScreenUIState,
+    tiletipList: File?,
     onClickFunctionButton: (type: FunctionType) -> Unit = {}
 ) {
 
@@ -51,6 +53,7 @@ fun ProjectScreen(
 
             FunctionPanel(
                 modifier = Modifier.fillMaxHeight().width(80.dp).background(Background),
+                functionType = usState.functionType,
                 onClickFunctionButton = onClickFunctionButton
             )
 
@@ -58,7 +61,8 @@ fun ProjectScreen(
 
             FunctionSubPanel(
                 modifier = Modifier.fillMaxHeight().width(160.dp),
-                functionType = usState.functionType
+                functionType = usState.functionType,
+                tiletipList = tiletipList
             )
 
             VerticalDivider(color = Border, thickness = 1.dp)
