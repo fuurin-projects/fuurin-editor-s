@@ -47,18 +47,26 @@ fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> 
             val editorViewModel: ProjectViewModel = viewModel(projectPath)
 
             val usState by editorViewModel.uiState.collectAsState()
+            val editors by editorViewModel.editors.collectAsState()
             val count by editorViewModel.count.collectAsState()
             val projectData by editorViewModel.projectData.collectAsState(ProjectData(name = "loading..."))
             val tiletipList by editorViewModel.tiletipList.collectAsState(null)
 
             ProjectScreen(
                 usState = usState,
+                editors = editors,
                 tiletipList = tiletipList,
                 onClickFunctionButton = {
                     editorViewModel.changeFunctionType(it)
                 },
                 onAddTileTip = {
                     editorViewModel.onAddTileTip(it)
+                },
+                addEditor = {
+                    editorViewModel.addEditor(file = it)
+                },
+                closeEditor = {
+                    editorViewModel.closeEditor(it)
                 }
             )
 //

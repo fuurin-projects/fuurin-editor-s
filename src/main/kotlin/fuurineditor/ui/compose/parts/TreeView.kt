@@ -2,6 +2,7 @@ package fuurineditor.ui.compose.parts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +28,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.File
 import fuurineditor.ui.theme.IconColor
@@ -41,6 +43,7 @@ fun TreeView(
     },
     rootName: String?,
     rootIcon: ImageVector?,
+    onDoubleClick: (file: File) -> Unit = {}
 ) {
 
     var folding by remember { mutableStateOf(true) }
@@ -55,6 +58,9 @@ fun TreeView(
             idDirectory = root.isDirectory,
             onClockArrow = {
                 folding = folding.not()
+            },
+            onDoubleClick = {
+                onDoubleClick(root)
             }
         )
 
@@ -63,7 +69,7 @@ fun TreeView(
                 for (child in root.children) {
 
                     key(child.name) {
-                        TreeDirectoryView(child, 1, customDisplay)
+                        TreeDirectoryView(child, 1, customDisplay, onDoubleClick)
                     }
                 }
             }
@@ -72,7 +78,7 @@ fun TreeView(
 
     } else {
         key(root.name) {
-            TreeDirectoryView(root, 0, customDisplay)
+            TreeDirectoryView(root, 0, customDisplay, onDoubleClick)
         }
     }
 
@@ -85,6 +91,7 @@ fun TreeDirectoryView(
     customDisplay: suspend CoroutineScope.(original: File, setCustomTreeNode: (data: CustomTreeNode) -> Unit) -> Unit = { file, setCustomTreeNode ->
         setCustomTreeNode(CustomTreeNode(name = file.name, Icons.Sharp.Description))
     },
+    onDoubleClick: (file: File) -> Unit = {}
 ) {
 
     var folding by remember { mutableStateOf(true) }
@@ -100,6 +107,9 @@ fun TreeDirectoryView(
         idDirectory = root.isDirectory,
         onClockArrow = {
             folding = folding.not()
+        },
+        onDoubleClick = {
+            onDoubleClick(root)
         }
     )
 
@@ -107,7 +117,11 @@ fun TreeDirectoryView(
         if (root.hasChildren) {
             for (child in root.children) {
                 key(child.name) {
-                    TreeDirectoryView(child, deep + 1)
+                    TreeDirectoryView(
+                        root = child,
+                        deep = deep + 1,
+                        onDoubleClick = onDoubleClick
+                    )
                 }
             }
         }
@@ -142,6 +156,7 @@ fun TreeNode(
     folding: Boolean,
     idDirectory: Boolean,
     onClockArrow: () -> Unit = {},
+    onDoubleClick: () -> Unit = {}
 ) {
 
     val focusRequester = remember { FocusRequester() }
@@ -155,6 +170,14 @@ fun TreeNode(
         }.fillMaxWidth().background(
             if (focus) SelectColor else Color.Unspecified
         ).clickable { focusRequester.requestFocus() }
+        .pointerInput(Unit) {
+            detectTapGestures(
+                onDoubleTap = {
+                    println("aa")
+                    onDoubleClick()
+                },
+            )
+        }
         .offset(x = (deep * 20).dp)
     ) {
 

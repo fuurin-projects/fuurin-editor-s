@@ -13,14 +13,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.PlayArrow
 import androidx.compose.material.icons.sharp.Stop
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.File
+import fuurineditor.ui.compose.parts.EditorTab
 import fuurineditor.ui.compose.parts.FunctionPanel
 import fuurineditor.ui.compose.parts.FunctionSubPanel
 import fuurineditor.ui.compose.parts.ToolButton
 import fuurineditor.ui.compose.parts.VerticalDivider
 import fuurineditor.ui.compose.window.RowTileTip
+import fuurineditor.ui.data.Editor
 import fuurineditor.ui.data.FunctionType
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.Border
@@ -34,9 +37,12 @@ data class ProjectScreenUIState(
 @Composable
 fun ProjectScreen(
     usState: ProjectScreenUIState,
+    editors: List<Editor>,
     tiletipList: File?,
     onClickFunctionButton: (type: FunctionType) -> Unit = {},
     onAddTileTip: (rowTileTip: RowTileTip) -> Unit = {},
+    addEditor: (file: File) -> Unit = {},
+    closeEditor: (editor: Editor) -> Unit = {},
 ) {
 
     Column {
@@ -65,7 +71,8 @@ fun ProjectScreen(
                 modifier = Modifier.fillMaxHeight().width(160.dp),
                 functionType = usState.functionType,
                 tiletipList = tiletipList,
-                onAddTileTip = onAddTileTip
+                onAddTileTip = onAddTileTip,
+                addEditor = addEditor
             )
 
             VerticalDivider(color = Border, thickness = 1.dp)
@@ -75,7 +82,13 @@ fun ProjectScreen(
                 Row(
                     modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
                 ) {
-                    Text(text = "s")
+                    for (editor in editors) {
+                        key(editor) {
+                            EditorTab(editor = editor, onClose = {
+                                closeEditor(editor)
+                            })
+                        }
+                    }
                 }
                 Divider(color = Border, thickness = 1.dp)
                 Column {

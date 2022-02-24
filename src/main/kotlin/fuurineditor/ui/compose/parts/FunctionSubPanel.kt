@@ -35,6 +35,7 @@ fun FunctionSubPanel(
     functionType: FunctionType,
     tiletipList: File?,
     onAddTileTip: (rowTileTip: RowTileTip) -> Unit = {},
+    addEditor: (file: File) -> Unit = {},
 ) {
 
     var addTiletipDialog by remember { mutableStateOf(false) }
@@ -92,6 +93,9 @@ fun FunctionSubPanel(
                                     )
                                 )
                             }
+                        },
+                        onDoubleClick = {
+                            addEditor(it)
                         }
                     )
                     TreeNode(
