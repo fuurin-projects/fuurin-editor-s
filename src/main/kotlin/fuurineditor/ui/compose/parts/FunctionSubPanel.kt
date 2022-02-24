@@ -16,9 +16,15 @@ import androidx.compose.material.icons.sharp.Image
 import androidx.compose.material.icons.sharp.People
 import androidx.compose.material.icons.sharp.PersonAdd
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.File
+import fuurineditor.ui.compose.window.AddTileTipDialog
+import fuurineditor.ui.compose.window.RowTileTip
 import fuurineditor.ui.data.FunctionType
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.Border
@@ -28,7 +34,20 @@ fun FunctionSubPanel(
     modifier: Modifier = Modifier,
     functionType: FunctionType,
     tiletipList: File?,
+    onAddTileTip: (rowTileTip: RowTileTip) -> Unit = {},
 ) {
+
+    var addTiletipDialog by remember { mutableStateOf(false) }
+
+    if (addTiletipDialog) {
+        AddTileTipDialog(
+            onAddTiletip = {
+                onAddTileTip(it)
+            },
+            onCloseRequest = {
+                addTiletipDialog = false
+            })
+    }
 
     Column(
         modifier = modifier
@@ -38,7 +57,9 @@ fun FunctionSubPanel(
         ) {
 
             if (functionType == FunctionType.Textures) {
-                ToolButton(imageVector = Icons.Sharp.AddPhotoAlternate)
+                ToolButton(imageVector = Icons.Sharp.AddPhotoAlternate, onClick = {
+                    addTiletipDialog = true
+                })
                 ToolButton(imageVector = Icons.Sharp.PersonAdd, modifier = Modifier.offset(x = (-2).dp))
 
             } else {
@@ -57,15 +78,21 @@ fun FunctionSubPanel(
 
                 if (tiletipList != null) {
 
-                } else {
-                    TreeNode(
-                        imageVector = Icons.Sharp.Image,
-                        text = "Tiletip"
+                    TreeView(
+                        root = tiletipList,
+                        rootIcon = Icons.Sharp.Image,
+                        rootName = "Tiletip"
                     )
                     TreeNode(
                         imageVector = Icons.Sharp.People,
-                        text = "Character"
+                        text = "Character",
+                        deep = 0,
+                        idDirectory = false,
+                        folding = true,
                     )
+
+                } else {
+
                 }
 
             } else {

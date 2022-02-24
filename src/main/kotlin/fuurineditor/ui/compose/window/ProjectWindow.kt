@@ -56,6 +56,9 @@ fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> 
                 tiletipList = tiletipList,
                 onClickFunctionButton = {
                     editorViewModel.changeFunctionType(it)
+                },
+                onAddTileTip = {
+                    editorViewModel.onAddTileTip(it)
                 }
             )
 //
@@ -74,6 +77,7 @@ fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> 
 //            }
 
         }
+
 
     }
 

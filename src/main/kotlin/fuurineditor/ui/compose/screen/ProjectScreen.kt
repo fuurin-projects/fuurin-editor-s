@@ -20,6 +20,7 @@ import fuurineditor.ui.compose.parts.FunctionPanel
 import fuurineditor.ui.compose.parts.FunctionSubPanel
 import fuurineditor.ui.compose.parts.ToolButton
 import fuurineditor.ui.compose.parts.VerticalDivider
+import fuurineditor.ui.compose.window.RowTileTip
 import fuurineditor.ui.data.FunctionType
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.Border
@@ -34,7 +35,8 @@ data class ProjectScreenUIState(
 fun ProjectScreen(
     usState: ProjectScreenUIState,
     tiletipList: File?,
-    onClickFunctionButton: (type: FunctionType) -> Unit = {}
+    onClickFunctionButton: (type: FunctionType) -> Unit = {},
+    onAddTileTip: (rowTileTip: RowTileTip) -> Unit = {},
 ) {
 
     Column {
@@ -62,7 +64,8 @@ fun ProjectScreen(
             FunctionSubPanel(
                 modifier = Modifier.fillMaxHeight().width(160.dp),
                 functionType = usState.functionType,
-                tiletipList = tiletipList
+                tiletipList = tiletipList,
+                onAddTileTip = onAddTileTip
             )
 
             VerticalDivider(color = Border, thickness = 1.dp)
