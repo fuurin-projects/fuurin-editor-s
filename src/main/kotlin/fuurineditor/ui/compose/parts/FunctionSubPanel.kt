@@ -81,7 +81,18 @@ fun FunctionSubPanel(
                     TreeView(
                         root = tiletipList,
                         rootIcon = Icons.Sharp.Image,
-                        rootName = "Tiletip"
+                        rootName = "Tiletip",
+                        customDisplay = { file, setCustomTreeNode ->
+
+                            if (file.name.endsWith(".png")) {
+                                setCustomTreeNode(
+                                    CustomTreeNode(
+                                        name = file.name.replace(".png", ""),
+                                        icon = Icons.Sharp.Image
+                                    )
+                                )
+                            }
+                        }
                     )
                     TreeNode(
                         imageVector = Icons.Sharp.People,

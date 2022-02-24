@@ -1,6 +1,7 @@
 package fuurineditor.ui.compose.parts
 
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
@@ -15,7 +16,7 @@ import fuurineditor.ui.theme.IconColor
 @Composable
 fun IconText(
     modifier: Modifier = Modifier,
-    imageVector: ImageVector,
+    imageVector: ImageVector?,
     text: String,
     textColor: Color = Color.Unspecified
 ) {
@@ -23,12 +24,16 @@ fun IconText(
     Row(
         modifier = modifier
     ) {
-        Icon(
-            imageVector = imageVector,
-            contentDescription = "Close project.",
-            modifier = Modifier.size(20.dp),
-            tint = IconColor
-        )
+        if (imageVector != null) {
+            Icon(
+                imageVector = imageVector,
+                contentDescription = "Close project.",
+                modifier = Modifier.size(20.dp),
+                tint = IconColor
+            )
+        } else {
+            Spacer(modifier = Modifier.size(20.dp))
+        }
         Text(
             modifier = Modifier.padding(2.dp),
             text = text,

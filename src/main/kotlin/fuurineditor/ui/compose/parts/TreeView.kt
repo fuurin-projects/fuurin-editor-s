@@ -11,10 +11,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.sharp.Image
+import androidx.compose.material.icons.sharp.Description
 import androidx.compose.material.icons.sharp.KeyboardArrowDown
 import androidx.compose.material.icons.sharp.KeyboardArrowRight
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
@@ -30,10 +31,14 @@ import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.File
 import fuurineditor.ui.theme.IconColor
 import fuurineditor.ui.theme.SelectColor
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun TreeView(
     root: File,
+    customDisplay: suspend CoroutineScope.(original: File, setCustomTreeNode: (data: CustomTreeNode) -> Unit) -> Unit = { file, setCustomTreeNode ->
+        setCustomTreeNode(CustomTreeNode(name = file.name, Icons.Sharp.Description))
+    },
     rootName: String?,
     rootIcon: ImageVector?,
 ) {
@@ -56,8 +61,9 @@ fun TreeView(
         if (folding.not()) {
             if (root.hasChildren) {
                 for (child in root.children) {
+
                     key(child.name) {
-                        TreeDirectoryView(child, 1)
+                        TreeDirectoryView(child, 1, customDisplay)
                     }
                 }
             }
@@ -65,7 +71,9 @@ fun TreeView(
 
 
     } else {
-        TreeDirectoryView(root, 0)
+        key(root.name) {
+            TreeDirectoryView(root, 0, customDisplay)
+        }
     }
 
 }
@@ -74,13 +82,19 @@ fun TreeView(
 fun TreeDirectoryView(
     root: File,
     deep: Int,
+    customDisplay: suspend CoroutineScope.(original: File, setCustomTreeNode: (data: CustomTreeNode) -> Unit) -> Unit = { file, setCustomTreeNode ->
+        setCustomTreeNode(CustomTreeNode(name = file.name, Icons.Sharp.Description))
+    },
 ) {
 
     var folding by remember { mutableStateOf(true) }
 
+    var text by remember { mutableStateOf(if (root is CustomTreeNodeFile) root.customName else root.name) }
+    var imageVector by remember { mutableStateOf<ImageVector?>(if (root is CustomTreeNodeFile) root.fakeIcon else Icons.Sharp.Description) }
+
     TreeNode(
-        imageVector = Icons.Sharp.Image,
-        text = root.name,
+        imageVector = imageVector,
+        text = text,
         deep = deep,
         folding = folding,
         idDirectory = root.isDirectory,
@@ -99,12 +113,30 @@ fun TreeDirectoryView(
         }
     }
 
+    LaunchedEffect(customDisplay) {
+
+        customDisplay(root) { customTreeNode ->
+
+//            if (customTreeNode.name != null) {
+//                text = customTreeNode.name
+//            } else {
+//                text = root.name
+//            }
+//            if (customTreeNode.icon != null) {
+//                imageVector = customTreeNode.icon
+//            } else {
+//                imageVector = Icons.Sharp.Description
+//            }
+        }
+
+    }
+
 
 }
 
 @Composable
 fun TreeNode(
-    imageVector: ImageVector,
+    imageVector: ImageVector?,
     text: String,
     deep: Int,
     folding: Boolean,
@@ -152,4 +184,14 @@ fun TreeNode(
     }
 
 
+}
+
+data class CustomTreeNode(
+    val name: String?,
+    val icon: ImageVector?
+)
+
+interface CustomTreeNodeFile {
+    val customName: String
+    val fakeIcon: ImageVector
 }

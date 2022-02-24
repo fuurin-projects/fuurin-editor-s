@@ -32,6 +32,7 @@ fun AddTileTipDialog(
         val rememberCoroutineScope = rememberCoroutineScope()
 
         var name by remember { mutableStateOf("") }
+        var displayName by remember { mutableStateOf("") }
         var location by remember { mutableStateOf("") }
 
         FuurinEditorTheme {
@@ -41,6 +42,11 @@ fun AddTileTipDialog(
                 Text("Name")
                 OutlinedTextField(value = name, onValueChange = {
                     name = it
+                })
+
+                Text("DisplayName")
+                OutlinedTextField(value = displayName, onValueChange = {
+                    displayName = it
                 })
 
                 Text("Locale")
@@ -82,6 +88,7 @@ fun AddTileTipDialog(
                         onAddTiletip(
                             RowTileTip(
                                 name = name,
+                                displayName = if (displayName.isNotBlank()) displayName else name,
                                 location = Path.of(location)
                             )
                         )
@@ -99,4 +106,8 @@ fun AddTileTipDialog(
 
 }
 
-data class RowTileTip(val name: String, val location: Path)
+data class RowTileTip(
+    val name: String,
+    val displayName: String,
+    val location: Path
+)
