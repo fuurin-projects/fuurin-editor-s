@@ -2,7 +2,9 @@ package fuurineditor.service.data
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.Image
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.loadImageBitmap
 import fuurineditor.repository.data.TiletipJson
 import fuurineditor.repository.data.toTiletipFileStatus
 import fuurineditor.ui.compose.parts.CustomTreeNodeFile
@@ -32,6 +34,11 @@ class TiletipFile(private val file: JvmFile) : File by file, CustomTreeNodeFile 
     }
     override val fakeIcon: ImageVector
         get() = Icons.Sharp.Image
+
+    val texture: ImageBitmap by lazy {
+        val imageFile = file.rowFile.toPath().resolve("../${file.rowFile.name.replace(".json", ".png")}").toFile()
+        return@lazy loadImageBitmap(imageFile.inputStream())
+    }
 
 }
 
