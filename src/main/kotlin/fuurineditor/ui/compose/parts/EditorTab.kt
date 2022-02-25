@@ -18,15 +18,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import fuurineditor.ui.data.Editor
 import fuurineditor.ui.theme.IconColor
+import fuurineditor.ui.theme.SelectColor
 
 @Composable
 fun EditorTab(
     editor: Editor,
+    isSelect: Boolean,
     onClick: () -> Unit = {},
     onClose: () -> Unit = {}
 ) {
@@ -38,7 +43,24 @@ fun EditorTab(
     var imageVector by remember { mutableStateOf<ImageVector?>(if (editor.file is CustomTreeNodeFile) editor.file.fakeIcon else Icons.Sharp.Description) }
 
     Row(
-        modifier = Modifier.fillMaxHeight().clickable { onClick() }.padding(4.dp)
+        modifier = Modifier
+            .fillMaxHeight()
+            .clickable { onClick() }
+            .drawBehind {
+                drawPath(
+                    Path().apply {
+                        val height = size.height
+                        val width = size.width
+                        val strokeWidthPx = 2.dp.toPx()
+                        moveTo(0f, height - strokeWidthPx)
+                        lineTo(width, height - strokeWidthPx)
+                        lineTo(width, height)
+                        lineTo(0f, height)
+                        close()
+                    },
+                    color = if (isSelect) SelectColor else Color.Unspecified
+                )
+            }.padding(start = 8.dp, end = 4.dp, top = 4.dp, bottom = 4.dp)
     ) {
         IconText(
             imageVector = imageVector,

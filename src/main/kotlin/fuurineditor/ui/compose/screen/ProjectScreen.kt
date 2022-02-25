@@ -17,6 +17,7 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.File
+import fuurineditor.ui.compose.parts.CurrentEditor
 import fuurineditor.ui.compose.parts.EditorTab
 import fuurineditor.ui.compose.parts.FunctionPanel
 import fuurineditor.ui.compose.parts.FunctionSubPanel
@@ -38,10 +39,12 @@ data class ProjectScreenUIState(
 fun ProjectScreen(
     usState: ProjectScreenUIState,
     editors: List<Editor>,
+    selectedEditor: Editor,
     tiletipList: File?,
     onClickFunctionButton: (type: FunctionType) -> Unit = {},
     onAddTileTip: (rowTileTip: RowTileTip) -> Unit = {},
     addEditor: (file: File) -> Unit = {},
+    onClickEditor: (editor: Editor) -> Unit = {},
     closeEditor: (editor: Editor) -> Unit = {},
 ) {
 
@@ -84,16 +87,20 @@ fun ProjectScreen(
                 ) {
                     for (editor in editors) {
                         key(editor) {
-                            EditorTab(editor = editor, onClose = {
-                                closeEditor(editor)
-                            })
+                            EditorTab(
+                                editor = editor,
+                                isSelect = selectedEditor == editor,
+                                onClick = {
+                                    onClickEditor(editor)
+                                },
+                                onClose = {
+                                    closeEditor(editor)
+                                })
                         }
                     }
                 }
                 Divider(color = Border, thickness = 1.dp)
-                Column {
-                    Text(text = "s")
-                }
+                CurrentEditor(editor = selectedEditor)
             }
         }
         Divider(color = Border, thickness = 1.dp)

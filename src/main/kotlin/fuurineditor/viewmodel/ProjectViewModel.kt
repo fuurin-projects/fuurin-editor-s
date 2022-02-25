@@ -7,6 +7,7 @@ import fuurineditor.service.data.ProjectData
 import fuurineditor.ui.compose.screen.ProjectScreenUIState
 import fuurineditor.ui.compose.window.RowTileTip
 import fuurineditor.ui.data.Editor
+import fuurineditor.ui.data.EmptyEditor
 import fuurineditor.ui.data.FunctionType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -29,6 +30,9 @@ open class ProjectViewModel(
 
     private val _editors = MutableStateFlow<List<Editor>>(listOf())
     val editors: StateFlow<List<Editor>> = _editors
+
+    private val _selectedEditor = MutableStateFlow<Editor>(EmptyEditor)
+    val selectedEditor: StateFlow<Editor> = _selectedEditor
 
     private val _projectData = projectService.getProjectData(projectPath);
     val projectData: Flow<ProjectData> = _projectData
@@ -56,11 +60,54 @@ open class ProjectViewModel(
     }
 
     fun addEditor(file: File) {
-        _editors.value += Editor(file)
+
+        val editor = _editors.value.find {
+            it.file == file
+        }
+        if (editor != null) {
+            _selectedEditor.value = editor
+        } else {
+            val newEditor = Editor(file)
+            _editors.value += newEditor
+            _selectedEditor.value = newEditor
+        }
+
     }
 
     fun closeEditor(editor: Editor) {
+
+        val index = _editors.value.indexOf(editor)
+
+        if (_editors.value.size <= 1) {
+            _selectedEditor.value = EmptyEditor
+        } else {
+
+            //開いているタブを消そうとしている場合
+            if (_selectedEditor.value == editor) {
+
+                if (index - 1 > 0) {
+                    _selectedEditor.value = _editors.value.get(index - 1)
+                } else {
+                    _selectedEditor.value = _editors.value.get(0)
+                }
+
+            }
+
+
+        }
+
         _editors.value -= editor
+
+    }
+
+    fun selectEditor(file: File) {
+
+        val editor = _editors.value.find {
+            it.file == file
+        }
+
+        _selectedEditor.value = editor ?: EmptyEditor
+
     }
 
 }
