@@ -51,12 +51,14 @@ fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> 
             val selectEditor by editorViewModel.selectedEditor.collectAsState()
             val count by editorViewModel.count.collectAsState()
             val projectData by editorViewModel.projectData.collectAsState(ProjectData(name = "loading..."))
+            val sceneList by editorViewModel.sceneList.collectAsState(null)
             val tiletipList by editorViewModel.tiletipList.collectAsState(null)
 
             ProjectScreen(
                 usState = usState,
                 editors = editors,
                 selectedEditor = selectEditor,
+                sceneList = sceneList,
                 tiletipList = tiletipList,
                 onClickFunctionButton = {
                     editorViewModel.changeFunctionType(it)

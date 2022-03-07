@@ -40,6 +40,7 @@ fun ProjectScreen(
     usState: ProjectScreenUIState,
     editors: List<Editor>,
     selectedEditor: Editor,
+    sceneList: File?,
     tiletipList: File?,
     onClickFunctionButton: (type: FunctionType) -> Unit = {},
     onAddTileTip: (rowTileTip: RowTileTip) -> Unit = {},
@@ -73,6 +74,7 @@ fun ProjectScreen(
             FunctionSubPanel(
                 modifier = Modifier.fillMaxHeight().width(160.dp),
                 functionType = usState.functionType,
+                sceneList = sceneList,
                 tiletipList = tiletipList,
                 onAddTileTip = onAddTileTip,
                 addEditor = addEditor

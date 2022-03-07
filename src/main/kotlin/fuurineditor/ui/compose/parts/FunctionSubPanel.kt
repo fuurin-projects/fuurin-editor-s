@@ -12,9 +12,13 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.AddPhotoAlternate
 import androidx.compose.material.icons.sharp.Build
+import androidx.compose.material.icons.sharp.CreateNewFolder
 import androidx.compose.material.icons.sharp.Image
+import androidx.compose.material.icons.sharp.NoteAdd
 import androidx.compose.material.icons.sharp.People
 import androidx.compose.material.icons.sharp.PersonAdd
+import androidx.compose.material.icons.sharp.Public
+import androidx.compose.material.icons.sharp.WebAsset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,6 +37,7 @@ import fuurineditor.ui.theme.Border
 fun FunctionSubPanel(
     modifier: Modifier = Modifier,
     functionType: FunctionType,
+    sceneList: File?,
     tiletipList: File?,
     onAddTileTip: (rowTileTip: RowTileTip) -> Unit = {},
     addEditor: (file: File) -> Unit = {},
@@ -57,17 +62,27 @@ fun FunctionSubPanel(
             modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
         ) {
 
-            if (functionType == FunctionType.Textures) {
-                ToolButton(imageVector = Icons.Sharp.AddPhotoAlternate, onClick = {
-                    addTiletipDialog = true
-                })
-                ToolButton(imageVector = Icons.Sharp.PersonAdd, modifier = Modifier.offset(x = (-2).dp))
+            when (functionType) {
+                FunctionType.Scene -> {
+                    ToolButton(imageVector = Icons.Sharp.NoteAdd, onClick = {
 
-            } else {
-                ToolButton(imageVector = Icons.Sharp.Build)
+                    })
+                    ToolButton(imageVector = Icons.Sharp.CreateNewFolder, onClick = {
 
-                Text(text = "s  ")
-                Text(text = functionType.name)
+                    })
+                }
+                FunctionType.Textures -> {
+                    ToolButton(imageVector = Icons.Sharp.AddPhotoAlternate, onClick = {
+                        addTiletipDialog = true
+                    })
+                    ToolButton(imageVector = Icons.Sharp.PersonAdd, modifier = Modifier.offset(x = (-2).dp))
+                }
+                else -> {
+                    ToolButton(imageVector = Icons.Sharp.Build)
+
+                    Text(text = "s  ")
+                    Text(text = functionType.name)
+                }
             }
 
         }
@@ -75,43 +90,68 @@ fun FunctionSubPanel(
 
         Column(modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
 
-            if (functionType == FunctionType.Textures) {
-
-                if (tiletipList != null) {
-
-                    TreeView(
-                        root = tiletipList,
-                        rootIcon = Icons.Sharp.Image,
-                        rootName = "Tiletip",
-                        customDisplay = { file, setCustomTreeNode ->
-
-                            if (file.name.endsWith(".png")) {
-                                setCustomTreeNode(
-                                    CustomTreeNode(
-                                        name = file.name.replace(".png", ""),
-                                        icon = Icons.Sharp.Image
-                                    )
-                                )
-                            }
-                        },
-                        onDoubleClick = {
-                            addEditor(it)
-                        }
-                    )
+            when (functionType) {
+                //Scene
+                FunctionType.Scene -> {
                     TreeNode(
-                        imageVector = Icons.Sharp.People,
-                        text = "Character",
+                        imageVector = Icons.Sharp.Public,
+                        text = "Global",
                         deep = 0,
                         idDirectory = false,
                         folding = true,
                     )
 
-                } else {
+                    if (sceneList != null) {
+                        TreeView(
+                            root = sceneList,
+                            rootIcon = Icons.Sharp.WebAsset,
+                            rootName = "Scene",
+                            onDoubleClick = {
+                                //addEditor(it)
+                            }
+                        )
+                    }
 
                 }
+                //テクスチャ
+                FunctionType.Textures -> {
 
-            } else {
-                Text(text = "s")
+                    if (tiletipList != null) {
+
+                        TreeView(
+                            root = tiletipList,
+                            rootIcon = Icons.Sharp.Image,
+                            rootName = "Tiletip",
+                            customDisplay = { file, setCustomTreeNode ->
+
+                                if (file.name.endsWith(".png")) {
+                                    setCustomTreeNode(
+                                        CustomTreeNode(
+                                            name = file.name.replace(".png", ""),
+                                            icon = Icons.Sharp.Image
+                                        )
+                                    )
+                                }
+                            },
+                            onDoubleClick = {
+                                addEditor(it)
+                            }
+                        )
+                        TreeNode(
+                            imageVector = Icons.Sharp.People,
+                            text = "Character",
+                            deep = 0,
+                            idDirectory = false,
+                            folding = true,
+                        )
+
+                    } else {
+
+                    }
+                }
+                else -> {
+                    Text(text = "s")
+                }
             }
 
 

@@ -1,6 +1,7 @@
 package fuurineditor.viewmodel
 
 import fuurineditor.service.ProjectService
+import fuurineditor.service.SceneService
 import fuurineditor.service.TiletipService
 import fuurineditor.service.data.File
 import fuurineditor.service.data.ProjectData
@@ -19,6 +20,7 @@ import java.nio.file.Path
 open class ProjectViewModel(
     private val projectPath: Path,
     private val projectService: ProjectService,
+    private val sceneService: SceneService,
     private val tiletipService: TiletipService
 ) : ViewModel() {
 
@@ -36,6 +38,9 @@ open class ProjectViewModel(
 
     private val _projectData = projectService.getProjectData(projectPath);
     val projectData: Flow<ProjectData> = _projectData
+
+    private val _sceneList = sceneService.getScene(projectPath);
+    val sceneList: Flow<File> = _sceneList
 
     private val _tiletipList = tiletipService.getTiletip(projectPath);
     val tiletipList: Flow<File> = _tiletipList
