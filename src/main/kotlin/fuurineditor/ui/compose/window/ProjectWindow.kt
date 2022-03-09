@@ -63,6 +63,9 @@ fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> 
                 onClickFunctionButton = {
                     editorViewModel.changeFunctionType(it)
                 },
+                onCreateScene = {
+                    editorViewModel.onAddScene(it)
+                },
                 onAddTileTip = {
                     editorViewModel.onAddTileTip(it)
                 },

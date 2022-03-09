@@ -27,7 +27,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.File
+import fuurineditor.ui.compose.window.AddSceneDialog
 import fuurineditor.ui.compose.window.AddTileTipDialog
+import fuurineditor.ui.compose.window.RowScene
 import fuurineditor.ui.compose.window.RowTileTip
 import fuurineditor.ui.data.FunctionType
 import fuurineditor.ui.theme.Background
@@ -39,6 +41,7 @@ fun FunctionSubPanel(
     functionType: FunctionType,
     sceneList: File?,
     tiletipList: File?,
+    onCreateScene: (rowScene: RowScene) -> Unit = {},
     onAddTileTip: (rowTileTip: RowTileTip) -> Unit = {},
     addEditor: (file: File) -> Unit = {},
 ) {
@@ -55,6 +58,20 @@ fun FunctionSubPanel(
             })
     }
 
+    var addSceneDialog by remember { mutableStateOf(false) }
+
+    if (addSceneDialog) {
+        AddSceneDialog(
+            onCreateScene = {
+                onCreateScene(it)
+                addSceneDialog = false
+            },
+            onCloseRequest = {
+                addSceneDialog = false
+            }
+        )
+    }
+
     Column(
         modifier = modifier
     ) {
@@ -65,7 +82,7 @@ fun FunctionSubPanel(
             when (functionType) {
                 FunctionType.Scene -> {
                     ToolButton(imageVector = Icons.Sharp.NoteAdd, onClick = {
-
+                        addSceneDialog = true
                     })
                     ToolButton(imageVector = Icons.Sharp.CreateNewFolder, onClick = {
 
@@ -107,7 +124,7 @@ fun FunctionSubPanel(
                             rootIcon = Icons.Sharp.WebAsset,
                             rootName = "Scene",
                             onDoubleClick = {
-                                //addEditor(it)
+                                addEditor(it)
                             }
                         )
                     }

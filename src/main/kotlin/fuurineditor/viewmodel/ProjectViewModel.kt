@@ -6,6 +6,7 @@ import fuurineditor.service.TiletipService
 import fuurineditor.service.data.File
 import fuurineditor.service.data.ProjectData
 import fuurineditor.ui.compose.screen.ProjectScreenUIState
+import fuurineditor.ui.compose.window.RowScene
 import fuurineditor.ui.compose.window.RowTileTip
 import fuurineditor.ui.data.Editor
 import fuurineditor.ui.data.EmptyEditor
@@ -55,6 +56,24 @@ open class ProjectViewModel(
         )
     }
 
+    //------------------------
+    // Scene
+    //------------------------
+
+    fun onAddScene(rowScene: RowScene) {
+
+        viewModelScope.launch {
+
+            sceneService.addScene(projectPath, rowScene)
+
+        }
+
+    }
+
+    //------------------------
+    // TileTip
+    //------------------------
+
     fun onAddTileTip(rowTileTip: RowTileTip) {
 
         viewModelScope.launch {
@@ -63,6 +82,10 @@ open class ProjectViewModel(
         }
 
     }
+
+    //------------------------
+    // Editor
+    //------------------------
 
     fun addEditor(file: File) {
 

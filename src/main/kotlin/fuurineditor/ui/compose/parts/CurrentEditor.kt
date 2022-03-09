@@ -13,7 +13,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.unit.dp
+import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.TiletipFile
+import fuurineditor.ui.compose.parts.editor.WorldSceneEditor
 import fuurineditor.ui.data.Editor
 import fuurineditor.ui.data.EmptyEditor
 import fuurineditor.ui.theme.Background
@@ -35,34 +37,41 @@ fun CurrentEditor(
             }
         } else {
 
-            if (editor.file is TiletipFile) {
-                Column(modifier = Modifier.background(Background).fillMaxSize()) {
+            when (editor.file) {
+                is TiletipFile -> {
 
-                    Text(text = editor.file.name)
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Image(
-                            modifier = Modifier.size(256.dp),
-                            bitmap = editor.file.texture,
-                            contentDescription = editor.file.name,
-                            filterQuality = FilterQuality.None,
-                        )
+                    Column(modifier = Modifier.background(Background).fillMaxSize()) {
+
+                        Text(text = editor.file.name)
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            Image(
+                                modifier = Modifier.size(256.dp),
+                                bitmap = editor.file.texture,
+                                contentDescription = editor.file.name,
+                                filterQuality = FilterQuality.None,
+                            )
+                        }
+
                     }
 
                 }
-
-            } else {
-                Column(modifier = Modifier.background(Background).fillMaxSize()) {
-
-                    Text(text = editor.file.name)
-
-
+                is SceneFile -> {
+                    WorldSceneEditor(editor.file)
                 }
-            }
+                else -> {
+                    Column(modifier = Modifier.background(Background).fillMaxSize()) {
 
+                        Text(text = editor.file.name)
+
+
+                    }
+                }
+
+            }
 
         }
 
