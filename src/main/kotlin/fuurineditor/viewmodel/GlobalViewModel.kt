@@ -4,6 +4,7 @@ import fuurineditor.service.ProjectService
 import fuurineditor.service.SystemService
 import fuurineditor.service.data.ProjectInfoData
 import fuurineditor.ui.data.ProjectState
+import fuurineditor.viewmodel.core.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

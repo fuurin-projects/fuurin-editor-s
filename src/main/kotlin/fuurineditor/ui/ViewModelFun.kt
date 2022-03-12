@@ -3,7 +3,7 @@ package fuurineditor.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
-import fuurineditor.viewmodel.ViewModel
+import fuurineditor.viewmodel.core.ViewModel
 import kotlinx.coroutines.cancel
 import java.lang.reflect.Constructor
 

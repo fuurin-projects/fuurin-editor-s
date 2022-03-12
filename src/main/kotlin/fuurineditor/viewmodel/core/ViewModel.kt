@@ -1,4 +1,4 @@
-package fuurineditor.viewmodel
+package fuurineditor.viewmodel.core
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

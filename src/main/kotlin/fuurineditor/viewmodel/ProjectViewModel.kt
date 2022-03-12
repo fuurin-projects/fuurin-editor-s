@@ -11,6 +11,8 @@ import fuurineditor.ui.compose.window.RowTileTip
 import fuurineditor.ui.data.Editor
 import fuurineditor.ui.data.EmptyEditor
 import fuurineditor.ui.data.FunctionType
+import fuurineditor.viewmodel.core.SpringViewModel
+import fuurineditor.viewmodel.core.ViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
