@@ -173,7 +173,6 @@ fun TreeNode(
         .pointerInput(Unit) {
             detectTapGestures(
                 onDoubleTap = {
-                    println("aa")
                     onDoubleClick()
                 },
             )

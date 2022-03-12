@@ -116,9 +116,11 @@ open class ProjectViewModel(
             if (_selectedEditor.value == editor) {
 
                 if (index - 1 > 0) {
-                    _selectedEditor.value = _editors.value.get(index - 1)
+                    //自分より前にタブがある場合
+                    _selectedEditor.value = _editors.value[index - 1]
                 } else {
-                    _selectedEditor.value = _editors.value.get(0)
+                    //自分より前にタブがない場合
+                    _selectedEditor.value = _editors.value[index + 1]
                 }
 
             }
