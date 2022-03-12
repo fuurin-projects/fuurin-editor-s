@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.nio.file.Path
 
-@ViewModelBean
+@SpringViewModel
 open class ProjectViewModel(
     private val projectPath: Path,
     private val projectService: ProjectService,

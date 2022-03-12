@@ -4,7 +4,7 @@ import fuurineditor.service.SystemService
 import fuurineditor.service.data.ProjectInfoData
 import kotlinx.coroutines.launch
 
-@ViewModelBean
+@SpringViewModel
 class LauncherViewModel(
     private val systemService: SystemService
 ) : ViewModel() {

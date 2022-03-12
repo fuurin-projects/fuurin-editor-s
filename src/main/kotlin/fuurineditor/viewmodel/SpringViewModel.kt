@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component
 @Scope(
     scopeName = ConfigurableBeanFactory.SCOPE_PROTOTYPE //このInstance自体は毎回生成する
 )
-annotation class ViewModelBean(
+annotation class SpringViewModel(
 
     @get:AliasFor(annotation = Component::class)
     val value: String = ""
