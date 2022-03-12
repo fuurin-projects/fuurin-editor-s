@@ -2,6 +2,7 @@ package fuurineditor.ui.compose.parts.editor
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,6 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.SceneFile
 import fuurineditor.ui.compose.parts.VerticalDivider
@@ -48,24 +51,44 @@ fun WorldSceneEditor(sceneFile: SceneFile) {
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
 
-                Canvas(modifier = Modifier.width(32.dp * 27).height(32.dp * 15)) {
 
-                    val slotX = size.width / 27f;
-                    val slotY = size.height / 15;
+                Canvas(
+                    modifier = Modifier
+                        .background(Color.Red).width(32.dp * 27).height(32.dp * 15)
 
-                    for (x in 0 until 27) {
+                        .pointerInput(Unit) {
+                            detectTapGestures(
+                                onPress = {
 
-                        for (y in 0 until 15) {
+                                    val x = (it.x / 32.dp.roundToPx()).toInt()
+                                    val y = (it.y / 32.dp.roundToPx()).toInt()
 
-                            drawRect(
-                                topLeft = Offset(x * slotX, y * slotY),
-                                color = if ((x + y) % 2 == 0) Transparent1 else Transparent2,
-                                size = Size(slotX, slotY),
+                                    println("$x $y")
+                                }
                             )
+                        }) {
+
+
+                    val slotX = 32.dp.roundToPx()
+                    val slotY = 32.dp.roundToPx()
+
+                    //表示されているエリアのみで描画する
+                    clipRect() {
+                        for (x in 0 until 27) {
+
+                            for (y in 0 until 15) {
+
+                                drawRect(
+                                    topLeft = Offset((x * slotX).toFloat(), (y * slotY).toFloat()),
+                                    color = if ((x + y) % 2 == 0) Transparent1 else Transparent2,
+                                    size = Size(slotX.toFloat(), slotY.toFloat()),
+                                )
+
+                            }
 
                         }
-
                     }
+
 
                 }
 
