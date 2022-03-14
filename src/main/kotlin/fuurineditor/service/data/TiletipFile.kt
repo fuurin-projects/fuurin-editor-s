@@ -12,15 +12,15 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.FilenameFilter
 
-fun java.io.File.toTiletipFile(): File = TiletipFile(JvmFile(this@toTiletipFile))
-fun JvmFile.toTiletipFile(): File = TiletipFile(this@toTiletipFile)
+fun java.io.File.toTiletipFile(): TiletipFile = TiletipFile(JvmFile(this@toTiletipFile))
+fun JvmFile.toTiletipFile(): TiletipFile = TiletipFile(this@toTiletipFile)
 
 class TiletipFile(private val file: JvmFile) : File by file, CustomTreeNodeFile {
 
     /**
      * ディレクトリの場合は子要素があるかどうか
      */
-    override val children: List<File>
+    override val children: List<TiletipFile>
         get() = file.rowFile
             .listFiles(FilenameFilter { _, name -> !name.startsWith(".") && name.endsWith(".json") })//隠しフォルダは除外
             .orEmpty()

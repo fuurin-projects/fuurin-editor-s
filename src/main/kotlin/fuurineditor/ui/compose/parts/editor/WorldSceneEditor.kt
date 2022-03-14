@@ -11,8 +11,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Text
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,13 +24,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
+import androidx.compose.ui.input.pointer.PointerEventType
+import androidx.compose.ui.input.pointer.onPointerEvent
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.pointerMoveFilter
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.SceneFile
+import fuurineditor.ui.LocalProjectPathContext
 import fuurineditor.ui.compose.parts.VerticalDivider
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.Border
@@ -46,13 +54,36 @@ val Transparent2 = Color(0xFF999999)
 @Composable
 fun WorldSceneEditor(sceneFile: SceneFile) {
 
-    val viewModel: WorldSceneEditorViewModel = viewModel(sceneFile)
+    val viewModel: WorldSceneEditorViewModel = viewModel(LocalProjectPathContext.current, sceneFile)
+
+    val nowTip by viewModel.nowTip.collectAsState()
+    val selectTip by viewModel.selectTip.collectAsState()
+
+    val layer by viewModel.layer.collectAsState()
 
     var select by remember { mutableStateOf<Offset?>(null) }
 
+    var press by remember { mutableStateOf<Boolean>(false) }
+
     Row {
         Column(modifier = Modifier.width(100.dp)) {
-            Text(text = sceneFile.name)
+
+            Row(modifier = Modifier.fillMaxSize()) {
+                if (nowTip != null) {
+                    TiletipPanelList(root = nowTip!!, onClickTiletip = {
+                        viewModel.selectTiletip(it)
+                    })
+                } else {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+            }
+
         }
         VerticalDivider(color = Border, thickness = 1.dp)
         Column(modifier = Modifier.fillMaxWidth().fillMaxHeight().weight(1f).background(Background)) {
@@ -62,21 +93,33 @@ fun WorldSceneEditor(sceneFile: SceneFile) {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-
-
+                val density = LocalDensity.current
                 Canvas(
                     modifier = Modifier
                         .background(Color.Red).width(32.dp * 27).height(32.dp * 15)
 
                         .pointerInput(Unit) {
+
                             detectTapGestures(
                                 onPress = {
                                     println("${it.toSlot(this)}")
+                                    viewModel.clickWorld(it.toSlot(this))
+                                    press = true
                                 }
                             )
-                        }.pointerMoveFilter(
+                        }.onPointerEvent(
+                            eventType = PointerEventType.Release
+                        ) {
+                            val position = this.currentEvent.changes[0].position
+                            println("${position.toSlot(this)}")
+                            press = false
+                        }
+                        .pointerMoveFilter(
                             onMove = {
                                 select = it
+                                if (press) {
+                                    viewModel.clickWorld(it.toSlot(density))
+                                }
                                 false
                             },
                             onEnter = {
@@ -101,11 +144,22 @@ fun WorldSceneEditor(sceneFile: SceneFile) {
 
                             for (y in 0 until 15) {
 
-                                drawRect(
-                                    topLeft = Offset((x * slotX).toFloat(), (y * slotY).toFloat()),
-                                    color = if ((x + y) % 2 == 0) Transparent1 else Transparent2,
-                                    size = Size(slotX.toFloat(), slotY.toFloat()),
-                                )
+                                if (layer[x][y] != null) {
+
+                                    drawImage(
+                                        image = layer[x][y]!!.texture,
+                                        filterQuality = FilterQuality.None,
+                                        dstOffset = IntOffset((x * slotX), (y * slotY)),
+                                        dstSize = IntSize(slotX, slotY),
+                                    )
+
+                                } else {
+                                    drawRect(
+                                        topLeft = Offset((x * slotX).toFloat(), (y * slotY).toFloat()),
+                                        color = if ((x + y) % 2 == 0) Transparent1 else Transparent2,
+                                        size = Size(slotX.toFloat(), slotY.toFloat()),
+                                    )
+                                }
 
 
                             }
