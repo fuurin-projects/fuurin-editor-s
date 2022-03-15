@@ -144,10 +144,10 @@ fun WorldSceneEditor(sceneFile: SceneFile) {
 
                             for (y in 0 until 15) {
 
-                                if (layer[x][y] != null) {
+                                if (layer.rowData[x][y] != null) {
 
                                     drawImage(
-                                        image = layer[x][y]!!.texture,
+                                        image = layer.rowData[x][y]!!.texture,
                                         filterQuality = FilterQuality.None,
                                         dstOffset = IntOffset((x * slotX), (y * slotY)),
                                         dstSize = IntSize(slotX, slotY),

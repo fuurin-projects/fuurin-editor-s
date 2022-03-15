@@ -35,6 +35,8 @@ class SceneRepository {
 
     }
 
+    private val json = Json { encodeDefaults = true }
+
     suspend fun addScene(projectPath: Path, rowScene: RowScene): Unit {
 
         val scenePath = projectPath.resolve("src/main/scene")
@@ -52,13 +54,12 @@ class SceneRepository {
             val sceneJson: SceneJson = when (rowScene.type) {
                 SceneType.WORLD -> {
                     WorldSceneJson(
-                        name = rowScene.name,
-                        world = "1"
+                        name = rowScene.name
                     )
                 }
             }
             sceneJsonPath.toFile().writeText(
-                Json.encodeToString(
+                json.encodeToString(
                     sceneJson
                 )
             )
