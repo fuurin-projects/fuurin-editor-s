@@ -17,6 +17,8 @@ fun JvmFile.toTiletipFile(): TiletipFile = TiletipFile(this@toTiletipFile)
 
 class TiletipFile(private val file: JvmFile) : File by file, CustomTreeNodeFile {
 
+    override val name: String get() = file.name.replace(".json", "")
+
     /**
      * ディレクトリの場合は子要素があるかどうか
      */

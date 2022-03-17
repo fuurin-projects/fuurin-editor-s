@@ -9,20 +9,20 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
 import java.nio.file.Path
 
-@Serializable
+@Serializable()
 @OptIn(ExperimentalSerializationApi::class)
 @JsonClassDiscriminator("type")
 sealed class SceneJson {
-    @SerialName("name")
-    abstract val name: String
+    //@SerialName("name")
+    //abstract val name: String
 }
 
 @Serializable
 @SerialName("world")
 data class WorldSceneJson(
 
-    @SerialName("name")
-    override val name: String,
+    //@SerialName("name")
+    //override val name: String,
 
     @SerialName("width")
     val width: Int = 27,
@@ -34,7 +34,7 @@ data class WorldSceneJson(
     val layer: WorldLayerJson = WorldLayerJson(data = Array(width) { Array(height) { -1 } }),
 
     @SerialName("tiletip_mapping")
-    val tiletipMapping: Map<Int, String> = mutableMapOf(0 to "kusa.json"),
+    val tiletipMapping: Map<Int, String> = mutableMapOf(0 to "kusa"),
 
 
     ) : SceneJson()
@@ -52,7 +52,6 @@ data class WorldLayerJson(
 fun WorldSceneJson.toWorldScene(tiletipBase: Path): WorldScene {
     val layer = WorldLayer(xSize = this@toWorldScene.width, ySize = this@toWorldScene.height)
 
-
     layer.rowData = this@toWorldScene.layer.data.map { layerX ->
         layerX.map { layerXY ->
             if (layerXY == -1) {
@@ -61,20 +60,60 @@ fun WorldSceneJson.toWorldScene(tiletipBase: Path): WorldScene {
                 if (tiletipMapping[layerXY] == null) {
                     null
                 } else {
-                    tiletipBase.resolve(tiletipMapping[layerXY]!!).toFile().toTiletipFile()
+                    tiletipBase.resolve("${tiletipMapping[layerXY]!!}.json").toFile().toTiletipFile()
                 }
             }
         }.toTypedArray()
     }.toTypedArray()
-    return WorldScene(layer = layer)
+    return WorldScene(
+        width = this@toWorldScene.width,
+        height = this@toWorldScene.height,
+        layer = layer
+    )
+}
+
+fun WorldScene.toWorldSceneJson(): WorldSceneJson {
+
+    var mappingIndex = 0;
+    val tiletipMapping: MutableMap<String, Int> = mutableMapOf()
+
+
+    val data: Array<Array<Int>> = this@toWorldSceneJson.layer.rowData.map { layerX ->
+        layerX.map { layerXYTiletipFile ->
+            if (layerXYTiletipFile == null) {
+                -1
+            } else {
+                if (tiletipMapping.containsKey(layerXYTiletipFile.name)) {
+                    tiletipMapping[layerXYTiletipFile.name] as Int
+                } else {
+                    mappingIndex++;
+                    tiletipMapping[layerXYTiletipFile.name] = mappingIndex
+                    mappingIndex
+                }
+            }
+        }.toTypedArray()
+    }.toTypedArray()
+
+    val layer: WorldLayerJson = WorldLayerJson(data = data)
+
+    return WorldSceneJson(
+        width = this@toWorldSceneJson.width,
+        height = this@toWorldSceneJson.height,
+        layer = layer,
+        tiletipMapping = tiletipMapping.entries.associate { entry -> entry.value to entry.key }
+    )
+
 }
 
 @Serializable
 @SerialName("global")
 data class GlobalSceneJson(
 
-    @SerialName("name")
-    override val name: String
+    //@SerialName("name")
+    //override val name: String
+
+    @SerialName("width")
+    val width: Int = 27
 
 
 ) : SceneJson()

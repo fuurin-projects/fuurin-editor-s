@@ -17,4 +17,8 @@ class WorldSceneService(
 
     }
 
+    suspend fun saveWorldScene(projectPath: Path, worldScene: WorldScene) {
+        worldSceneRepository.saveWorldScene(projectPath = projectPath, worldScene = worldScene)
+    }
+
 }

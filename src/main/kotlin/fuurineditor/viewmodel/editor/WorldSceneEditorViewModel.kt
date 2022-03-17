@@ -38,9 +38,11 @@ class WorldSceneEditorViewModel(
     private val _layer = MutableStateFlow<WorldLayer>(WorldLayer(27, 15))
     val layer: StateFlow<WorldLayer> = _layer
 
-    val setLayer = debounce<WorldLayer>(delayMillis = 5000L, coroutineScope = viewModelScope) {
+    val setLayer = debounce<WorldLayer>(delayMillis = 3000L, coroutineScope = viewModelScope) {
 
         println(it)
+
+        worldSceneService.saveWorldScene(projectPath = projectPath, worldScene = _worldScene.value!!)
 
     }
 

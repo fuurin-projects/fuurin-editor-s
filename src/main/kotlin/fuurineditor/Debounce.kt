@@ -14,7 +14,7 @@ fun <T> debounce(
     delayMillis: Long = 300L,
     coroutineScope: CoroutineScope,
     coroutineContext: CoroutineContext = EmptyCoroutineContext,
-    debounceFun: (T) -> Unit
+    debounceFun: suspend (T) -> Unit
 ): (T) -> Unit {
     var debounceJob: Job? = null
     return { param: T ->

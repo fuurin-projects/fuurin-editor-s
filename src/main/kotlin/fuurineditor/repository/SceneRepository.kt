@@ -54,7 +54,7 @@ class SceneRepository {
             val sceneJson: SceneJson = when (rowScene.type) {
                 SceneType.WORLD -> {
                     WorldSceneJson(
-                        name = rowScene.name
+                        //name = rowScene.name
                     )
                 }
             }
