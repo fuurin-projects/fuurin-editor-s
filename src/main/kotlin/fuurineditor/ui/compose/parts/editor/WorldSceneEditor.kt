@@ -10,8 +10,16 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Divider
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.sharp.Delete
+import androidx.compose.material.icons.sharp.Edit
+import androidx.compose.material.icons.sharp.FormatColorFill
+import androidx.compose.material.icons.sharp.Image
+import androidx.compose.material.icons.sharp.NorthWest
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,6 +46,8 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.SceneFile
 import fuurineditor.ui.LocalProjectPathContext
+import fuurineditor.ui.compose.parts.IconText
+import fuurineditor.ui.compose.parts.ToolButton
 import fuurineditor.ui.compose.parts.VerticalDivider
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.Border
@@ -66,7 +76,25 @@ fun WorldSceneEditor(sceneFile: SceneFile) {
     var press by remember { mutableStateOf<Boolean>(false) }
 
     Row {
-        Column(modifier = Modifier.width(100.dp)) {
+        Column(modifier = Modifier.width(140.dp)) {
+
+            Row(
+                modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
+            ) {
+                ToolButton(imageVector = Icons.Sharp.NorthWest, onClick = {
+
+                })
+                ToolButton(imageVector = Icons.Sharp.Edit, onClick = {
+
+                })
+                ToolButton(imageVector = Icons.Sharp.FormatColorFill, onClick = {
+
+                })
+                ToolButton(imageVector = Icons.Sharp.Delete, onClick = {
+
+                })
+            }
+            Divider(color = Border, thickness = 1.dp)
 
             Row(modifier = Modifier.fillMaxSize()) {
                 if (nowTip != null) {
@@ -87,6 +115,22 @@ fun WorldSceneEditor(sceneFile: SceneFile) {
         }
         VerticalDivider(color = Border, thickness = 1.dp)
         Column(modifier = Modifier.fillMaxWidth().fillMaxHeight().weight(1f).background(Background)) {
+
+            Row(
+                modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
+            ) {
+
+                Row(
+                    modifier = Modifier.padding(start = 8.dp, end = 4.dp, top = 4.dp, bottom = 4.dp)
+                ) {
+                    IconText(
+                        imageVector = Icons.Sharp.Image,
+                        text = "layer1"
+                    )
+                }
+            }
+
+            Divider(color = Border, thickness = 1.dp)
 
             Column(
                 modifier = Modifier.fillMaxSize(),
