@@ -1,7 +1,9 @@
 package fuurineditor.repository.data
 
+import fuurineditor.service.data.fromIndexKey
 import fuurineditor.service.data.scene.WorldLayer
 import fuurineditor.service.data.scene.WorldScene
+import fuurineditor.service.data.toIndexKye
 import fuurineditor.service.data.toTiletipFile
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
@@ -34,7 +36,7 @@ data class WorldSceneJson(
     val layer: WorldLayerJson = WorldLayerJson(data = Array(width) { Array(height) { -1 } }),
 
     @SerialName("tiletip_mapping")
-    val tiletipMapping: Map<Int, String> = mutableMapOf(0 to "kusa"),
+    val tiletipMapping: Map<Int, String> = mutableMapOf(),
 
 
     ) : SceneJson()
@@ -60,7 +62,8 @@ fun WorldSceneJson.toWorldScene(tiletipBase: Path): WorldScene {
                 if (tiletipMapping[layerXY] == null) {
                     null
                 } else {
-                    tiletipBase.resolve("${tiletipMapping[layerXY]!!}.json").toFile().toTiletipFile()
+                    val fileId = fromIndexKey(tiletipMapping[layerXY]!!)
+                    tiletipBase.resolve("${fileId.path}.json").toFile().toTiletipFile()
                 }
             }
         }.toTypedArray()
@@ -83,11 +86,11 @@ fun WorldScene.toWorldSceneJson(): WorldSceneJson {
             if (layerXYTiletipFile == null) {
                 -1
             } else {
-                if (tiletipMapping.containsKey(layerXYTiletipFile.name)) {
-                    tiletipMapping[layerXYTiletipFile.name] as Int
+                if (tiletipMapping.containsKey(layerXYTiletipFile.id.toIndexKye())) {
+                    tiletipMapping[layerXYTiletipFile.id.toIndexKye()] as Int
                 } else {
                     mappingIndex++;
-                    tiletipMapping[layerXYTiletipFile.name] = mappingIndex
+                    tiletipMapping[layerXYTiletipFile.id.toIndexKye()] = mappingIndex
                     mappingIndex
                 }
             }

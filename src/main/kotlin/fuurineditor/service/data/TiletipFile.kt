@@ -12,10 +12,19 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.FilenameFilter
 
-fun java.io.File.toTiletipFile(): TiletipFile = TiletipFile(JvmFile(this@toTiletipFile))
+fun java.io.File.toTiletipFile(parent: File? = null): TiletipFile = TiletipFile(JvmFile(this@toTiletipFile, parent))
 fun JvmFile.toTiletipFile(): TiletipFile = TiletipFile(this@toTiletipFile)
 
 class TiletipFile(private val file: JvmFile) : File by file, CustomTreeNodeFile {
+
+    /**
+     * id
+     */
+    override val id: FileId
+        get() = if (file.parent == null) FileId(
+            "tiletip",
+            file.name.replace(".json", "")
+        ) else file.parent!!.id + file.name.replace(".json", "")
 
     override val name: String get() = file.name.replace(".json", "")
 

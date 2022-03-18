@@ -15,7 +15,10 @@ import java.nio.file.Path
 @Repository
 class WorldSceneRepository {
 
-    private val json = Json { encodeDefaults = true }
+    private val json = Json {
+        encodeDefaults = true;
+        prettyPrint = true
+    }
 
     suspend fun loadWorldScene(projectPath: Path, sceneFile: SceneFile): WorldScene {
 
