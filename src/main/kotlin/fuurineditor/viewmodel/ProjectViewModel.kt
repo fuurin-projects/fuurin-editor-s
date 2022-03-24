@@ -5,6 +5,7 @@ import fuurineditor.service.SceneService
 import fuurineditor.service.TiletipService
 import fuurineditor.service.data.File
 import fuurineditor.service.data.ProjectData
+import fuurineditor.service.data.ProjectPath
 import fuurineditor.ui.compose.screen.ProjectScreenUIState
 import fuurineditor.ui.compose.window.RowScene
 import fuurineditor.ui.compose.window.RowTileTip
@@ -17,11 +18,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.nio.file.Path
 
 @SpringViewModel
 open class ProjectViewModel(
-    private val projectPath: Path,
+    private val projectPath: ProjectPath,
     private val projectService: ProjectService,
     private val sceneService: SceneService,
     private val tiletipService: TiletipService

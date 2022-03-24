@@ -3,6 +3,7 @@ package fuurineditor.repository
 import fuurineditor.repository.data.SceneJson
 import fuurineditor.repository.data.WorldSceneJson
 import fuurineditor.service.data.File
+import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneType
 import fuurineditor.service.data.toSceneFile
 import fuurineditor.ui.compose.window.RowScene
@@ -18,10 +19,10 @@ import kotlin.io.path.exists
 @Repository
 class SceneRepository {
 
-    fun getScene(projectPath: Path): Flow<File> {
+    fun getScene(projectPath: ProjectPath): Flow<File> {
 
         return flow<File> {
-            val scenePath = projectPath.resolve("src/main/scene")
+            val scenePath = projectPath.scene
 
             //シーンフォルダがなければ作成
             if (scenePath.exists().not()) {
@@ -37,9 +38,9 @@ class SceneRepository {
 
     private val json = Json { encodeDefaults = true }
 
-    suspend fun addScene(projectPath: Path, rowScene: RowScene): Unit {
+    suspend fun addScene(projectPath: ProjectPath, rowScene: RowScene): Unit {
 
-        val scenePath = projectPath.resolve("src/main/scene")
+        val scenePath = projectPath.scene
 
         //タイルチップフォルダがなければ作成
         //シーンフォルダがなければ作成
@@ -71,3 +72,11 @@ class SceneRepository {
     }
 
 }
+
+/**
+ * Project内のsceneのパス
+ */
+val ProjectPath.scene: Path
+    get() {
+        return this@scene.path.resolve("src/main/scene")
+    }

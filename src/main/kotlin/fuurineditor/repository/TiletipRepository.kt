@@ -2,6 +2,7 @@ package fuurineditor.repository
 
 import fuurineditor.repository.data.TiletipJson
 import fuurineditor.service.data.File
+import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.toTiletipFile
 import fuurineditor.ui.compose.window.RowTileTip
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +19,10 @@ import kotlin.io.path.exists
 @Repository
 class TiletipRepository {
 
-    fun getTiletip(projectPath: Path): Flow<File> {
+    fun getTiletip(projectPath: ProjectPath): Flow<File> {
 
         return flow<File> {
-            val tiletipPath = projectPath.resolve("src/main/resources/assets/textures/tiletip")
+            val tiletipPath = projectPath.tiletip
 
             //タイルチップフォルダがなければ作成
             if (tiletipPath.exists().not()) {
@@ -35,9 +36,9 @@ class TiletipRepository {
 
     }
 
-    suspend fun addTiletip(projectPath: Path, rowTileTip: RowTileTip): Unit = withContext(Dispatchers.IO) {
+    suspend fun addTiletip(projectPath: ProjectPath, rowTileTip: RowTileTip): Unit = withContext(Dispatchers.IO) {
 
-        val tiletipPath = projectPath.resolve("src/main/resources/assets/textures/tiletip")
+        val tiletipPath = projectPath.tiletip
 
         //タイルチップフォルダがなければ作成
         if (tiletipPath.exists().not()) {
@@ -65,3 +66,11 @@ class TiletipRepository {
     }
 
 }
+
+/**
+ * Project内のtiletipのパス
+ */
+val ProjectPath.tiletip: Path
+    get() {
+        return this@tiletip.path.resolve("src/main/resources/assets/textures/tiletip")
+    }

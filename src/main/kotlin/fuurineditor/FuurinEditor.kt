@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.window.application
+import fuurineditor.service.data.ProjectPath
 import fuurineditor.ui.LocalSpringContext
 import fuurineditor.ui.compose.LauncherWindow
 import fuurineditor.ui.compose.window.ProjectWindow
@@ -51,7 +52,10 @@ object FuurinEditor {
                     for (projectState in openProjectList) {
                         //プロジェクトのパスをkeyにして重複防止をしている
                         key(projectState.path) {
-                            ProjectWindow(projectName = projectState.name, projectPath = projectState.path) {
+                            ProjectWindow(
+                                projectName = projectState.name,
+                                projectPath = ProjectPath(projectState.path)
+                            ) {
                                 globalViewModel.closeProject(projectState)
                             }
                         }

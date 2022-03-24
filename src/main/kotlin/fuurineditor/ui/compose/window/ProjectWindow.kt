@@ -14,18 +14,18 @@ import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
 import fuurineditor.service.data.ProjectData
+import fuurineditor.service.data.ProjectPath
 import fuurineditor.ui.LocalProjectPathContext
 import fuurineditor.ui.compose.screen.ProjectScreen
 import fuurineditor.ui.theme.FuurinEditorTheme
 import fuurineditor.ui.viewModel
 import fuurineditor.viewmodel.ProjectViewModel
-import java.nio.file.Path
 
 /**
  * プロジェクトウィンドウ
  */
 @Composable
-fun ProjectWindow(projectName: String, projectPath: Path, onCloseRequest: () -> Unit) {
+fun ProjectWindow(projectName: String, projectPath: ProjectPath, onCloseRequest: () -> Unit) {
 
     val state: WindowState = rememberWindowState(
         size = DpSize(1280.dp, 720.dp), position = WindowPosition(Alignment.Center)

@@ -3,6 +3,7 @@ package fuurineditor.viewmodel.editor
 import fuurineditor.debounce
 import fuurineditor.service.TiletipService
 import fuurineditor.service.WorldSceneService
+import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.TiletipFile
 import fuurineditor.service.data.scene.WorldLayer
@@ -15,11 +16,10 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.last
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import java.nio.file.Path
 
 @SpringViewModel
 class WorldSceneEditorViewModel(
-    private val projectPath: Path,
+    private val projectPath: ProjectPath,
     private val sceneFile: SceneFile,
     private val tiletipService: TiletipService,
     private val worldSceneService: WorldSceneService
