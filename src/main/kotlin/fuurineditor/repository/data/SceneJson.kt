@@ -1,5 +1,6 @@
 package fuurineditor.repository.data
 
+import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.fromIndexKey
 import fuurineditor.service.data.scene.WorldLayer
 import fuurineditor.service.data.scene.WorldScene
@@ -51,7 +52,7 @@ data class WorldLayerJson(
 )
 
 
-fun WorldSceneJson.toWorldScene(tiletipBase: Path): WorldScene {
+fun WorldSceneJson.toWorldScene(tiletipBase: Path, sceneFile: SceneFile): WorldScene {
     val layer = WorldLayer(xSize = this@toWorldScene.width, ySize = this@toWorldScene.height)
 
     layer.rowData = this@toWorldScene.layer.data.map { layerX ->
@@ -69,6 +70,7 @@ fun WorldSceneJson.toWorldScene(tiletipBase: Path): WorldScene {
         }.toTypedArray()
     }.toTypedArray()
     return WorldScene(
+        id = sceneFile.id,
         width = this@toWorldScene.width,
         height = this@toWorldScene.height,
         layer = layer
@@ -79,7 +81,6 @@ fun WorldScene.toWorldSceneJson(): WorldSceneJson {
 
     var mappingIndex = 0;
     val tiletipMapping: MutableMap<String, Int> = mutableMapOf()
-
 
     val data: Array<Array<Int>> = this@toWorldSceneJson.layer.rowData.map { layerX ->
         layerX.map { layerXYTiletipFile ->

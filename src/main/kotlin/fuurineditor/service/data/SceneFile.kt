@@ -9,6 +9,15 @@ fun java.io.File.toSceneFile(): File = SceneFile(JvmFile(this@toSceneFile))
 class SceneFile(private val file: JvmFile) : File by file {
 
     /**
+     * id
+     */
+    override val id: FileId
+        get() = if (file.parent == null) FileId(
+            "scene",
+            file.name.replace(".json", "")
+        ) else file.parent!!.id + file.name.replace(".json", "")
+
+    /**
      * ディレクトリの場合は子要素があるかどうか
      */
     override val children: List<File>

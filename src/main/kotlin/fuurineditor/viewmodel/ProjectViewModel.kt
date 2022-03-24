@@ -92,7 +92,7 @@ open class ProjectViewModel(
     fun addEditor(file: File) {
 
         val editor = _editors.value.find {
-            it.file == file
+            it.file.id == file.id
         }
         if (editor != null) {
             _selectedEditor.value = editor

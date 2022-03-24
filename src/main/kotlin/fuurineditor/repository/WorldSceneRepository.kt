@@ -22,19 +22,26 @@ class WorldSceneRepository {
 
     suspend fun loadWorldScene(projectPath: Path, sceneFile: SceneFile): WorldScene {
 
-        val sceneJsonString = sceneFile.path.toFile().readText()
+
+        val filePath = projectPath.resolve("src/main/scene").resolve("${sceneFile.id.path}.json")
+
+        val sceneJsonString = filePath.toFile().readText()
 
         val worldSceneJson = json.decodeFromString<SceneJson>(sceneJsonString) as WorldSceneJson
 
-        val worldScene = worldSceneJson.toWorldScene(projectPath.resolve("src/main/resources/assets/textures/tiletip"))
-        worldScene.sceneFile = sceneFile
+        val worldScene = worldSceneJson.toWorldScene(
+            projectPath.resolve("src/main/resources/assets/textures/tiletip"),
+            sceneFile
+        )
         return worldScene
 
     }
 
     suspend fun saveWorldScene(projectPath: Path, worldScene: WorldScene) {
 
-        worldScene.sceneFile.path.toFile().writeText(
+        val filePath = projectPath.resolve("src/main/scene").resolve("${worldScene.id.path}.json")
+
+        filePath.toFile().writeText(
             json.encodeToString(
                 worldScene.toWorldSceneJson() as SceneJson
             )
