@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
@@ -41,6 +42,7 @@ fun EditorTab(
 
     var text by remember { mutableStateOf(if (editor.file is CustomTreeNodeFile) editor.file.customName else editor.file.name) }
     var imageVector by remember { mutableStateOf<ImageVector?>(if (editor.file is CustomTreeNodeFile) editor.file.fakeIcon else Icons.Sharp.Description) }
+    var imageBitmap by remember { mutableStateOf<ImageBitmap?>(if (editor.file is CustomFileIcon) editor.file.fileIcon else null) }
 
     Row(
         modifier = Modifier
@@ -62,10 +64,18 @@ fun EditorTab(
                 )
             }.padding(start = 8.dp, end = 4.dp, top = 4.dp, bottom = 4.dp)
     ) {
-        IconText(
-            imageVector = imageVector,
-            text = text
-        )
+        if (imageBitmap == null) {
+            IconText(
+                imageVector = imageVector,
+                text = text
+            )
+        } else {
+            IconText(
+                imageBitmap = imageBitmap!!,
+                text = text
+            )
+        }
+
 
         Box(modifier = Modifier.padding(start = 4.dp, top = 4.dp, bottom = 4.dp)) {
             Icon(

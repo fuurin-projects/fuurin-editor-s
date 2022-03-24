@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.loadImageBitmap
 import fuurineditor.repository.data.TiletipJson
 import fuurineditor.repository.data.toTiletipFileStatus
+import fuurineditor.ui.compose.parts.CustomFileIcon
 import fuurineditor.ui.compose.parts.CustomTreeNodeFile
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -15,7 +16,7 @@ import java.io.FilenameFilter
 fun java.io.File.toTiletipFile(parent: File? = null): TiletipFile = TiletipFile(JvmFile(this@toTiletipFile, parent))
 fun JvmFile.toTiletipFile(): TiletipFile = TiletipFile(this@toTiletipFile)
 
-class TiletipFile(private val file: JvmFile) : File by file, CustomTreeNodeFile {
+class TiletipFile(private val file: JvmFile) : File by file, CustomTreeNodeFile, CustomFileIcon {
 
     /**
      * id
@@ -50,6 +51,8 @@ class TiletipFile(private val file: JvmFile) : File by file, CustomTreeNodeFile 
         val imageFile = file.rowFile.toPath().resolve("../${file.rowFile.name.replace(".json", ".png")}").toFile()
         return@lazy loadImageBitmap(imageFile.inputStream())
     }
+    override val fileIcon: ImageBitmap
+        get() = texture
 
 }
 
