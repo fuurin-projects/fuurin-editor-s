@@ -49,6 +49,7 @@ fun ProjectScreen(
     addEditor: (file: File) -> Unit = {},
     onClickEditor: (editor: Editor) -> Unit = {},
     closeEditor: (editor: Editor) -> Unit = {},
+    onStartGame: () -> Unit = {},
 ) {
 
     Column {
@@ -56,7 +57,9 @@ fun ProjectScreen(
         Row(
             modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
         ) {
-            ToolButton(imageVector = Icons.Sharp.PlayArrow, tint = IconGreenColor)
+            ToolButton(imageVector = Icons.Sharp.PlayArrow, tint = IconGreenColor) {
+                onStartGame()
+            }
             ToolButton(imageVector = Icons.Sharp.Stop, tint = IconRedColor)
         }
         Divider(color = Border, thickness = 1.dp)

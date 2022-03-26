@@ -32,7 +32,7 @@ fun ProjectWindow(projectName: String, projectPath: ProjectPath, onCloseRequest:
     )
 
     Window(
-        title = "${projectName} [${projectPath}] - Fuurin Editor",
+        title = "${projectName} [${projectPath.path}] - Fuurin Editor",
         state = state,
         onCloseRequest = onCloseRequest,
         icon = painterResource("fuurin_icon_16.png"),
@@ -81,6 +81,9 @@ fun ProjectWindow(projectName: String, projectPath: ProjectPath, onCloseRequest:
                     },
                     closeEditor = {
                         editorViewModel.closeEditor(it)
+                    },
+                    onStartGame = {
+                        editorViewModel.startDevGame()
                     }
                 )
 //

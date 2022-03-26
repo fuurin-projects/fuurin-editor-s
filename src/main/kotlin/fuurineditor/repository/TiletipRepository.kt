@@ -1,8 +1,10 @@
 package fuurineditor.repository
 
+import fuurineditor.repository.data.IconBaseJson
 import fuurineditor.repository.data.TiletipJson
 import fuurineditor.service.data.File
 import fuurineditor.service.data.ProjectPath
+import fuurineditor.service.data.TiletipFile
 import fuurineditor.service.data.toTiletipFile
 import fuurineditor.ui.compose.window.RowTileTip
 import kotlinx.coroutines.Dispatchers
@@ -54,7 +56,7 @@ class TiletipRepository {
                 Json.encodeToString(
                     TiletipJson(
                         displayName = rowTileTip.displayName
-                    )
+                    ) as IconBaseJson
                 )
             )
 
@@ -64,6 +66,37 @@ class TiletipRepository {
 
 
     }
+
+    suspend fun getAllTiletipList(path: ProjectPath): List<TiletipFile> {
+
+        val tiletipPath = path.tiletip
+
+        //タイルチップフォルダがなければ作成
+        if (tiletipPath.exists().not()) {
+            Files.createDirectories(tiletipPath)
+            return@getAllTiletipList mutableListOf()
+        }
+
+        val tileTipList = mutableListOf<TiletipFile>()
+        addTiletipFile(tiletipPath.toFile().toTiletipFile(), tileTipList)
+
+        println(tileTipList[0].file.rowFile)
+
+        return tileTipList
+    }
+
+    private suspend fun addTiletipFile(root: TiletipFile, list: MutableList<TiletipFile>) {
+
+        if (root.isDirectory.not()) {
+            list += root
+        } else {
+            root.children.forEach {
+                addTiletipFile(it, list)
+            }
+        }
+
+    }
+
 
 }
 

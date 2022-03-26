@@ -1,5 +1,6 @@
 package fuurineditor.viewmodel
 
+import fuurineditor.service.DevGameService
 import fuurineditor.service.ProjectService
 import fuurineditor.service.SceneService
 import fuurineditor.service.TiletipService
@@ -24,7 +25,8 @@ open class ProjectViewModel(
     private val projectPath: ProjectPath,
     private val projectService: ProjectService,
     private val sceneService: SceneService,
-    private val tiletipService: TiletipService
+    private val tiletipService: TiletipService,
+    private val devGameService: DevGameService
 ) : ViewModel() {
 
     private val _count = MutableStateFlow<Int>(0)
@@ -139,6 +141,18 @@ open class ProjectViewModel(
         }
 
         _selectedEditor.value = editor ?: EmptyEditor
+
+    }
+
+    //------------------------
+    // Dev Game
+    //------------------------
+
+    fun startDevGame() {
+
+        viewModelScope.launch {
+            devGameService.startDevGame(path = projectPath)
+        }
 
     }
 

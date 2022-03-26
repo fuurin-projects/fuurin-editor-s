@@ -16,7 +16,7 @@ import java.io.FilenameFilter
 fun java.io.File.toTiletipFile(parent: File? = null): TiletipFile = TiletipFile(JvmFile(this@toTiletipFile, parent))
 fun JvmFile.toTiletipFile(): TiletipFile = TiletipFile(this@toTiletipFile)
 
-class TiletipFile(private val file: JvmFile) : File by file, CustomTreeNodeFile, CustomFileIcon {
+class TiletipFile(val file: JvmFile) : File by file, CustomTreeNodeFile, CustomFileIcon {
 
     /**
      * id
