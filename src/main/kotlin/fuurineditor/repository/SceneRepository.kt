@@ -4,11 +4,13 @@ import fuurineditor.repository.data.SceneJson
 import fuurineditor.repository.data.WorldSceneJson
 import fuurineditor.service.data.File
 import fuurineditor.service.data.ProjectPath
+import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.SceneType
 import fuurineditor.service.data.toSceneFile
 import fuurineditor.ui.compose.window.RowScene
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Repository
@@ -35,6 +37,7 @@ class SceneRepository {
         }
 
     }
+
 
     private val json = Json { encodeDefaults = true }
 
@@ -68,6 +71,47 @@ class SceneRepository {
         } finally {
 
         }
+
+    }
+
+
+    suspend fun getAllSceneList(path: ProjectPath): List<SceneFile> {
+
+        val scenePath = path.scene
+
+        //タイルチップフォルダがなければ作成
+        if (scenePath.exists().not()) {
+            Files.createDirectories(scenePath)
+            return@getAllSceneList mutableListOf()
+        }
+
+        val sceneList = mutableListOf<SceneFile>()
+        addSceneFile(scenePath.toFile().toSceneFile(), sceneList)
+
+        println(sceneList[0].path)
+
+        return sceneList
+    }
+
+    private suspend fun addSceneFile(root: SceneFile, list: MutableList<SceneFile>) {
+
+        if (root.isDirectory.not()) {
+            list += root
+        } else {
+            root.children.forEach {
+                addSceneFile(it, list)
+            }
+        }
+
+    }
+
+    suspend fun loadScene(projectPath: ProjectPath, sceneFile: SceneFile): SceneJson {
+
+        val filePath = projectPath.scene.resolve("${sceneFile.id.path}.json")
+
+        val sceneJsonString = filePath.toFile().readText()
+
+        return json.decodeFromString<SceneJson>(sceneJsonString)
 
     }
 

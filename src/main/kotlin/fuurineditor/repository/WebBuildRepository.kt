@@ -2,6 +2,7 @@ package fuurineditor.repository
 
 import fuurineditor.repository.build.builder.IconBuilder
 import fuurineditor.repository.build.builder.LoaderBuilder
+import fuurineditor.repository.build.builder.SceneBuilder
 import fuurineditor.repository.build.builder.SpriteBuilder
 import fuurineditor.repository.build.data.IconJson
 import fuurineditor.repository.build.data.SpriteRowData
@@ -15,7 +16,8 @@ class WebBuildRepository(
     private val loaderBuilder: LoaderBuilder,
     private val tiletipRepository: TiletipRepository,
     private val spriteBuilder: SpriteBuilder,
-    private val iconBuilder: IconBuilder
+    private val iconBuilder: IconBuilder,
+    private val sceneBuilder: SceneBuilder
 ) {
 
     suspend fun build(path: ProjectPath) {
@@ -75,6 +77,9 @@ class WebBuildRepository(
         spriteBuilder.build(outputWebRowBase, spriteData)
 
         iconBuilder.build(outputWebRowBase, spriteData)
+
+        sceneBuilder.build(path = path, rowBasePath = outputWebRowBase, spriteData = spriteData)
+
 
     }
 
