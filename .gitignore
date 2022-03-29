@@ -189,7 +189,8 @@ $RECYCLE.BIN/
 
 ### Gradle ###
 .gradle
-build/
+
+/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -204,7 +205,7 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 ### Gradle Patch ###
-**/build/
+# **/build/
 
 # Eclipse Gradle plugin generated files
 # Eclipse Core
