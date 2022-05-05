@@ -1,7 +1,7 @@
 package fuurineditor.repository.build.builder
 
+import fuurineditor.repository.build.data.scene.GWorldSceneJson
 import fuurineditor.repository.build.data.scene.SceneJson
-import fuurineditor.repository.build.data.scene.WorldSceneJson
 import fuurineditor.service.data.scene.WorldScene
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -16,13 +16,13 @@ class WorldSceneBuilder {
     suspend fun build(
         sceneDirectoryPath: Path,
         worldSceneList: List<WorldScene>
-    ): List<SceneJson> {
+    ): List<GWorldSceneJson> {
 
-        val sceneJsonList = mutableListOf<SceneJson>()
+        val sceneJsonList = mutableListOf<GWorldSceneJson>()
 
         for (worldScene in worldSceneList) {
 
-            val worldSceneJson = WorldSceneJson(name = worldScene.id.path, data = worldScene.id.path)
+            val worldSceneJson = GWorldSceneJson(name = worldScene.id.path, data = worldScene.id.path)
             sceneJsonList += worldSceneJson
 
             val filePath = sceneDirectoryPath.resolve("${worldScene.id.path}.json")

@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 @SerialName("world")
-data class WorldSceneJson(
+data class GWorldSceneJson(
 
     /**
      * Sceneの名前

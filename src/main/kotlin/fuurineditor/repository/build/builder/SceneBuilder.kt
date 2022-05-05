@@ -4,6 +4,7 @@ import fuurineditor.repository.SceneRepository
 import fuurineditor.repository.WorldSceneRepository
 import fuurineditor.repository.build.data.SceneMetaJson
 import fuurineditor.repository.build.data.SpriteRowData
+import fuurineditor.repository.build.data.scene.GWorldSceneJson
 import fuurineditor.repository.data.SceneJson
 import fuurineditor.repository.data.WorldSceneJson
 import fuurineditor.repository.data.toWorldScene
@@ -20,6 +21,7 @@ import kotlin.io.path.exists
 @Component
 class SceneBuilder(
     private val worldSceneBuilder: WorldSceneBuilder,
+    private val worldBuilder: WorldBuilder,
     private val sceneRepository: SceneRepository,
     private val worldSceneRepository: WorldSceneRepository
 ) {
@@ -42,13 +44,23 @@ class SceneBuilder(
         }
 
         //WorldSceneJsonを生成
-        val sceneJsonList = worldSceneBuilder.build(
+        val sceneJsonList: List<GWorldSceneJson> = worldSceneBuilder.build(
             sceneDirectoryPath,
             allSceneJsonList
                 .filter { it.second is WorldSceneJson }
                 .map { (it.second as WorldSceneJson).toWorldScene(path.tiletip, it.first) }
         )
 
+        //WorldJsonの生成
+        val worldJsonList = worldBuilder.build(
+            rowBasePath = rowBasePath,
+            worldSceneList = allSceneJsonList
+                .filter { it.second is WorldSceneJson }
+                .map { (it.second as WorldSceneJson).toWorldScene(path.tiletip, it.first) }
+        )
+
+
+        //Metaの生成
         val sceneRegistries: MutableMap<String, String> = mutableMapOf()
 
         for (sceneJson in sceneJsonList) {

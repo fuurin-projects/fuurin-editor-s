@@ -14,13 +14,8 @@ sealed class SceneJson(
      * Scene内のイベントリスト
      */
     @SerialName("event_list")
-    val eventList: List<String> = mutableListOf(),
+    val eventList: List<String> = mutableListOf()
 
-    /**
-     * このSceneがゲーム起動時に一番はじめにロードされるべきか
-     */
-    @SerialName("start")
-    val start: Boolean = false
 
 ) {
 
@@ -29,5 +24,11 @@ sealed class SceneJson(
      */
     @SerialName("name")
     abstract val name: String
+
+    /**
+     * このSceneがゲーム起動時に一番はじめにロードされるべきか
+     */
+    @SerialName("start")
+    val start: Boolean = false
 
 }
