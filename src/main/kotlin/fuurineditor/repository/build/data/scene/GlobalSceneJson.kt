@@ -7,7 +7,6 @@ import kotlinx.serialization.Serializable
 @SerialName("global")
 data class GlobalSceneJson(
 
-    @SerialName("test")
-    val test: String
+    override val name: String = "global"
 
-) : SceneJson(name = "global")
+) : SceneJson()

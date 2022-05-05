@@ -3,6 +3,7 @@ package fuurineditor.repository.build.builder
 import fuurineditor.repository.build.data.scene.SceneJson
 import fuurineditor.repository.build.data.scene.WorldSceneJson
 import fuurineditor.service.data.scene.WorldScene
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component
 import java.nio.file.Path
@@ -13,7 +14,7 @@ class WorldSceneBuilder {
     private val json = Json { prettyPrint = true; encodeDefaults = true }
 
     suspend fun build(
-        rowBasePath: Path,
+        sceneDirectoryPath: Path,
         worldSceneList: List<WorldScene>
     ): List<SceneJson> {
 
@@ -21,7 +22,16 @@ class WorldSceneBuilder {
 
         for (worldScene in worldSceneList) {
 
-            sceneJsonList += WorldSceneJson(name = worldScene.id.path, data = worldScene.id.path)
+            val worldSceneJson = WorldSceneJson(name = worldScene.id.path, data = worldScene.id.path)
+            sceneJsonList += worldSceneJson
+
+            val filePath = sceneDirectoryPath.resolve("${worldScene.id.path}.json")
+
+            filePath.toFile().writeText(
+                json.encodeToString(
+                    worldSceneJson as SceneJson
+                )
+            )
 
         }
 

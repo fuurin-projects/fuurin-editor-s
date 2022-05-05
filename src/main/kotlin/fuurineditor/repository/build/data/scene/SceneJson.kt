@@ -11,12 +11,6 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 sealed class SceneJson(
 
     /**
-     * Sceneの名前
-     */
-    @SerialName("name")
-    open val name: String,
-
-    /**
      * Scene内のイベントリスト
      */
     @SerialName("event_list")
@@ -25,7 +19,15 @@ sealed class SceneJson(
     /**
      * このSceneがゲーム起動時に一番はじめにロードされるべきか
      */
-    @SerialName("data")
+    @SerialName("start")
     val start: Boolean = false
 
-)
+) {
+
+    /**
+     * Sceneの名前
+     */
+    @SerialName("name")
+    abstract val name: String
+
+}

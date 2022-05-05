@@ -43,7 +43,7 @@ class SceneBuilder(
 
         //WorldSceneJsonを生成
         val sceneJsonList = worldSceneBuilder.build(
-            rowBasePath,
+            sceneDirectoryPath,
             allSceneJsonList
                 .filter { it.second is WorldSceneJson }
                 .map { (it.second as WorldSceneJson).toWorldScene(path.tiletip, it.first) }

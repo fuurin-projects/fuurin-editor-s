@@ -1,13 +1,15 @@
 package fuurineditor.repository.build.data.scene
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
+@SerialName("world")
 data class WorldSceneJson(
 
     /**
      * Sceneの名前
      */
-    @SerialName("name")
     override val name: String,
 
     /**
@@ -16,4 +18,4 @@ data class WorldSceneJson(
     @SerialName("data")
     val data: String
 
-) : SceneJson(name = name)
+) : SceneJson()
