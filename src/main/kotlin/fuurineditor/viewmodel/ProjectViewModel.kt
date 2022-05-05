@@ -144,6 +144,18 @@ open class ProjectViewModel(
 
     }
 
+    fun clickGlobalScene() {
+
+        viewModelScope.launch {
+            
+            val globalFile = sceneService.getGlobalFile(projectPath = projectPath)
+
+            addEditor(file = globalFile)
+
+        }
+
+    }
+
     //------------------------
     // Dev Game
     //------------------------

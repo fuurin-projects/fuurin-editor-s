@@ -22,7 +22,11 @@ class SceneFile(private val file: JvmFile) : File by file {
      */
     override val children: List<SceneFile>
         get() = file.rowFile
-            .listFiles(FilenameFilter { _, name -> !name.startsWith(".") && name.endsWith(".json") })//隠しフォルダは除外
+            .listFiles(FilenameFilter { _, name ->
+                !name.startsWith(".")
+                        && name.endsWith(".json")
+                        && !name.startsWith("global.json")
+            })//隠しフォルダは除外
             .orEmpty()
             .map { it.toSceneFile() }
 

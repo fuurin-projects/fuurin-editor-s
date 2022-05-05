@@ -76,6 +76,9 @@ fun ProjectWindow(projectName: String, projectPath: ProjectPath, onCloseRequest:
                     addEditor = {
                         editorViewModel.addEditor(file = it)
                     },
+                    onGlobalSceneClick = {
+                        editorViewModel.clickGlobalScene()
+                    },
                     onClickEditor = {
                         editorViewModel.selectEditor(file = it.file)
                     },

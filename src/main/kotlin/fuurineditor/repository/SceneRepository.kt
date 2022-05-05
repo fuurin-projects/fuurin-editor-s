@@ -61,6 +61,11 @@ class SceneRepository {
                         //name = rowScene.name
                     )
                 }
+                SceneType.GLOBAL -> {
+                    WorldSceneJson(
+                        //name = rowScene.name
+                    )
+                }
             }
             sceneJsonPath.toFile().writeText(
                 json.encodeToString(
@@ -112,6 +117,29 @@ class SceneRepository {
         val sceneJsonString = filePath.toFile().readText()
 
         return json.decodeFromString<SceneJson>(sceneJsonString)
+
+    }
+
+    suspend fun getGlobalFile(projectPath: ProjectPath): SceneFile {
+
+        val scenePath = projectPath.scene
+
+        //シーンフォルダがなければ作成
+        if (scenePath.exists().not()) {
+            Files.createDirectories(scenePath)
+        }
+
+        //Globalのファイルがない場合は作成する
+        if (scenePath.resolve("./global.json").exists().not()) {
+            addScene(
+                projectPath, RowScene(
+                    name = "global", type = SceneType.GLOBAL
+                )
+            )
+        }
+
+        return scenePath.resolve("./global.json").toFile().toSceneFile()
+
 
     }
 

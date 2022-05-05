@@ -44,6 +44,7 @@ fun FunctionSubPanel(
     onCreateScene: (rowScene: RowScene) -> Unit = {},
     onAddTileTip: (rowTileTip: RowTileTip) -> Unit = {},
     addEditor: (file: File) -> Unit = {},
+    onGlobalSceneClick: () -> Unit = {},
 ) {
 
     var addTiletipDialog by remember { mutableStateOf(false) }
@@ -75,6 +76,8 @@ fun FunctionSubPanel(
     Column(
         modifier = modifier
     ) {
+
+        //TODO: 2個に分かれているのを直したい
         Row(
             modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
         ) {
@@ -116,6 +119,9 @@ fun FunctionSubPanel(
                         deep = 0,
                         idDirectory = false,
                         folding = true,
+                        onDoubleClick = {
+                            onGlobalSceneClick()
+                        }
                     )
 
                     if (sceneList != null) {

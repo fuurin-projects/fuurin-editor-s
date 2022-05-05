@@ -47,6 +47,7 @@ fun ProjectScreen(
     onCreateScene: (rowScene: RowScene) -> Unit = {},
     onAddTileTip: (rowTileTip: RowTileTip) -> Unit = {},
     addEditor: (file: File) -> Unit = {},
+    onGlobalSceneClick: () -> Unit = {},
     onClickEditor: (editor: Editor) -> Unit = {},
     closeEditor: (editor: Editor) -> Unit = {},
     onStartGame: () -> Unit = {},
@@ -83,7 +84,8 @@ fun ProjectScreen(
                 tiletipList = tiletipList,
                 onCreateScene = onCreateScene,
                 onAddTileTip = onAddTileTip,
-                addEditor = addEditor
+                addEditor = addEditor,
+                onGlobalSceneClick = onGlobalSceneClick,
             )
 
             VerticalDivider(color = Border, thickness = 1.dp)
