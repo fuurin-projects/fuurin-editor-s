@@ -25,6 +25,9 @@ class WorldSceneEditorViewModel(
     private val worldSceneService: WorldSceneService
 ) : ViewModel() {
 
+    /**
+     * 現在のパレットのルート
+     */
     private val _nowTip = MutableStateFlow<TiletipFile?>(null)
     val nowTip: StateFlow<TiletipFile?> = _nowTip
 

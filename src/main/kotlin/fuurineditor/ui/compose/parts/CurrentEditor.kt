@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.TiletipFile
+import fuurineditor.ui.compose.parts.editor.GlobalSceneEditor
 import fuurineditor.ui.compose.parts.editor.TiletipEditor
 import fuurineditor.ui.compose.parts.editor.WorldSceneEditor
 import fuurineditor.ui.data.Editor
@@ -39,7 +40,11 @@ fun CurrentEditor(
                     TiletipEditor(file = editor.file)
                 }
                 is SceneFile -> {
-                    WorldSceneEditor(editor.file)
+                    if (editor.file.name == "global.json") {
+                        GlobalSceneEditor(editor.file)
+                    } else {
+                        WorldSceneEditor(editor.file)
+                    }
                 }
                 else -> {
                     Column(modifier = Modifier.background(Background).fillMaxSize()) {
