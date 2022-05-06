@@ -10,16 +10,17 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.sharp.Bolt
 import androidx.compose.material.icons.sharp.Delete
 import androidx.compose.material.icons.sharp.Edit
 import androidx.compose.material.icons.sharp.FormatColorFill
 import androidx.compose.material.icons.sharp.Image
 import androidx.compose.material.icons.sharp.NorthWest
+import androidx.compose.material.icons.sharp.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -46,7 +47,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.SceneFile
 import fuurineditor.ui.LocalProjectPathContext
-import fuurineditor.ui.compose.parts.IconText
+import fuurineditor.ui.compose.parts.SubTab
 import fuurineditor.ui.compose.parts.ToolButton
 import fuurineditor.ui.compose.parts.VerticalDivider
 import fuurineditor.ui.theme.Background
@@ -75,164 +76,192 @@ fun WorldSceneEditor(sceneFile: SceneFile) {
 
     var press by remember { mutableStateOf<Boolean>(false) }
 
-    Row {
-        Column(modifier = Modifier.width(140.dp)) {
 
-            Row(
-                modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
-            ) {
-                ToolButton(imageVector = Icons.Sharp.NorthWest, onClick = {
+    Column {
 
-                })
-                ToolButton(imageVector = Icons.Sharp.Edit, onClick = {
+        Row(
+            modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
+        ) {
 
-                })
-                ToolButton(imageVector = Icons.Sharp.FormatColorFill, onClick = {
 
-                })
-                ToolButton(imageVector = Icons.Sharp.Delete, onClick = {
+            SubTab(
+                imageVector = Icons.Sharp.Image,
+                text = "Layer",
+                isSelect = true
+            )
 
-                })
-            }
-            Divider(color = Border, thickness = 1.dp)
+            SubTab(
+                imageVector = Icons.Sharp.Bolt,
+                text = "Event"
+            )
 
-            Row(modifier = Modifier.fillMaxSize()) {
-                if (nowTip != null) {
-                    TiletipPanelList(root = nowTip!!, onClickTiletip = {
-                        viewModel.selectTiletip(it)
-                    })
-                } else {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        CircularProgressIndicator()
-                    }
-                }
-            }
+            SubTab(
+                imageVector = Icons.Sharp.Settings,
+                text = "Setting"
+            )
 
         }
-        VerticalDivider(color = Border, thickness = 1.dp)
-        Column(modifier = Modifier.fillMaxWidth().fillMaxHeight().weight(1f).background(Background)) {
 
-            Row(
-                modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
-            ) {
+        Divider(color = Border, thickness = 1.dp)
+
+        Row {
+            Column(modifier = Modifier.width(140.dp)) {
 
                 Row(
-                    modifier = Modifier.padding(start = 8.dp, end = 4.dp, top = 4.dp, bottom = 4.dp)
+                    modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
                 ) {
-                    IconText(
-                        imageVector = Icons.Sharp.Image,
-                        text = "layer1"
-                    )
+                    ToolButton(imageVector = Icons.Sharp.NorthWest, onClick = {
+
+                    })
+                    ToolButton(imageVector = Icons.Sharp.Edit, onClick = {
+
+                    })
+                    ToolButton(imageVector = Icons.Sharp.FormatColorFill, onClick = {
+
+                    })
+                    ToolButton(imageVector = Icons.Sharp.Delete, onClick = {
+
+                    })
                 }
-            }
+                Divider(color = Border, thickness = 1.dp)
 
-            Divider(color = Border, thickness = 1.dp)
-
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                val density = LocalDensity.current
-                Canvas(
-                    modifier = Modifier
-                        .background(Color.Red).width(32.dp * 27).height(32.dp * 15)
-
-                        .pointerInput(Unit) {
-
-                            detectTapGestures(
-                                onPress = {
-                                    println("${it.toSlot(this)}")
-                                    viewModel.clickWorld(it.toSlot(this))
-                                    press = true
-                                }
-                            )
-                        }.onPointerEvent(
-                            eventType = PointerEventType.Release
+                Row(modifier = Modifier.fillMaxSize()) {
+                    if (nowTip != null) {
+                        TiletipPanelList(root = nowTip!!, onClickTiletip = {
+                            viewModel.selectTiletip(it)
+                        })
+                    } else {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            verticalArrangement = Arrangement.Center,
+                            horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
-                            val position = this.currentEvent.changes[0].position
-                            println("${position.toSlot(this)}")
-                            press = false
+                            CircularProgressIndicator()
                         }
-                        .pointerMoveFilter(
-                            onMove = {
-                                select = it
-                                if (press) {
-                                    viewModel.clickWorld(it.toSlot(density))
-                                }
-                                false
-                            },
-                            onEnter = {
-                                println("On Mouse(pointer) Enter")
-                                false
-                            },
-                            onExit = {
-                                println("on Mouse(pointer) Exit")
-                                select = null
-                                false
-                            }
-                        )
+                    }
+                }
+
+            }
+            VerticalDivider(color = Border, thickness = 1.dp)
+            Column(modifier = Modifier.fillMaxWidth().fillMaxHeight().weight(1f).background(Background)) {
+
+                Row(
+                    modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
                 ) {
 
+                    SubTab(
+                        imageVector = Icons.Sharp.Image,
+                        text = "layer1",
+                        isSelect = true
+                    )
 
-                    val slotX = 32.dp.roundToPx()
-                    val slotY = 32.dp.roundToPx()
+                }
 
-                    //表示されているエリアのみで描画する
-                    clipRect() {
-                        for (x in 0 until 27) {
+                Divider(color = Border, thickness = 1.dp)
 
-                            for (y in 0 until 15) {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    val density = LocalDensity.current
+                    Canvas(
+                        modifier = Modifier
+                            .background(Color.Red).width(32.dp * 27).height(32.dp * 15)
 
-                                if (layer.rowData[x][y] != null) {
+                            .pointerInput(Unit) {
 
-                                    drawImage(
-                                        image = layer.rowData[x][y]!!.texture,
-                                        filterQuality = FilterQuality.None,
-                                        dstOffset = IntOffset((x * slotX), (y * slotY)),
-                                        dstSize = IntSize(slotX, slotY),
-                                    )
-
-                                } else {
-                                    drawRect(
-                                        topLeft = Offset((x * slotX).toFloat(), (y * slotY).toFloat()),
-                                        color = if ((x + y) % 2 == 0) Transparent1 else Transparent2,
-                                        size = Size(slotX.toFloat(), slotY.toFloat()),
-                                    )
+                                detectTapGestures(
+                                    onPress = {
+                                        println("${it.toSlot(this)}")
+                                        viewModel.clickWorld(it.toSlot(this))
+                                        press = true
+                                    }
+                                )
+                            }.onPointerEvent(
+                                eventType = PointerEventType.Release
+                            ) {
+                                val position = this.currentEvent.changes[0].position
+                                println("${position.toSlot(this)}")
+                                press = false
+                            }
+                            .pointerMoveFilter(
+                                onMove = {
+                                    select = it
+                                    if (press) {
+                                        viewModel.clickWorld(it.toSlot(density))
+                                    }
+                                    false
+                                },
+                                onEnter = {
+                                    println("On Mouse(pointer) Enter")
+                                    false
+                                },
+                                onExit = {
+                                    println("on Mouse(pointer) Exit")
+                                    select = null
+                                    false
                                 }
+                            )
+                    ) {
 
+
+                        val slotX = 32.dp.roundToPx()
+                        val slotY = 32.dp.roundToPx()
+
+                        //表示されているエリアのみで描画する
+                        clipRect() {
+                            for (x in 0 until 27) {
+
+                                for (y in 0 until 15) {
+
+                                    if (layer.rowData[x][y] != null) {
+
+                                        drawImage(
+                                            image = layer.rowData[x][y]!!.texture,
+                                            filterQuality = FilterQuality.None,
+                                            dstOffset = IntOffset((x * slotX), (y * slotY)),
+                                            dstSize = IntSize(slotX, slotY),
+                                        )
+
+                                    } else {
+                                        drawRect(
+                                            topLeft = Offset((x * slotX).toFloat(), (y * slotY).toFloat()),
+                                            color = if ((x + y) % 2 == 0) Transparent1 else Transparent2,
+                                            size = Size(slotX.toFloat(), slotY.toFloat()),
+                                        )
+                                    }
+
+
+                                }
 
                             }
 
-                        }
+                            if (select != null) {
+                                val slot = select!!.toSlot(this@Canvas)
+                                drawRect(
+                                    topLeft = Offset((slot.x * slotX).toFloat(), (slot.y * slotY).toFloat()),
+                                    color = SelectColor,
+                                    size = Size(slotX.toFloat(), slotY.toFloat()),
+                                    style = Stroke(width = 2.dp.toPx()),
+                                )
+                            }
 
-                        if (select != null) {
-                            val slot = select!!.toSlot(this@Canvas)
-                            drawRect(
-                                topLeft = Offset((slot.x * slotX).toFloat(), (slot.y * slotY).toFloat()),
-                                color = SelectColor,
-                                size = Size(slotX.toFloat(), slotY.toFloat()),
-                                style = Stroke(width = 2.dp.toPx()),
-                            )
+
                         }
 
 
                     }
 
-
                 }
 
             }
+            VerticalDivider(color = Border, thickness = 1.dp)
+            Column(modifier = Modifier.width(100.dp)) {
 
+            }
         }
-        VerticalDivider(color = Border, thickness = 1.dp)
-        Column(modifier = Modifier.width(100.dp)) {
 
-        }
     }
 
 }

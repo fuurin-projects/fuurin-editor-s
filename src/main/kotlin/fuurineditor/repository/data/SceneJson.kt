@@ -117,8 +117,10 @@ data class GlobalSceneJson(
     //override val name: String
 
     @SerialName("width")
-    val width: Int = 27
+    val width: Int = 27,
 
+    @SerialName("event_list")
+    val eventList: List<EventJson> = arrayListOf()
 
 ) : SceneJson()
 

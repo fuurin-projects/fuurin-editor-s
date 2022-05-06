@@ -1,0 +1,35 @@
+package fuurineditor.viewmodel.editor
+
+import fuurineditor.service.GlobalSceneService
+import fuurineditor.service.data.ProjectPath
+import fuurineditor.service.data.SceneFile
+import fuurineditor.service.data.scene.GlobalScene
+import fuurineditor.viewmodel.core.SpringViewModel
+import fuurineditor.viewmodel.core.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+
+@SpringViewModel
+class GlobalSceneEditorViewModel(
+    private val projectPath: ProjectPath,
+    private val sceneFile: SceneFile,
+    private val globalSceneService: GlobalSceneService
+) : ViewModel() {
+
+    private val _globalScene = MutableStateFlow<GlobalScene?>(null)
+    val globalScene: StateFlow<GlobalScene?> = _globalScene
+
+    init {
+
+        //ファイルを開いたときの処理
+        viewModelScope.launch {
+
+            _globalScene.value = globalSceneService.loadGlobalScene(projectPath = projectPath, sceneFile = sceneFile)
+
+
+        }
+
+    }
+
+}

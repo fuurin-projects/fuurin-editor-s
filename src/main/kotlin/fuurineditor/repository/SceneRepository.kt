@@ -1,5 +1,6 @@
 package fuurineditor.repository
 
+import fuurineditor.repository.data.GlobalSceneJson
 import fuurineditor.repository.data.SceneJson
 import fuurineditor.repository.data.WorldSceneJson
 import fuurineditor.service.data.File
@@ -62,7 +63,7 @@ class SceneRepository {
                     )
                 }
                 SceneType.GLOBAL -> {
-                    WorldSceneJson(
+                    GlobalSceneJson(
                         //name = rowScene.name
                     )
                 }
