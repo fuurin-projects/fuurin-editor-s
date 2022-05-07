@@ -18,7 +18,7 @@ import androidx.compose.material.icons.sharp.Bolt
 import androidx.compose.material.icons.sharp.Delete
 import androidx.compose.material.icons.sharp.Edit
 import androidx.compose.material.icons.sharp.FormatColorFill
-import androidx.compose.material.icons.sharp.Image
+import androidx.compose.material.icons.sharp.Map
 import androidx.compose.material.icons.sharp.NorthWest
 import androidx.compose.material.icons.sharp.Settings
 import androidx.compose.runtime.Composable
@@ -85,8 +85,8 @@ fun WorldSceneEditor(sceneFile: SceneFile) {
 
 
             SubTab(
-                imageVector = Icons.Sharp.Image,
-                text = "Layer",
+                imageVector = Icons.Sharp.Map,
+                text = "Map",
                 isSelect = true
             )
 
@@ -150,9 +150,19 @@ fun WorldSceneEditor(sceneFile: SceneFile) {
                 ) {
 
                     SubTab(
-                        imageVector = Icons.Sharp.Image,
-                        text = "layer1",
+                        imageVector = Icons.Sharp.Map,
+                        text = "background",
                         isSelect = true
+                    )
+
+                    SubTab(
+                        imageVector = Icons.Sharp.Map,
+                        text = "foreground"
+                    )
+
+                    SubTab(
+                        imageVector = Icons.Sharp.Map,
+                        text = "sky"
                     )
 
                 }
