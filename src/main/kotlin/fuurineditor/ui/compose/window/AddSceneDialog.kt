@@ -33,8 +33,6 @@ fun AddSceneDialog(
         var name by remember { mutableStateOf("") }
 
 
-
-
         Column(modifier = Modifier.fillMaxSize().background(Background)) {
 
             Text(text = "name")

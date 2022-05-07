@@ -3,6 +3,7 @@ package fuurineditor.viewmodel.editor
 import fuurineditor.service.GlobalSceneService
 import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneFile
+import fuurineditor.service.data.event.Event
 import fuurineditor.service.data.scene.GlobalScene
 import fuurineditor.viewmodel.core.SpringViewModel
 import fuurineditor.viewmodel.core.ViewModel
@@ -20,6 +21,9 @@ class GlobalSceneEditorViewModel(
     private val _globalScene = MutableStateFlow<GlobalScene?>(null)
     val globalScene: StateFlow<GlobalScene?> = _globalScene
 
+    private val _selectEvent = MutableStateFlow<Event?>(null)
+    val selectEvent: StateFlow<Event?> = _selectEvent
+
     init {
 
         //ファイルを開いたときの処理
@@ -30,6 +34,10 @@ class GlobalSceneEditorViewModel(
 
         }
 
+    }
+
+    fun onSelectEvent(event: Event) {
+        _selectEvent.value = event
     }
 
 }
