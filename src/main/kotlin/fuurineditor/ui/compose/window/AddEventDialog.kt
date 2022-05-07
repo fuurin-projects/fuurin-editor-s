@@ -38,6 +38,7 @@ fun AddEventDialog(
                 singleLine = true
             )
 
+
             Button(
                 onClick = {
                     onCreateEvent(

@@ -29,6 +29,7 @@ import fuurineditor.ui.compose.parts.ToolButton
 import fuurineditor.ui.compose.parts.TreeNode
 import fuurineditor.ui.compose.parts.VerticalDivider
 import fuurineditor.ui.compose.window.AddEventDialog
+import fuurineditor.ui.compose.window.AddEventNodeDialog
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.Border
 import fuurineditor.ui.viewModel
@@ -116,6 +117,19 @@ fun EventBoard(
         )
     }
 
+    var addEventNodeDialog by remember { mutableStateOf(false) }
+
+    if (addEventNodeDialog) {
+        AddEventNodeDialog(
+            onCreateEventNode = {
+                addEventNodeDialog = false
+            },
+            onCloseRequest = {
+                addEventNodeDialog = false
+            }
+        )
+    }
+
     Row {
         Column(modifier = Modifier.width(140.dp)) {
 
@@ -153,7 +167,7 @@ fun EventBoard(
                 modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
             ) {
                 ToolButton(imageVector = Icons.Sharp.AddBox, onClick = {
-
+                    addEventNodeDialog = true
                 })
             }
 
