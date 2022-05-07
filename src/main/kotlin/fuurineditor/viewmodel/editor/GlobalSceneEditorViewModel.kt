@@ -36,6 +36,24 @@ class GlobalSceneEditorViewModel(
 
     }
 
+    fun addEvent(event: Event) {
+
+        viewModelScope.launch {
+
+            if (_globalScene.value != null) {
+                _globalScene.value = _globalScene.value!!.copy(
+                    eventList = _globalScene.value!!.eventList + event
+                )
+            }
+
+            globalSceneService.saveGlobalScene(projectPath = projectPath, globalScene = _globalScene.value!!)
+
+            onSelectEvent(event = event)
+
+        }
+
+    }
+
     fun onSelectEvent(event: Event) {
         _selectEvent.value = event
     }

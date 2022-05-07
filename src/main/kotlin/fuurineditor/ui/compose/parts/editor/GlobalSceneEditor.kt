@@ -80,6 +80,9 @@ fun GlobalSceneEditor(sceneFile: SceneFile) {
                 selectEvent = selectEvent,
                 onSelectEvent = {
                     viewModel.onSelectEvent(it)
+                },
+                onAddEvent = {
+                    viewModel.addEvent(it)
                 }
             )
         } else {
@@ -95,7 +98,8 @@ fun GlobalSceneEditor(sceneFile: SceneFile) {
 fun EventBoard(
     eventList: List<Event> = arrayListOf(),
     selectEvent: Event?,
-    onSelectEvent: (event: Event) -> Unit = {}
+    onSelectEvent: (event: Event) -> Unit = {},
+    onAddEvent: (event: Event) -> Unit = {},
 ) {
 
     var addEventDialog by remember { mutableStateOf(false) }
@@ -103,6 +107,7 @@ fun EventBoard(
     if (addEventDialog) {
         AddEventDialog(
             onCreateEvent = {
+                onAddEvent(it)
                 addEventDialog = false
             },
             onCloseRequest = {
@@ -177,6 +182,16 @@ fun EventBoard(
             }
 
             Divider(color = Border, thickness = 1.dp)
+
+            Column {
+                if (selectEvent != null) {
+
+                    // Nodeを表示するところ
+
+                    Text(text = selectEvent.name)
+
+                }
+            }
 
 
         }

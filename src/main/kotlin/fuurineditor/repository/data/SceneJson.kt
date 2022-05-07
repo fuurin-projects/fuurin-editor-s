@@ -1,7 +1,9 @@
 package fuurineditor.repository.data
 
 import fuurineditor.service.data.SceneFile
+import fuurineditor.service.data.event.Event
 import fuurineditor.service.data.fromIndexKey
+import fuurineditor.service.data.scene.GlobalScene
 import fuurineditor.service.data.scene.WorldLayer
 import fuurineditor.service.data.scene.WorldScene
 import fuurineditor.service.data.toIndexKye
@@ -123,4 +125,34 @@ data class GlobalSceneJson(
     val eventList: List<EventJson> = arrayListOf()
 
 ) : SceneJson()
+
+fun GlobalSceneJson.toGlobalScene(sceneFile: SceneFile): GlobalScene {
+
+    val eventList: List<Event> = this@toGlobalScene.eventList.map {
+        Event(
+            name = it.name
+        )
+    }
+
+    return GlobalScene(
+        id = sceneFile.id,
+        eventList = eventList
+    )
+
+}
+
+fun GlobalScene.toGlobalSceneJson(): GlobalSceneJson {
+
+    val eventList: List<EventJson> = this@toGlobalSceneJson.eventList.map {
+        EventJson(
+            name = it.name,
+            nodeList = arrayListOf()
+        )
+    }
+
+    return GlobalSceneJson(
+        eventList = eventList
+    )
+
+}
 
