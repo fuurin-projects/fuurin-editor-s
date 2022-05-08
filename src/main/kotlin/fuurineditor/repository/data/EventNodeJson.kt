@@ -10,10 +10,10 @@ import kotlinx.serialization.json.JsonClassDiscriminator
 @JsonClassDiscriminator("type")
 sealed class EventNodeJson() {
     /**
-     * Sceneの名前
+     * NodeのID
      */
     @SerialName("id")
-    abstract val id: Int
+    abstract val id: String
 }
 
 @Serializable
@@ -21,6 +21,6 @@ sealed class EventNodeJson() {
 data class InputControllerNodeJson(
 
     @SerialName("id")
-    override val id: Int
+    override val id: String
 
 ) : EventNodeJson()

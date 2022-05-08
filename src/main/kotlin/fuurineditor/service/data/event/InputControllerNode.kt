@@ -1,6 +1,9 @@
 package fuurineditor.service.data.event
 
+import java.util.*
+
 data class InputControllerNode(
+    override val id: UUID = UUID.randomUUID(),
     val type: String = ""
 ) : EventNode
 

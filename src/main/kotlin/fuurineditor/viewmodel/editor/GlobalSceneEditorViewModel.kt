@@ -4,6 +4,7 @@ import fuurineditor.service.GlobalSceneService
 import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event
+import fuurineditor.service.data.event.EventNode
 import fuurineditor.service.data.scene.GlobalScene
 import fuurineditor.viewmodel.core.SpringViewModel
 import fuurineditor.viewmodel.core.ViewModel
@@ -56,6 +57,30 @@ class GlobalSceneEditorViewModel(
 
     fun onSelectEvent(event: Event) {
         _selectEvent.value = event
+    }
+
+    fun addEventNode(eventNode: EventNode) {
+
+        if (_selectEvent.value != null) {
+
+            viewModelScope.launch {
+                
+                val newSelectEvent = _selectEvent.value!!.copy(
+                    nodeList = _selectEvent.value!!.nodeList + eventNode
+                )
+                _globalScene.value = _globalScene.value!!.copy(
+                    //元のEventを消して新しくEventを入れる
+                    eventList = (_globalScene.value!!.eventList - _selectEvent.value!!) + newSelectEvent
+                )
+
+                globalSceneService.saveGlobalScene(projectPath = projectPath, globalScene = _globalScene.value!!)
+
+                onSelectEvent(event = newSelectEvent)
+
+            }
+
+        }
+
     }
 
 }

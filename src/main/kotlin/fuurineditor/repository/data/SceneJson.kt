@@ -2,6 +2,7 @@ package fuurineditor.repository.data
 
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event
+import fuurineditor.service.data.event.InputControllerNode
 import fuurineditor.service.data.fromIndexKey
 import fuurineditor.service.data.scene.GlobalScene
 import fuurineditor.service.data.scene.WorldLayer
@@ -13,6 +14,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonClassDiscriminator
 import java.nio.file.Path
+import java.util.*
 
 @Serializable()
 @OptIn(ExperimentalSerializationApi::class)
@@ -130,7 +132,16 @@ fun GlobalSceneJson.toGlobalScene(sceneFile: SceneFile): GlobalScene {
 
     val eventList: List<Event> = this@toGlobalScene.eventList.map {
         Event(
-            name = it.name
+            name = it.name,
+            nodeList = it.nodeList.map { nodeJson ->
+
+                when (nodeJson) {
+                    is InputControllerNodeJson -> InputControllerNode(UUID.fromString(nodeJson.id))
+                    else -> throw IllegalArgumentException("Not found NodeJson Type.")
+                }
+
+
+            }
         )
     }
 
@@ -146,7 +157,14 @@ fun GlobalScene.toGlobalSceneJson(): GlobalSceneJson {
     val eventList: List<EventJson> = this@toGlobalSceneJson.eventList.map {
         EventJson(
             name = it.name,
-            nodeList = arrayListOf()
+            nodeList = it.nodeList.map { node ->
+
+                when (node) {
+                    is InputControllerNode -> InputControllerNodeJson(id = node.id.toString())
+                    else -> throw IllegalArgumentException("Not found Node Type.")
+                }
+                
+            }
         )
     }
 

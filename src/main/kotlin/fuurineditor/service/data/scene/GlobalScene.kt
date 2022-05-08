@@ -5,7 +5,5 @@ import fuurineditor.service.data.event.Event
 
 data class GlobalScene(
     override val id: FileId,
-    val eventList: List<Event> = arrayListOf(
-        Event(name = "test"), Event(name = "test2")
-    )
+    val eventList: List<Event> = arrayListOf()
 ) : Scene

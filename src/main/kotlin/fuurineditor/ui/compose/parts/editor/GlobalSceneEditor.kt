@@ -1,9 +1,11 @@
 package fuurineditor.ui.compose.parts.editor
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -19,10 +21,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event
+import fuurineditor.service.data.event.EventNode
 import fuurineditor.ui.LocalProjectPathContext
 import fuurineditor.ui.compose.parts.SubTab
 import fuurineditor.ui.compose.parts.ToolButton
@@ -32,6 +36,7 @@ import fuurineditor.ui.compose.window.AddEventDialog
 import fuurineditor.ui.compose.window.AddEventNodeDialog
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.Border
+import fuurineditor.ui.theme.BrightBackground
 import fuurineditor.ui.viewModel
 import fuurineditor.viewmodel.editor.GlobalSceneEditorViewModel
 
@@ -84,6 +89,9 @@ fun GlobalSceneEditor(sceneFile: SceneFile) {
                 },
                 onAddEvent = {
                     viewModel.addEvent(it)
+                },
+                onAddEventNode = {
+                    viewModel.addEventNode(it)
                 }
             )
         } else {
@@ -101,6 +109,7 @@ fun EventBoard(
     selectEvent: Event?,
     onSelectEvent: (event: Event) -> Unit = {},
     onAddEvent: (event: Event) -> Unit = {},
+    onAddEventNode: (eventNode: EventNode) -> Unit = {},
 ) {
 
     var addEventDialog by remember { mutableStateOf(false) }
@@ -122,6 +131,7 @@ fun EventBoard(
     if (addEventNodeDialog) {
         AddEventNodeDialog(
             onCreateEventNode = {
+                onAddEventNode(it)
                 addEventNodeDialog = false
             },
             onCloseRequest = {
@@ -203,6 +213,20 @@ fun EventBoard(
                     // Nodeを表示するところ
 
                     Text(text = selectEvent.name)
+
+                    for (eventNode in selectEvent.nodeList) {
+                        Text(text = eventNode.id.toString())
+                    }
+
+                } else {
+
+                    Column(
+                        modifier = Modifier.fillMaxSize().background(BrightBackground),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Text(text = "Eventが選択されていません")
+                    }
 
                 }
             }

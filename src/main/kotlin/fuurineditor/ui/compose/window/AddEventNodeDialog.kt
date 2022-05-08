@@ -106,7 +106,9 @@ fun AddEventNodeDialog(
             Row(modifier = Modifier.fillMaxWidth().height(56.dp).padding(8.dp)) {
                 Button(
                     onClick = {
-                        //onCreateEventNode()
+                        if (eventNode != null) {
+                            onCreateEventNode(eventNode!!)
+                        }
                     },
                     modifier = Modifier,
                     enabled = eventNode != null
