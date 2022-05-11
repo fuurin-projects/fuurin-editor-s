@@ -4,7 +4,8 @@ import java.util.*
 
 data class InputControllerNode(
     override val id: UUID = UUID.randomUUID(),
-    val type: String = ""
+    override val nodeTypeName: String = "InputControllerNode",
+    val type: String = "",
 ) : EventNode
 
 enum class InputControllerKeyType(

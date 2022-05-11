@@ -6,4 +6,6 @@ interface EventNode {
 
     val id: UUID
 
+    val nodeTypeName: String
+
 }

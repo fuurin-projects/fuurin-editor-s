@@ -4,6 +4,8 @@ import androidx.compose.ui.graphics.Color
 
 val Border = Color(0xffD6D6D6)
 
+val WindowBorder = Color(0xff444444)
+
 val FunctionIconColor = Color(0xff7e7e7e)
 
 val IconColor = Color(0xff95A5A6)
@@ -17,4 +19,7 @@ val BrightBackground = Color(0xffffffff)
 
 val BrightSubBackground = Color(0xfff0f8ff)
 
+val BlueprintBackground = Color(0xff69aae2)
+
 val SelectColor = Color(0xff2F8DFB)
+

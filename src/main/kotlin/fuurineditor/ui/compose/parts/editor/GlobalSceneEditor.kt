@@ -1,14 +1,19 @@
 package fuurineditor.ui.compose.parts.editor
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -23,6 +28,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event
@@ -35,8 +45,10 @@ import fuurineditor.ui.compose.parts.VerticalDivider
 import fuurineditor.ui.compose.window.AddEventDialog
 import fuurineditor.ui.compose.window.AddEventNodeDialog
 import fuurineditor.ui.theme.Background
+import fuurineditor.ui.theme.BlueprintBackground
 import fuurineditor.ui.theme.Border
 import fuurineditor.ui.theme.BrightBackground
+import fuurineditor.ui.theme.WindowBorder
 import fuurineditor.ui.viewModel
 import fuurineditor.viewmodel.editor.GlobalSceneEditorViewModel
 
@@ -211,12 +223,40 @@ fun EventBoard(
                 if (selectEvent != null) {
 
                     // Nodeを表示するところ
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Canvas(modifier = Modifier.fillMaxSize().background(BlueprintBackground)) {
 
-                    Text(text = selectEvent.name)
+                            val slotX = 32.dp.roundToPx()
+                            val slotY = 32.dp.roundToPx()
 
-                    for (eventNode in selectEvent.nodeList) {
-                        Text(text = eventNode.id.toString())
+                            //表示されているエリアのみで描画する
+                            clipRect() {
+
+
+                                for (x in 0 until (size.width / slotX).toInt() + 2) {
+
+                                    for (y in 0 until (size.height / slotY).toInt() + 2) {
+                                        drawRect(
+                                            topLeft = Offset(
+                                                (x * slotX).toFloat() - slotX / 2,//半分ずらす
+                                                (y * slotY).toFloat() - slotY / 2//半分ずらす
+                                            ),
+                                            color = Border,
+                                            size = Size(slotX.toFloat(), slotY.toFloat()),
+                                            style = Stroke(width = 1.dp.toPx()),
+                                        )
+                                    }
+                                }
+
+                            }
+                        }
+                        Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
+                            for (eventNode in selectEvent.nodeList) {
+                                EventNodeWindow(eventNode = eventNode)
+                            }
+                        }
                     }
+
 
                 } else {
 
@@ -234,6 +274,26 @@ fun EventBoard(
 
         }
 
+
+    }
+
+}
+
+@Composable
+fun EventNodeWindow(eventNode: EventNode) {
+
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .width(500.dp)
+            .height(100.dp)
+            .clip(shape = RoundedCornerShape(4.dp))
+            .border(width = 2.dp, WindowBorder, shape = RoundedCornerShape(4.dp))
+            .background(BrightBackground)
+    ) {
+
+        Text(modifier = Modifier.padding(8.dp), text = "${eventNode.nodeTypeName} (${eventNode.id.toString()})")
+        Divider(color = Border, thickness = 1.dp)
 
     }
 
