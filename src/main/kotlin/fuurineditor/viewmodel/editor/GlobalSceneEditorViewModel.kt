@@ -86,23 +86,20 @@ class GlobalSceneEditorViewModel(
 
     fun dragEventNode(event: Event, eventNode: EventNode, offset: Offset) {
 
-        println(eventNode)
-
-        val nowEvent: Event = event//globalScene.value!!.eventList.find { it.name == event.name }!!
+        val nowEvent: Event = globalScene.value!!.eventList.find { it.name == event.name }!!
 
         val nowEventNode: EventNode = nowEvent.nodeList.find {
             it.id == eventNode.id
         }!!
 
-        val newEventNode = nowEventNode.moveOffset(offset)
+        val newEventNode = eventNode.copyWithOffset(offset)
 
-        val newEvent: Event = nowEvent.copy(
-            nodeList = (nowEvent.nodeList - nowEventNode) + newEventNode
+        val newEvent: Event = event.copy(
+            nodeList = ((nowEvent.nodeList - nowEventNode) + newEventNode).sortedBy { it.id }
         )
-        //newEvent.name1 = offset.x.toString()
 
         _globalScene.value = globalScene.value!!.copy(
-            eventList = (globalScene.value!!.eventList - nowEvent) + newEvent
+            eventList = ((globalScene.value!!.eventList - nowEvent) + newEvent)
         )
         _selectEvent.value = newEvent
 

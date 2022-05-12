@@ -16,6 +16,6 @@ interface EventNode {
 
     val offsetY: Float
 
-    fun moveOffset(offset: Offset): EventNode
+    fun copyWithOffset(offset: Offset): EventNode
 
 }

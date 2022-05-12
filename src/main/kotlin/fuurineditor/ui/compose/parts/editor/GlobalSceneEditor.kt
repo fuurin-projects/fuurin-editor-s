@@ -39,7 +39,6 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
-import androidx.compose.ui.input.pointer.PointerInputScope
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.IntOffset
@@ -126,15 +125,12 @@ fun GlobalSceneEditor(sceneFile: SceneFile) {
                 onAddEventNode = {
                     viewModel.addEventNode(it)
                 },
-                onEventNodeDrag = { event, eventNode ->
-                    detectDragGestures { change, dragAmount ->
-                        change.consumeAllChanges()
-                        viewModel.dragEventNode(
-                            event = event,
-                            eventNode = eventNode,
-                            dragAmount
-                        )
-                    }
+                onEventNodeonDragEnd = { event, eventNode, offset ->
+                    viewModel.dragEventNode(
+                        event = event,
+                        eventNode = eventNode,
+                        offset = offset
+                    )
                 }
             )
         } else {
@@ -153,7 +149,7 @@ fun EventBoard(
     onSelectEvent: (event: Event) -> Unit = {},
     onAddEvent: (event: Event) -> Unit = {},
     onAddEventNode: (eventNode: EventNode) -> Unit = {},
-    onEventNodeDrag: suspend PointerInputScope.(event: Event, eventNode: EventNode) -> Unit
+    onEventNodeonDragEnd: (event: Event, eventNode: EventNode, offset: Offset) -> Unit
 ) {
 
     SideEffect {
@@ -286,21 +282,21 @@ fun EventBoard(
 
                             }
                         }
-                        Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
+                        Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
                             for (eventNode in selectEvent.nodeList) {
                                 key(eventNode.id.toString()) {
-                                    key(eventNode.offsetX) {
-                                        EventNodeWindow(
-                                            eventNode = eventNode,
-                                            onDrag = {
-                                                onEventNodeDrag(selectEvent, eventNode)
-                                            }
-                                        )
 
-                                        SideEffect {
-                                            println("EventNodeWindow")
+                                    EventNodeWindow(
+                                        eventNode = eventNode,
+                                        onDragEnd = {
+                                            onEventNodeonDragEnd(selectEvent, eventNode, it)
                                         }
+                                    )
+
+                                    SideEffect {
+                                        println("EventNodeWindow")
                                     }
+
 
                                 }
                             }
@@ -332,12 +328,20 @@ fun EventBoard(
 @Composable
 fun EventNodeWindow(
     eventNode: EventNode,
-    onDrag: suspend PointerInputScope.() -> Unit
+    onDragEnd: (offset: Offset) -> Unit
 ) {
+
+    var offsetX by remember { mutableStateOf(eventNode.offsetX) }
+    var offsetY by remember { mutableStateOf(eventNode.offsetY) }
 
     Column(
         modifier = Modifier
-            .offset { IntOffset(eventNode.offsetX.roundToInt(), eventNode.offsetY.roundToInt()) }
+            .offset {
+                IntOffset(
+                    (offsetX).roundToInt(),
+                    (offsetY).roundToInt()
+                )
+            }
             .padding(16.dp)
             .width(120.dp)
             .height(100.dp)
@@ -350,11 +354,20 @@ fun EventNodeWindow(
         Text(
             modifier = Modifier
                 .background(eventNode.windowColor)
-                .fillMaxWidth()
-                .padding(8.dp)
                 .pointerInput(Unit) {
-                    onDrag()
-                },
+                    //onDrag()
+                    detectDragGestures(
+                        onDragEnd = {
+                            onDragEnd(Offset(offsetX, offsetY))
+                        }
+                    ) { change, dragAmount ->
+                        change.consumeAllChanges()
+                        offsetX += dragAmount.x
+                        offsetY += dragAmount.y
+                    }
+                }
+                .fillMaxWidth()
+                .padding(8.dp),
             text = "${eventNode.nodeTypeName}",
             color = Color.White
         )

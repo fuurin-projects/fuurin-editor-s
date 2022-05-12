@@ -14,10 +14,10 @@ data class InputControllerNode(
     override var offsetY: Float = 0f,
 ) : EventNode {
 
-    override fun moveOffset(offset: Offset): EventNode {
+    override fun copyWithOffset(offset: Offset): EventNode {
         return copy(
-            offsetX = offsetX + offset.x,
-            offsetY = offsetY + offset.y
+            offsetX = offset.x,
+            offsetY = offset.y
         )
     }
 }
