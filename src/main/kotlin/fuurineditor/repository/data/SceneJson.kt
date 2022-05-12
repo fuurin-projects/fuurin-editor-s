@@ -163,7 +163,7 @@ fun GlobalScene.toGlobalSceneJson(): GlobalSceneJson {
                     is InputControllerNode -> InputControllerNodeJson(id = node.id.toString())
                     else -> throw IllegalArgumentException("Not found Node Type.")
                 }
-                
+
             }
         )
     }

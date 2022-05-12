@@ -1,5 +1,6 @@
 package fuurineditor.viewmodel.editor
 
+import androidx.compose.ui.geometry.Offset
 import fuurineditor.service.GlobalSceneService
 import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneFile
@@ -64,7 +65,7 @@ class GlobalSceneEditorViewModel(
         if (_selectEvent.value != null) {
 
             viewModelScope.launch {
-                
+
                 val newSelectEvent = _selectEvent.value!!.copy(
                     nodeList = _selectEvent.value!!.nodeList + eventNode
                 )
@@ -80,6 +81,31 @@ class GlobalSceneEditorViewModel(
             }
 
         }
+
+    }
+
+    fun dragEventNode(event: Event, eventNode: EventNode, offset: Offset) {
+
+        println(eventNode)
+
+        val nowEvent: Event = event//globalScene.value!!.eventList.find { it.name == event.name }!!
+
+        val nowEventNode: EventNode = nowEvent.nodeList.find {
+            it.id == eventNode.id
+        }!!
+
+        val newEventNode = nowEventNode.moveOffset(offset)
+
+        val newEvent: Event = nowEvent.copy(
+            nodeList = (nowEvent.nodeList - nowEventNode) + newEventNode
+        )
+        //newEvent.name1 = offset.x.toString()
+
+        _globalScene.value = globalScene.value!!.copy(
+            eventList = (globalScene.value!!.eventList - nowEvent) + newEvent
+        )
+        _selectEvent.value = newEvent
+
 
     }
 

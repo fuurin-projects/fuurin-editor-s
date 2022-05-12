@@ -21,5 +21,10 @@ val BrightSubBackground = Color(0xfff0f8ff)
 
 val BlueprintBackground = Color(0xff69aae2)
 
+val BlueprintBorder = Color(0xffeeeeee)
+
 val SelectColor = Color(0xff2F8DFB)
+
+//Node
+val InputNodeColor = Color(0xffff2b00)
 
