@@ -26,7 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -282,25 +281,32 @@ fun EventBoard(
 
                             }
                         }
-                        Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-                            for (eventNode in selectEvent.nodeList) {
-                                key(eventNode.id.toString()) {
-
-                                    EventNodeWindow(
-                                        eventNode = eventNode,
-                                        onDragEnd = {
-                                            onEventNodeonDragEnd(selectEvent, eventNode, it)
-                                        }
-                                    )
-
-                                    SideEffect {
-                                        println("EventNodeWindow")
-                                    }
-
-
-                                }
+                        EventNodeCanvas(
+                            modifier = Modifier.fillMaxSize(),
+                            nodeList = selectEvent.nodeList,
+                            onDragEnd = { offset: Offset, eventNode: EventNode ->
+                                onEventNodeonDragEnd(selectEvent, eventNode, offset)
                             }
-                        }
+                        )
+//                        Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
+//                            for (eventNode in selectEvent.nodeList) {
+//                                key(eventNode.id.toString()) {
+//
+//                                    EventNodeWindow(
+//                                        eventNode = eventNode,
+//                                        onDragEnd = {
+//                                            onEventNodeonDragEnd(selectEvent, eventNode, it)
+//                                        }
+//                                    )
+//
+//                                    SideEffect {
+//                                        println("EventNodeWindow")
+//                                    }
+//
+//
+//                                }
+//                            }
+//                        }
                     }
 
 
