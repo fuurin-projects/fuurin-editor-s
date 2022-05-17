@@ -2,6 +2,7 @@ package fuurineditor.repository.data
 
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event
+import fuurineditor.service.data.event.InputControllerKeyType
 import fuurineditor.service.data.event.InputControllerNode
 import fuurineditor.service.data.fromIndexKey
 import fuurineditor.service.data.scene.GlobalScene
@@ -136,7 +137,12 @@ fun GlobalSceneJson.toGlobalScene(sceneFile: SceneFile): GlobalScene {
             nodeList = it.nodeList.map { nodeJson ->
 
                 when (nodeJson) {
-                    is InputControllerNodeJson -> InputControllerNode(UUID.fromString(nodeJson.id))
+                    is InputControllerNodeJson -> InputControllerNode(
+                        id = UUID.fromString(nodeJson.id),
+                        type = InputControllerKeyType.fromString(nodeJson.type),
+                        offsetX = nodeJson.offsetX,
+                        offsetY = nodeJson.offsetY
+                    )
                     else -> throw IllegalArgumentException("Not found NodeJson Type.")
                 }
 
@@ -160,7 +166,12 @@ fun GlobalScene.toGlobalSceneJson(): GlobalSceneJson {
             nodeList = it.nodeList.map { node ->
 
                 when (node) {
-                    is InputControllerNode -> InputControllerNodeJson(id = node.id.toString())
+                    is InputControllerNode -> InputControllerNodeJson(
+                        id = node.id.toString(),
+                        type = node.type.type,
+                        offsetX = node.offsetX,
+                        offsetY = node.offsetY
+                    )
                     else -> throw IllegalArgumentException("Not found Node Type.")
                 }
 

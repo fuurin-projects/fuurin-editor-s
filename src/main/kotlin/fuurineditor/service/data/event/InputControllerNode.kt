@@ -9,7 +9,7 @@ data class InputControllerNode(
     override val id: UUID = UUID.randomUUID(),
     override val nodeTypeName: String = "InputController",
     override val windowColor: Color = InputNodeColor,
-    val type: String = "up",
+    val type: InputControllerKeyType = InputControllerKeyType.UP,
     override var offsetX: Float = 0f,
     override var offsetY: Float = 0f,
 ) : EventNode {
@@ -20,10 +20,20 @@ data class InputControllerNode(
             offsetY = offset.y
         )
     }
+
 }
 
 enum class InputControllerKeyType(
     val type: String
 ) {
-    UP("up"), DOWN("down"), LEFT("left"), RIGHT("right")
+    UP("up"), DOWN("down"), LEFT("left"), RIGHT("right");
+
+    companion object {
+        fun fromString(type: String): InputControllerKeyType {
+            return InputControllerKeyType.values().find {
+                it.type == type
+            } ?: InputControllerKeyType.UP
+        }
+    }
+
 }

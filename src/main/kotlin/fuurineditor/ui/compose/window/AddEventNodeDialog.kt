@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Button
 import androidx.compose.material.Divider
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,7 +28,9 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogState
 import androidx.compose.ui.window.rememberDialogState
 import fuurineditor.service.data.event.EventNode
+import fuurineditor.service.data.event.InputControllerKeyType
 import fuurineditor.service.data.event.InputControllerNode
+import fuurineditor.ui.compose.parts.ExposedDropdownMenu
 import fuurineditor.ui.data.NodeType
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.Border
@@ -159,20 +160,33 @@ fun InputControllerNodePanel(
     onChangeEventNode: (eventNode: InputControllerNode) -> Unit = {}
 ) {
 
-    Column {
+    Column(
+        modifier = Modifier.padding(8.dp)
+    ) {
 
         Text(text = "key")
 
-        OutlinedTextField(
-            value = inputControllerNode.type,
+//        OutlinedTextField(
+//            value = inputControllerNode.type,
+//            onValueChange = {
+//                onChangeEventNode(
+//                    InputControllerNode(
+//                        type = it
+//                    )
+//                )
+//            },
+//            singleLine = true
+//        )
+
+        ExposedDropdownMenu(
+            InputControllerKeyType.values().toList(),
             onValueChange = {
                 onChangeEventNode(
                     InputControllerNode(
                         type = it
                     )
                 )
-            },
-            singleLine = true
+            }
         )
 
     }

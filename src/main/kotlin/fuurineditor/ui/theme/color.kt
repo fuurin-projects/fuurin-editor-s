@@ -19,7 +19,7 @@ val BrightBackground = Color(0xffffffff)
 
 val BrightSubBackground = Color(0xfff0f8ff)
 
-val BlueprintBackground = Color(0xff69aae2)
+val BlueprintBackground = Color(0xff009be8)
 
 val BlueprintBorder = Color(0xffeeeeee)
 

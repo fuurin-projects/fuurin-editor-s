@@ -378,7 +378,7 @@ fun EventNodeWindow(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             if (eventNode is InputControllerNode) {
-                Text(text = eventNode.type)
+                Text(text = eventNode.type.toString())
             }
 
         }

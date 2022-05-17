@@ -14,6 +14,12 @@ sealed class EventNodeJson() {
      */
     @SerialName("id")
     abstract val id: String
+
+    @SerialName("offset_x")
+    abstract var offsetX: Float
+
+    @SerialName("offset_y")
+    abstract var offsetY: Float
 }
 
 @Serializable
@@ -21,6 +27,15 @@ sealed class EventNodeJson() {
 data class InputControllerNodeJson(
 
     @SerialName("id")
-    override val id: String
+    override val id: String,
+
+    @SerialName("offset_x")
+    override var offsetX: Float,
+
+    @SerialName("offset_y")
+    override var offsetY: Float,
+
+    @SerialName("input_type")
+    val type: String
 
 ) : EventNodeJson()
