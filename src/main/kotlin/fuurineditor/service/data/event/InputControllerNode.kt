@@ -7,11 +7,12 @@ import java.util.*
 
 data class InputControllerNode(
     override val id: UUID = UUID.randomUUID(),
-    override val nodeTypeName: String = "InputController",
+    override val nodeTypeName: String = "Controller",
     override val windowColor: Color = InputNodeColor,
     val type: InputControllerKeyType = InputControllerKeyType.UP,
     override var offsetX: Float = 0f,
     override var offsetY: Float = 0f,
+    override val screenValue: String = type.type
 ) : EventNode {
 
     override fun copyWithOffset(offset: Offset): EventNode {

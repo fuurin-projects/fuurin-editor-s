@@ -103,7 +103,10 @@ class GlobalSceneEditorViewModel(
         )
         _selectEvent.value = newEvent
 
-
+        viewModelScope.launch {
+            globalSceneService.saveGlobalScene(projectPath = projectPath, globalScene = _globalScene.value!!)
+        }
+        
     }
 
 }

@@ -18,4 +18,6 @@ interface EventNode {
 
     fun copyWithOffset(offset: Offset): EventNode
 
+    val screenValue: String?
+
 }

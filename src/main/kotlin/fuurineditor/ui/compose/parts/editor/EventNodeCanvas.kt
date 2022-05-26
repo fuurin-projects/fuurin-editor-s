@@ -97,22 +97,25 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
 
     translate(left = eventNode.offsetX + moveOffset.x, top = eventNode.offsetY + moveOffset.y) {
 
+        val width = 120
+        val height = 100
+
         //コンテンツ
         drawRoundRect(
             brush = Brush.linearGradient(colors = arrayListOf(BrightBackground, BrightBackground)),
             cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
             style = Fill,
-            size = Size(120.dp.toPx(), 100.dp.toPx())
+            size = Size(width.dp.toPx(), height.dp.toPx())
         )
 
         drawRoundRect(
             brush = Brush.linearGradient(colors = arrayListOf(eventNode.windowColor, eventNode.windowColor)),
             cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
             style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round),
-            size = Size(120.dp.toPx(), 100.dp.toPx())
+            size = Size(width.dp.toPx(), height.dp.toPx())
         )
 
-        val headerWidth = 120
+        val headerWidth = width
         val headerHeight = 30
         val path = Path().apply {
             moveTo(0.dp.toPx(), headerHeight.dp.toPx())
@@ -157,6 +160,50 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
             font = Font(typeface = null, size = 14.dp.toPx()),
             paint = paint
         )
+
+        val paint2 = Paint().apply {
+            isAntiAlias = true
+            color = Color.Black.toArgb()
+        }
+
+        if (eventNode.screenValue != null) {
+            drawContext.canvas.nativeCanvas.drawString(
+                eventNode.screenValue!!,
+                (width / 2f - (4 * eventNode.screenValue!!.length)).dp.toPx(),
+                (height / 2f + 14).dp.toPx(),
+                font = Font(typeface = null, size = 14.dp.toPx()),
+                paint = paint2
+            )
+        }
+
+        //コネクトポイント
+        drawCircle(
+            color = Color.White,
+            center = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()),
+            radius = 8.dp.toPx()
+        )
+
+        drawArc(
+            color = eventNode.windowColor,
+            startAngle = 90f,
+            sweepAngle = -180f,
+            useCenter = false,
+            topLeft = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()).minus(
+                Offset(
+                    x = (16 / 2).dp.toPx(),
+                    y = (16 / 2).dp.toPx()
+                )
+            ),
+            size = Size(width = 16.dp.toPx(), height = 16.dp.toPx()),
+            style = Stroke(width = 2.dp.toPx())
+        )
+
+        drawCircle(
+            color = Color.Blue,
+            center = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()),
+            radius = 3.dp.toPx()
+        )
+
     }
 
 
