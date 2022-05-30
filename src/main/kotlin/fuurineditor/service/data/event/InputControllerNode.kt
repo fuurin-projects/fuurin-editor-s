@@ -12,7 +12,8 @@ data class InputControllerNode(
     val type: InputControllerKeyType = InputControllerKeyType.UP,
     override var offsetX: Float = 0f,
     override var offsetY: Float = 0f,
-    override val screenValue: String = type.type
+    override val screenValue: String = type.type,
+    override val nodeType: NodeType = NodeType.INPUT
 ) : EventNode {
 
     override fun copyWithOffset(offset: Offset): EventNode {

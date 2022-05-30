@@ -39,3 +39,21 @@ data class InputControllerNodeJson(
     val type: String
 
 ) : EventNodeJson()
+
+@Serializable
+@SerialName("output.event_state")
+data class OutputEventStateNodeJson(
+
+    @SerialName("id")
+    override val id: String,
+
+    @SerialName("offset_x")
+    override var offsetX: Float,
+
+    @SerialName("offset_y")
+    override var offsetY: Float,
+
+    @SerialName("event_state")
+    val eventState: String
+
+) : EventNodeJson()

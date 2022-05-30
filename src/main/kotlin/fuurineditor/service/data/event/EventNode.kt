@@ -10,6 +10,8 @@ interface EventNode {
 
     val nodeTypeName: String
 
+    val nodeType: NodeType
+
     val windowColor: Color
 
     val offsetX: Float
@@ -19,5 +21,11 @@ interface EventNode {
     fun copyWithOffset(offset: Offset): EventNode
 
     val screenValue: String?
+
+}
+
+enum class NodeType {
+
+    INPUT, OUTPUT
 
 }

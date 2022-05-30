@@ -4,6 +4,7 @@ import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event
 import fuurineditor.service.data.event.InputControllerKeyType
 import fuurineditor.service.data.event.InputControllerNode
+import fuurineditor.service.data.event.OutputEventStateNode
 import fuurineditor.service.data.fromIndexKey
 import fuurineditor.service.data.scene.GlobalScene
 import fuurineditor.service.data.scene.WorldLayer
@@ -143,6 +144,12 @@ fun GlobalSceneJson.toGlobalScene(sceneFile: SceneFile): GlobalScene {
                         offsetX = nodeJson.offsetX,
                         offsetY = nodeJson.offsetY
                     )
+                    is OutputEventStateNodeJson -> OutputEventStateNode(
+                        id = UUID.fromString(nodeJson.id),
+                        eventState = nodeJson.eventState,
+                        offsetX = nodeJson.offsetX,
+                        offsetY = nodeJson.offsetY
+                    )
                     else -> throw IllegalArgumentException("Not found NodeJson Type.")
                 }
 
@@ -169,6 +176,12 @@ fun GlobalScene.toGlobalSceneJson(): GlobalSceneJson {
                     is InputControllerNode -> InputControllerNodeJson(
                         id = node.id.toString(),
                         type = node.type.type,
+                        offsetX = node.offsetX,
+                        offsetY = node.offsetY
+                    )
+                    is OutputEventStateNode -> OutputEventStateNodeJson(
+                        id = node.id.toString(),
+                        eventState = node.eventState,
                         offsetX = node.offsetX,
                         offsetY = node.offsetY
                     )

@@ -27,6 +27,7 @@ import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.event.EventNode
+import fuurineditor.service.data.event.NodeType
 import fuurineditor.ui.theme.BrightBackground
 import org.jetbrains.skia.Font
 import org.jetbrains.skia.Paint
@@ -176,33 +177,64 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
             )
         }
 
-        //コネクトポイント
-        drawCircle(
-            color = Color.White,
-            center = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()),
-            radius = 8.dp.toPx()
-        )
+        //右コネクトポイント
+        if (eventNode.nodeType == NodeType.INPUT) {
+            drawCircle(
+                color = Color.White,
+                center = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()),
+                radius = 8.dp.toPx()
+            )
 
-        drawArc(
-            color = eventNode.windowColor,
-            startAngle = 90f,
-            sweepAngle = -180f,
-            useCenter = false,
-            topLeft = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()).minus(
-                Offset(
-                    x = (16 / 2).dp.toPx(),
-                    y = (16 / 2).dp.toPx()
-                )
-            ),
-            size = Size(width = 16.dp.toPx(), height = 16.dp.toPx()),
-            style = Stroke(width = 2.dp.toPx())
-        )
+            drawArc(
+                color = eventNode.windowColor,
+                startAngle = 90f,
+                sweepAngle = -180f,
+                useCenter = false,
+                topLeft = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()).minus(
+                    Offset(
+                        x = (16 / 2).dp.toPx(),
+                        y = (16 / 2).dp.toPx()
+                    )
+                ),
+                size = Size(width = 16.dp.toPx(), height = 16.dp.toPx()),
+                style = Stroke(width = 2.dp.toPx())
+            )
 
-        drawCircle(
-            color = Color.Blue,
-            center = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()),
-            radius = 3.dp.toPx()
-        )
+            drawCircle(
+                color = Color.Blue,
+                center = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()),
+                radius = 3.dp.toPx()
+            )
+        }
+
+        if (eventNode.nodeType == NodeType.OUTPUT) {
+            drawCircle(
+                color = Color.White,
+                center = Offset(x = (0 + 1).dp.toPx(), y = (height / 2f).dp.toPx()),
+                radius = 8.dp.toPx()
+            )
+
+            drawArc(
+                color = eventNode.windowColor,
+                startAngle = 90f,
+                sweepAngle = 180f,
+                useCenter = false,
+                topLeft = Offset(x = (0 + 1).dp.toPx(), y = (height / 2f).dp.toPx()).minus(
+                    Offset(
+                        x = (16 / 2).dp.toPx(),
+                        y = (16 / 2).dp.toPx()
+                    )
+                ),
+                size = Size(width = 16.dp.toPx(), height = 16.dp.toPx()),
+                style = Stroke(width = 2.dp.toPx())
+            )
+
+            drawCircle(
+                color = Color.Blue,
+                center = Offset(x = (0 + 1).dp.toPx(), y = (height / 2f).dp.toPx()),
+                radius = 3.dp.toPx()
+            )
+        }
 
     }
 

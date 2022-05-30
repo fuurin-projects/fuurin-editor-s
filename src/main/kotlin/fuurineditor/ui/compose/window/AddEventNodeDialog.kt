@@ -30,6 +30,7 @@ import androidx.compose.ui.window.rememberDialogState
 import fuurineditor.service.data.event.EventNode
 import fuurineditor.service.data.event.InputControllerKeyType
 import fuurineditor.service.data.event.InputControllerNode
+import fuurineditor.service.data.event.OutputEventStateNode
 import fuurineditor.ui.compose.parts.ExposedDropdownMenu
 import fuurineditor.ui.data.NodeType
 import fuurineditor.ui.theme.Background
@@ -89,14 +90,26 @@ fun AddEventNodeDialog(
                         .background(BrightBackground)
                 ) {
 
-                    if (selectNode == NodeType.InputController) {
-                        InputControllerNodePanel(
-                            inputControllerNode = if (eventNode is InputControllerNode) eventNode as InputControllerNode else InputControllerNode(),
-                            onChangeEventNode = {
-                                eventNode = it
-                            }
-                        )
+                    when (selectNode) {
+                        NodeType.InputController -> {
+                            InputControllerNodePanel(
+                                inputControllerNode = if (eventNode is InputControllerNode) eventNode as InputControllerNode else InputControllerNode(),
+                                onChangeEventNode = {
+                                    eventNode = it
+                                }
+                            )
+                        }
+                        NodeType.OutputEventState -> {
+                            OutputEventStatePanel(
+                                outputEventStateNode = if (eventNode is OutputEventStateNode) eventNode as OutputEventStateNode else OutputEventStateNode(),
+                                onChangeEventNode = {
+                                    eventNode = it
+                                }
+                            )
+                        }
+
                     }
+
 
                 }
 
@@ -192,3 +205,24 @@ fun InputControllerNodePanel(
     }
 
 }
+
+@Composable
+fun OutputEventStatePanel(
+    outputEventStateNode: OutputEventStateNode,
+    onChangeEventNode: (eventNode: OutputEventStateNode) -> Unit = {}
+) {
+
+    Text(text = "key")
+    ExposedDropdownMenu(
+        arrayListOf("moveX", "moveY"),
+        onValueChange = {
+            onChangeEventNode(
+                OutputEventStateNode(
+                    eventState = it
+                )
+            )
+        }
+    )
+
+}
+
