@@ -22,6 +22,10 @@ interface EventNode {
 
     val screenValue: String?
 
+    val leftConnector: Array<MutableList<EventNode>>
+
+    val rightConnector: Array<MutableList<EventNode>>
+
 }
 
 enum class NodeType {

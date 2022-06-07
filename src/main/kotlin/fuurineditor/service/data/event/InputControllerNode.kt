@@ -13,7 +13,9 @@ data class InputControllerNode(
     override var offsetX: Float = 0f,
     override var offsetY: Float = 0f,
     override val screenValue: String = type.type,
-    override val nodeType: NodeType = NodeType.INPUT
+    override val nodeType: NodeType = NodeType.INPUT,
+    override val leftConnector: Array<MutableList<EventNode>> = arrayOf(),
+    override val rightConnector: Array<MutableList<EventNode>> = arrayOf(mutableListOf()),
 ) : EventNode {
 
     override fun copyWithOffset(offset: Offset): EventNode {
@@ -22,6 +24,41 @@ data class InputControllerNode(
             offsetY = offset.y
         )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as InputControllerNode
+
+        if (id != other.id) return false
+        if (nodeTypeName != other.nodeTypeName) return false
+        if (windowColor != other.windowColor) return false
+        if (type != other.type) return false
+        if (offsetX != other.offsetX) return false
+        if (offsetY != other.offsetY) return false
+        if (screenValue != other.screenValue) return false
+        if (nodeType != other.nodeType) return false
+        //if (!leftConnector.contentEquals(other.leftConnector)) return false
+        //if (!rightConnector.contentEquals(other.rightConnector)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + nodeTypeName.hashCode()
+        result = 31 * result + windowColor.hashCode()
+        result = 31 * result + type.hashCode()
+        result = 31 * result + offsetX.hashCode()
+        result = 31 * result + offsetY.hashCode()
+        result = 31 * result + screenValue.hashCode()
+        result = 31 * result + nodeType.hashCode()
+        result = 31 * result + leftConnector.contentHashCode()
+        result = 31 * result + rightConnector.contentHashCode()
+        return result
+    }
+
 
 }
 

@@ -18,6 +18,7 @@ class GlobalSceneRepository {
     private val json = Json {
         encodeDefaults = true;
         prettyPrint = true
+        ignoreUnknownKeys = true
     }
 
     suspend fun loadGlobalScene(projectPath: ProjectPath, sceneFile: SceneFile): GlobalScene {

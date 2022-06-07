@@ -2,6 +2,7 @@ package fuurineditor.repository.data
 
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event
+import fuurineditor.service.data.event.EventNode
 import fuurineditor.service.data.event.InputControllerKeyType
 import fuurineditor.service.data.event.InputControllerNode
 import fuurineditor.service.data.event.OutputEventStateNode
@@ -133,17 +134,21 @@ data class GlobalSceneJson(
 fun GlobalSceneJson.toGlobalScene(sceneFile: SceneFile): GlobalScene {
 
     val eventList: List<Event> = this@toGlobalScene.eventList.map {
-        Event(
-            name = it.name,
-            nodeList = it.nodeList.map { nodeJson ->
 
-                when (nodeJson) {
+        val nodeList = mutableMapOf<UUID, Pair<EventNodeJson, EventNode>>()
+
+        val event = Event(
+            name = it.name,
+            nodeList = it.nodeList.map nodeListMap@{ nodeJson ->
+
+                val eventNode = when (nodeJson) {
                     is InputControllerNodeJson -> InputControllerNode(
                         id = UUID.fromString(nodeJson.id),
                         type = InputControllerKeyType.fromString(nodeJson.type),
                         offsetX = nodeJson.offsetX,
-                        offsetY = nodeJson.offsetY
-                    )
+                        offsetY = nodeJson.offsetY,
+
+                        )
                     is OutputEventStateNodeJson -> OutputEventStateNode(
                         id = UUID.fromString(nodeJson.id),
                         eventState = nodeJson.eventState,
@@ -152,10 +157,36 @@ fun GlobalSceneJson.toGlobalScene(sceneFile: SceneFile): GlobalScene {
                     )
                     else -> throw IllegalArgumentException("Not found NodeJson Type.")
                 }
+                nodeList[eventNode.id] = Pair(nodeJson, eventNode)
+
+                return@nodeListMap eventNode
 
 
             }
         )
+
+        //コネクター関係のリレーションを貼る
+        nodeList.forEach { id, eventNodePair ->
+
+            //左
+            for (i in 0 until eventNodePair.second.leftConnector.size) {
+                
+                eventNodePair.second.leftConnector[i] += eventNodePair.first.leftConnector[i].map { idString ->
+                    nodeList[UUID.fromString(idString)]!!.second
+                }
+            }
+
+            //右
+            for (i in 0 until eventNodePair.second.rightConnector.size) {
+                eventNodePair.second.rightConnector[i] += eventNodePair.first.rightConnector[i].map { idString ->
+                    nodeList[UUID.fromString(idString)]!!.second
+                }
+            }
+
+        }
+
+        return@map event
+
     }
 
     return GlobalScene(
@@ -177,13 +208,33 @@ fun GlobalScene.toGlobalSceneJson(): GlobalSceneJson {
                         id = node.id.toString(),
                         type = node.type.type,
                         offsetX = node.offsetX,
-                        offsetY = node.offsetY
+                        offsetY = node.offsetY,
+                        leftConnector = node.leftConnector.map { eventList ->
+                            eventList.map { eventNode ->
+                                eventNode.id.toString()
+                            }.toTypedArray()
+                        }.toTypedArray(),
+                        rightConnector = node.rightConnector.map { eventList ->
+                            eventList.map { eventNode ->
+                                eventNode.id.toString()
+                            }.toTypedArray()
+                        }.toTypedArray()
                     )
                     is OutputEventStateNode -> OutputEventStateNodeJson(
                         id = node.id.toString(),
                         eventState = node.eventState,
                         offsetX = node.offsetX,
-                        offsetY = node.offsetY
+                        offsetY = node.offsetY,
+                        leftConnector = node.leftConnector.map { eventList ->
+                            eventList.map { eventNode ->
+                                eventNode.id.toString()
+                            }.toTypedArray()
+                        }.toTypedArray(),
+                        rightConnector = node.rightConnector.map { eventList ->
+                            eventList.map { eventNode ->
+                                eventNode.id.toString()
+                            }.toTypedArray()
+                        }.toTypedArray()
                     )
                     else -> throw IllegalArgumentException("Not found Node Type.")
                 }

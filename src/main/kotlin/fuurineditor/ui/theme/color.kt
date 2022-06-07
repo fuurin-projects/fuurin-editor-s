@@ -29,3 +29,5 @@ val SelectColor = Color(0xff2F8DFB)
 val InputNodeColor = Color(0xffF12800)
 val OutputNodeColor = Color(0xff006BE5)
 
+val ConnectLineColor = Color(0xff59a869)
+

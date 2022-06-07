@@ -27,8 +27,8 @@ import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.event.EventNode
-import fuurineditor.service.data.event.NodeType
 import fuurineditor.ui.theme.BrightBackground
+import fuurineditor.ui.theme.ConnectLineColor
 import org.jetbrains.skia.Font
 import org.jetbrains.skia.Paint
 
@@ -87,6 +87,15 @@ fun EventNodeCanvas(
             drawEventNode(
                 eventNode = eventNode,
                 moveOffset = if (dragEventNode == eventNode) Offset(offsetX, offsetY) else Offset.Zero
+            )
+        }
+
+        for (eventNode in nodeList) {
+            drawConnect(
+                eventNode = eventNode,
+                moveOffset = if (dragEventNode == eventNode) Offset(offsetX, offsetY) else Offset.Zero,
+                dragEventNode = dragEventNode,
+                dragOffset = Offset(offsetX, offsetY)
             )
         }
 
@@ -178,7 +187,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
         }
 
         //右コネクトポイント
-        if (eventNode.nodeType == NodeType.INPUT) {
+        if (eventNode.rightConnector.isNotEmpty()) {
             drawCircle(
                 color = Color.White,
                 center = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()),
@@ -207,7 +216,8 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
             )
         }
 
-        if (eventNode.nodeType == NodeType.OUTPUT) {
+        //左コネクタ
+        if (eventNode.leftConnector.isNotEmpty()) {
             drawCircle(
                 color = Color.White,
                 center = Offset(x = (0 + 1).dp.toPx(), y = (height / 2f).dp.toPx()),
@@ -238,5 +248,56 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
 
     }
 
+
+}
+
+fun DrawScope.drawConnect(eventNode: EventNode, moveOffset: Offset, dragEventNode: EventNode?, dragOffset: Offset) {
+
+    val width = 120
+    val height = 100
+
+    translate(left = moveOffset.x, top = moveOffset.y) {
+
+        for (lineList in eventNode.rightConnector) {
+
+            for (targetEventNode in lineList) {
+
+                if (dragEventNode == null || targetEventNode.id != dragEventNode.id) {
+                    //通常
+                    drawLine(
+                        color = ConnectLineColor,
+                        strokeWidth = 4.dp.toPx(),
+                        start = Offset(
+                            x = eventNode.offsetX + width.dp.toPx(),
+                            y = eventNode.offsetY + (height / 2).dp.toPx()
+                        ),
+                        end = Offset(
+                            x = targetEventNode.offsetX - moveOffset.x,
+                            y = targetEventNode.offsetY - moveOffset.y + (height / 2).dp.toPx()
+                        ),
+                    )
+                } else {
+                    //Connect先はdragされていた場合
+                    drawLine(
+                        color = ConnectLineColor,
+                        strokeWidth = 4.dp.toPx(),
+                        start = Offset(
+                            x = eventNode.offsetX + width.dp.toPx(),
+                            y = eventNode.offsetY + (height / 2).dp.toPx()
+                        ),
+                        end = Offset(
+                            x = targetEventNode.offsetX - moveOffset.x + dragOffset.x,
+                            y = targetEventNode.offsetY - moveOffset.y + (height / 2).dp.toPx() + dragOffset.y
+                        ),
+                    )
+                }
+
+
+            }
+
+        }
+
+
+    }
 
 }

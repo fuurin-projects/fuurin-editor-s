@@ -57,7 +57,11 @@ class GlobalSceneEditorViewModel(
     }
 
     fun onSelectEvent(event: Event) {
-        _selectEvent.value = event
+
+        _selectEvent.value = _globalScene.value!!.eventList.find {
+            it.name == event.name
+        }
+
     }
 
     fun addEventNode(eventNode: EventNode) {
@@ -98,15 +102,18 @@ class GlobalSceneEditorViewModel(
             nodeList = ((nowEvent.nodeList - nowEventNode) + newEventNode).sortedBy { it.id }
         )
 
-        _globalScene.value = globalScene.value!!.copy(
+        val newGlobalScene = globalScene.value!!.copy(
             eventList = ((globalScene.value!!.eventList - nowEvent) + newEvent)
         )
-        _selectEvent.value = newEvent
 
         viewModelScope.launch {
-            globalSceneService.saveGlobalScene(projectPath = projectPath, globalScene = _globalScene.value!!)
+            globalSceneService.saveGlobalScene(projectPath = projectPath, globalScene = newGlobalScene)
+
+            _globalScene.value = globalSceneService.loadGlobalScene(projectPath = projectPath, sceneFile = sceneFile)
+            onSelectEvent(newEvent)
+
         }
-        
+
     }
 
 }
