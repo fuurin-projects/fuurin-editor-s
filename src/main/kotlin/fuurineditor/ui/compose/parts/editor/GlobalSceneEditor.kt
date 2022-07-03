@@ -117,6 +117,13 @@ fun GlobalSceneEditor(sceneFile: SceneFile) {
                         eventNode = eventNode,
                         offset = offset
                     )
+                },
+                onEventNodeConnect = { event, from, to ->
+                    viewModel.connectEventNode(
+                        event = event,
+                        from = from,
+                        to = to
+                    )
                 }
             )
         } else {
@@ -135,7 +142,8 @@ fun EventBoard(
     onSelectEvent: (event: Event) -> Unit = {},
     onAddEvent: (event: Event) -> Unit = {},
     onAddEventNode: (eventNode: EventNode) -> Unit = {},
-    onEventNodeonDragEnd: (event: Event, eventNode: EventNode, offset: Offset) -> Unit
+    onEventNodeonDragEnd: (event: Event, eventNode: EventNode, offset: Offset) -> Unit,
+    onEventNodeConnect: (event: Event, from: EventNode, to: EventNode) -> Unit,
 ) {
 
     SideEffect {
@@ -273,6 +281,9 @@ fun EventBoard(
                             nodeList = selectEvent.nodeList,
                             onDragEnd = { offset: Offset, eventNode: EventNode ->
                                 onEventNodeonDragEnd(selectEvent, eventNode, offset)
+                            },
+                            onEventNodeConnect = { from, to ->
+                                onEventNodeConnect(selectEvent, from, to)
                             }
                         )
 //                        Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {

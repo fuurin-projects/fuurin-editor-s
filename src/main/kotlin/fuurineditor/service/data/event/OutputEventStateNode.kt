@@ -16,8 +16,8 @@ data class OutputEventStateNode(
     val eventState: String = "moveX",
     override val screenValue: String = eventState,
     override val nodeType: NodeType = NodeType.OUTPUT,
-    override val leftConnector: Array<MutableList<EventNode>> = arrayOf(mutableListOf()),
-    override val rightConnector: Array<MutableList<EventNode>> = arrayOf(),
+    override val leftConnector: Array<List<EventNode>> = arrayOf(mutableListOf()),
+    override val rightConnector: Array<List<EventNode>> = arrayOf(),
 ) : EventNode {
 
     override fun copyWithOffset(offset: Offset): EventNode {
@@ -38,8 +38,8 @@ data class OutputEventStateNode(
         if (eventState != other.eventState) return false
         if (screenValue != other.screenValue) return false
         if (nodeType != other.nodeType) return false
-        //if (!leftConnector.contentEquals(other.leftConnector)) return false
-        //if (!rightConnector.contentEquals(other.rightConnector)) return false
+        if (!leftConnector.contentEquals(other.leftConnector)) return false
+        if (!rightConnector.contentEquals(other.rightConnector)) return false
 
         return true
     }

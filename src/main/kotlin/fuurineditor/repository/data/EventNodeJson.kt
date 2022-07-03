@@ -28,10 +28,10 @@ sealed class EventNodeJson() {
     abstract var height: Float
 
     @SerialName("left_connector")
-    abstract val leftConnector: Array<Array<String>>
+    abstract val leftConnector: Array<MutableList<String>>
 
     @SerialName("right_connector")
-    abstract val rightConnector: Array<Array<String>>
+    abstract val rightConnector: Array<MutableList<String>>
 }
 
 @Serializable
@@ -57,10 +57,10 @@ data class InputControllerNodeJson(
     val type: String,
 
     @SerialName("left_connector")
-    override val leftConnector: Array<Array<String>> = arrayOf(),
+    override val leftConnector: Array<MutableList<String>> = arrayOf(),
 
     @SerialName("right_connector")
-    override val rightConnector: Array<Array<String>> = arrayOf()
+    override val rightConnector: Array<MutableList<String>> = arrayOf()
 
 ) : EventNodeJson()
 
@@ -87,9 +87,9 @@ data class OutputEventStateNodeJson(
     val eventState: String,
 
     @SerialName("left_connector")
-    override val leftConnector: Array<Array<String>> = arrayOf(),
+    override val leftConnector: Array<MutableList<String>> = arrayOf(),
 
     @SerialName("right_connector")
-    override val rightConnector: Array<Array<String>> = arrayOf()
+    override val rightConnector: Array<MutableList<String>> = arrayOf()
 
 ) : EventNodeJson()

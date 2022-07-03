@@ -10,14 +10,14 @@ data class InputControllerNode(
     override val nodeTypeName: String = "Controller",
     override val windowColor: Color = InputNodeColor,
     val type: InputControllerKeyType = InputControllerKeyType.UP,
-    override var offsetX: Float = 0f,
-    override var offsetY: Float = 0f,
+    override val offsetX: Float = 0f,
+    override val offsetY: Float = 0f,
     override val width: Float = 120f,
     override val height: Float = 100f,
     override val screenValue: String = type.type,
     override val nodeType: NodeType = NodeType.INPUT,
-    override val leftConnector: Array<MutableList<EventNode>> = arrayOf(),
-    override val rightConnector: Array<MutableList<EventNode>> = arrayOf(mutableListOf()),
+    override val leftConnector: Array<List<EventNode>> = arrayOf(),
+    override val rightConnector: Array<List<EventNode>> = arrayOf(mutableListOf()),
 ) : EventNode {
 
     override fun copyWithOffset(offset: Offset): EventNode {
@@ -41,8 +41,8 @@ data class InputControllerNode(
         if (offsetY != other.offsetY) return false
         if (screenValue != other.screenValue) return false
         if (nodeType != other.nodeType) return false
-        //if (!leftConnector.contentEquals(other.leftConnector)) return false
-        //if (!rightConnector.contentEquals(other.rightConnector)) return false
+        if (!leftConnector.contentEquals(other.leftConnector)) return false
+        if (!rightConnector.contentEquals(other.rightConnector)) return false
 
         return true
     }

@@ -26,9 +26,9 @@ interface EventNode {
 
     val screenValue: String?
 
-    val leftConnector: Array<MutableList<EventNode>>
+    val leftConnector: Array<List<EventNode>>
 
-    val rightConnector: Array<MutableList<EventNode>>
+    val rightConnector: Array<List<EventNode>>
 
 }
 
@@ -36,6 +36,10 @@ enum class NodeType {
 
     INPUT, OUTPUT
 
+}
+
+fun EventNode.offset(): Offset {
+    return Offset(x = offsetX, y = offsetY)
 }
 
 fun EventNode.isCollision(x: Float, y: Float): Boolean {

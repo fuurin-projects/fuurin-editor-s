@@ -217,12 +217,12 @@ fun GlobalScene.toGlobalSceneJson(): GlobalSceneJson {
                         leftConnector = node.leftConnector.map { eventList ->
                             eventList.map { eventNode ->
                                 eventNode.id.toString()
-                            }.toTypedArray()
+                            }.toMutableList()
                         }.toTypedArray(),
                         rightConnector = node.rightConnector.map { eventList ->
                             eventList.map { eventNode ->
                                 eventNode.id.toString()
-                            }.toTypedArray()
+                            }.toMutableList()
                         }.toTypedArray()
                     )
                     is OutputEventStateNode -> OutputEventStateNodeJson(
@@ -235,12 +235,12 @@ fun GlobalScene.toGlobalSceneJson(): GlobalSceneJson {
                         leftConnector = node.leftConnector.map { eventList ->
                             eventList.map { eventNode ->
                                 eventNode.id.toString()
-                            }.toTypedArray()
+                            }.toMutableList()
                         }.toTypedArray(),
                         rightConnector = node.rightConnector.map { eventList ->
                             eventList.map { eventNode ->
                                 eventNode.id.toString()
-                            }.toTypedArray()
+                            }.toMutableList()
                         }.toTypedArray()
                     )
                     else -> throw IllegalArgumentException("Not found Node Type.")

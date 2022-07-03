@@ -7,6 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
@@ -25,19 +26,24 @@ import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.input.pointer.pointerMoveFilter
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.event.EventNode
 import fuurineditor.service.data.event.isCollision
+import fuurineditor.service.data.event.offset
 import fuurineditor.ui.theme.BrightBackground
 import fuurineditor.ui.theme.ConnectLineColor
 import org.jetbrains.skia.Font
 import org.jetbrains.skia.Paint
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun EventNodeCanvas(
     modifier: Modifier = Modifier,
     nodeList: List<EventNode>,
-    onDragEnd: (offset: Offset, eventNode: EventNode) -> Unit
+    onDragEnd: (offset: Offset, eventNode: EventNode) -> Unit,
+    onEventNodeConnect: (from: EventNode, to: EventNode) -> Unit
 ) {
 
     var dragEventNode: EventNode? by remember { mutableStateOf(null) }
@@ -45,46 +51,79 @@ fun EventNodeCanvas(
     var offsetX by remember { mutableStateOf(0f) }
     var offsetY by remember { mutableStateOf(0f) }
 
-    Canvas(modifier = modifier.pointerInput(nodeList) {
-        //onDrag()
-        detectDragGestures(
-            onDragStart = { offset ->
+    var dragStartConnectEventNode: EventNode? by remember { mutableStateOf(null) }
+    var mouseX by remember { mutableStateOf(0f) }
+    var mouseY by remember { mutableStateOf(0f) }
 
-                for (eventNode in nodeList) {
-                    if (eventNode.isCollision(offset.x, offset.y)) {
-                        dragEventNode = eventNode
+    Canvas(modifier = modifier
+        .pointerInput(nodeList) {
+            //onDrag()
+            detectDragGestures(
+                onDragStart = { offset ->
+
+                    for (eventNode in nodeList) {
+                        if (eventNode.isLeftConnectorCollision(density = this, x = offset.x, y = offset.y)) {
+                            dragStartConnectEventNode = eventNode
+                        } else if (eventNode.isRightConnectorCollision(
+                                density = this,
+                                x = offset.x,
+                                y = offset.y
+                            )
+                        ) {
+                            dragStartConnectEventNode = eventNode
+                        } else if (eventNode.isCollision(offset.x, offset.y)) {
+                            dragEventNode = eventNode
+                        }
                     }
-                }
-            },
-            onDragEnd = {
-                if (dragEventNode != null) {
-                    onDragEnd(
-                        Offset(
-                            dragEventNode!!.offsetX + offsetX,
-                            dragEventNode!!.offsetY + offsetY
-                        ), dragEventNode!!
-                    )
-                }
+                },
+                onDragEnd = {
+                    if (dragEventNode != null) {
+                        onDragEnd(
+                            Offset(
+                                dragEventNode!!.offsetX + offsetX,
+                                dragEventNode!!.offsetY + offsetY
+                            ), dragEventNode!!
+                        )
+                    }
 
-                dragEventNode = null
-                offsetX = 0f
-                offsetY = 0f
-            },
-            onDrag = { change, dragAmount ->
-                change.consumeAllChanges()
-                if (dragEventNode != null) {
-                    offsetX += dragAmount.x
-                    offsetY += dragAmount.y
-                }
+                    if (dragStartConnectEventNode != null) {
+                        for (eventNode in nodeList) {
+                            if (eventNode.isLeftConnectorCollision(this, mouseX, mouseY)) {
+                                println("Connect！")
+                                onEventNodeConnect(dragStartConnectEventNode!!, eventNode)
+                            }
+                        }
+                    }
 
-            }
-        )
-    }) {
+                    dragEventNode = null
+                    offsetX = 0f
+                    offsetY = 0f
+
+                    dragStartConnectEventNode = null
+                },
+                onDrag = { change, dragAmount ->
+                    change.consumeAllChanges()
+                    if (dragEventNode != null) {
+                        offsetX += dragAmount.x
+                        offsetY += dragAmount.y
+                    }
+
+                }
+            )
+        }.pointerMoveFilter(onMove = {
+            //if (dragStartConnectEventNode != null) {
+            mouseX = it.x
+            mouseY = it.y
+            //}
+            false
+        })
+    ) {
 
         for (eventNode in nodeList) {
             drawEventNode(
                 eventNode = eventNode,
-                moveOffset = if (dragEventNode == eventNode) Offset(offsetX, offsetY) else Offset.Zero
+                moveOffset = if (dragEventNode == eventNode) Offset(offsetX, offsetY) else Offset.Zero,
+                mouseOffset = Offset(mouseX, mouseY)
             )
         }
 
@@ -97,11 +136,15 @@ fun EventNodeCanvas(
             )
         }
 
+        if (dragStartConnectEventNode != null) {
+            drawTemConnectLine(eventNode = dragStartConnectEventNode!!, Offset(mouseX, mouseY))
+        }
+
     }
 
 }
 
-fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
+fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset, mouseOffset: Offset) {
 
     translate(left = eventNode.offsetX + moveOffset.x, top = eventNode.offsetY + moveOffset.y) {
 
@@ -184,7 +227,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
         if (eventNode.rightConnector.isNotEmpty()) {
             drawCircle(
                 color = Color.White,
-                center = Offset(x = eventNode.width - 1.dp.toPx(), y = eventNode.height / 2f),
+                center = eventNode.getRightConnectorOffset(this).plus(Offset(x = 4.dp.toPx(), y = 4.dp.toPx())),
                 radius = 8.dp.toPx()
             )
 
@@ -193,7 +236,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
                 startAngle = 90f,
                 sweepAngle = -180f,
                 useCenter = false,
-                topLeft = Offset(x = eventNode.width - 1.dp.toPx(), y = eventNode.height / 2f).minus(
+                topLeft = eventNode.getRightConnectorOffset(this).plus(Offset(x = 4.dp.toPx(), y = 4.dp.toPx())).minus(
                     Offset(
                         x = (16 / 2).dp.toPx(),
                         y = (16 / 2).dp.toPx()
@@ -205,8 +248,13 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
 
             drawCircle(
                 color = Color.Blue,
-                center = Offset(x = eventNode.width - 1.dp.toPx(), y = eventNode.height / 2f),
-                radius = 3.dp.toPx()
+                center = eventNode.getRightConnectorOffset(this).plus(Offset(x = 4.dp.toPx(), y = 4.dp.toPx())),
+                radius = if (eventNode.isRightConnectorCollision(
+                        this,
+                        mouseOffset.x,
+                        mouseOffset.y
+                    )
+                ) 4.dp.toPx() else 3.dp.toPx()
             )
         }
 
@@ -214,7 +262,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
         if (eventNode.leftConnector.isNotEmpty()) {
             drawCircle(
                 color = Color.White,
-                center = Offset(x = (0 + 1).dp.toPx(), y = eventNode.height / 2f),
+                center = eventNode.getLeftConnectorOffset(this).plus(Offset(x = 4.dp.toPx(), y = 4.dp.toPx())),
                 radius = 8.dp.toPx()
             )
 
@@ -223,7 +271,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
                 startAngle = 90f,
                 sweepAngle = 180f,
                 useCenter = false,
-                topLeft = Offset(x = (0 + 1).dp.toPx(), y = eventNode.height / 2f).minus(
+                topLeft = eventNode.getLeftConnectorOffset(this).plus(Offset(x = 4.dp.toPx(), y = 4.dp.toPx())).minus(
                     Offset(
                         x = (16 / 2).dp.toPx(),
                         y = (16 / 2).dp.toPx()
@@ -235,8 +283,13 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
 
             drawCircle(
                 color = Color.Blue,
-                center = Offset(x = (0 + 1).dp.toPx(), y = eventNode.height / 2f),
-                radius = 3.dp.toPx()
+                center = eventNode.getLeftConnectorOffset(this).plus(Offset(x = 4.dp.toPx(), y = 4.dp.toPx())),
+                radius = if (eventNode.isLeftConnectorCollision(
+                        this,
+                        mouseOffset.x,
+                        mouseOffset.y
+                    )
+                ) 4.dp.toPx() else 3.dp.toPx()
             )
         }
 
@@ -246,7 +299,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
 }
 
 fun DrawScope.drawConnect(eventNode: EventNode, moveOffset: Offset, dragEventNode: EventNode?, dragOffset: Offset) {
-    
+
     translate(left = moveOffset.x, top = moveOffset.y) {
 
         for (lineList in eventNode.rightConnector) {
@@ -289,6 +342,77 @@ fun DrawScope.drawConnect(eventNode: EventNode, moveOffset: Offset, dragEventNod
         }
 
 
+    }
+
+}
+
+fun DrawScope.drawTemConnectLine(eventNode: EventNode, mouseOffset: Offset) {
+    drawLine(
+        color = ConnectLineColor,
+        strokeWidth = 4.dp.toPx(),
+        start = Offset(
+            x = eventNode.offsetX + eventNode.width,
+            y = eventNode.offsetY + eventNode.height / 2
+        ),
+        end = mouseOffset,
+    )
+}
+
+fun EventNode.getRightConnectorOffset(density: Density): Offset {
+
+    with(density) {
+
+        val x = this@getRightConnectorOffset.width - 5.dp.toPx()
+        val y = (this@getRightConnectorOffset.height / 2f) - 4.dp.toPx()
+
+        return Offset(x = x, y = y)
+
+    }
+
+}
+
+fun EventNode.isRightConnectorCollision(density: Density, x: Float, y: Float): Boolean {
+
+    with(density) {
+        val offset = this@isRightConnectorCollision.getRightConnectorOffset(density = density)
+            .plus(Offset(4.dp.toPx(), 4.dp.toPx()))
+            .plus(this@isRightConnectorCollision.offset())
+
+
+        return offset.x - 8.dp.toPx() < x
+                && x < offset.x + 8.dp.toPx()
+                && offset.y - 8.dp.toPx() < y
+                && y < offset.y + 8.dp.toPx()
+    }
+
+}
+
+
+fun EventNode.getLeftConnectorOffset(density: Density): Offset {
+
+    with(density) {
+
+        val x = 0 - 3.dp.toPx()
+        val y = (this@getLeftConnectorOffset.height / 2f) - 4.dp.toPx()
+
+        return Offset(x = x, y = y)
+
+    }
+
+}
+
+fun EventNode.isLeftConnectorCollision(density: Density, x: Float, y: Float): Boolean {
+
+    with(density) {
+        val offset = this@isLeftConnectorCollision
+            .getLeftConnectorOffset(density = density)
+            .plus(Offset(4.dp.toPx(), 4.dp.toPx()))
+            .plus(this@isLeftConnectorCollision.offset())
+
+        return offset.x - 8.dp.toPx() < x
+                && x < offset.x + 8.dp.toPx()
+                && offset.y - 8.dp.toPx() < y
+                && y < offset.y + 8.dp.toPx()
     }
 
 }

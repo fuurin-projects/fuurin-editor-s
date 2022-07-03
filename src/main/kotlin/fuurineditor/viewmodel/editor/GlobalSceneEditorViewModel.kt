@@ -11,6 +11,7 @@ import fuurineditor.viewmodel.core.SpringViewModel
 import fuurineditor.viewmodel.core.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @SpringViewModel
@@ -90,7 +91,7 @@ class GlobalSceneEditorViewModel(
 
     fun dragEventNode(event: Event, eventNode: EventNode, offset: Offset) {
 
-        val nowEvent: Event = globalScene.value!!.eventList.find { it.name == event.name }!!
+        val nowEvent: Event = _globalScene.value!!.eventList.find { it.name == event.name }!!
 
         val nowEventNode: EventNode = nowEvent.nodeList.find {
             it.id == eventNode.id
@@ -102,8 +103,8 @@ class GlobalSceneEditorViewModel(
             nodeList = ((nowEvent.nodeList - nowEventNode) + newEventNode).sortedBy { it.id }
         )
 
-        val newGlobalScene = globalScene.value!!.copy(
-            eventList = ((globalScene.value!!.eventList - nowEvent) + newEvent)
+        val newGlobalScene = _globalScene.value!!.copy(
+            eventList = ((_globalScene.value!!.eventList - nowEvent) + newEvent)
         )
 
         viewModelScope.launch {
@@ -111,6 +112,28 @@ class GlobalSceneEditorViewModel(
 
             _globalScene.value = globalSceneService.loadGlobalScene(projectPath = projectPath, sceneFile = sceneFile)
             onSelectEvent(newEvent)
+
+        }
+
+    }
+
+    fun connectEventNode(event: Event, from: EventNode, to: EventNode) {
+
+
+        viewModelScope.launch {
+
+            globalSceneService.connectEventNode(
+                projectPath = projectPath,
+                sceneFile = sceneFile,
+                event = event,
+                from = from,
+                to = to
+            )
+
+            _globalScene.update {
+                globalSceneService.loadGlobalScene(projectPath = projectPath, sceneFile = sceneFile)
+            }
+            onSelectEvent(event)
 
         }
 
