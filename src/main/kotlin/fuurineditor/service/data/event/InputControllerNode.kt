@@ -12,6 +12,8 @@ data class InputControllerNode(
     val type: InputControllerKeyType = InputControllerKeyType.UP,
     override var offsetX: Float = 0f,
     override var offsetY: Float = 0f,
+    override val width: Float = 120f,
+    override val height: Float = 100f,
     override val screenValue: String = type.type,
     override val nodeType: NodeType = NodeType.INPUT,
     override val leftConnector: Array<MutableList<EventNode>> = arrayOf(),

@@ -18,6 +18,10 @@ interface EventNode {
 
     val offsetY: Float
 
+    val width: Float
+
+    val height: Float
+
     fun copyWithOffset(offset: Offset): EventNode
 
     val screenValue: String?
@@ -32,4 +36,11 @@ enum class NodeType {
 
     INPUT, OUTPUT
 
+}
+
+fun EventNode.isCollision(x: Float, y: Float): Boolean {
+    return this@isCollision.offsetX < x
+            && x < this@isCollision.offsetX + this@isCollision.width
+            && this@isCollision.offsetY < y
+            && y < this@isCollision.offsetY + this@isCollision.height
 }

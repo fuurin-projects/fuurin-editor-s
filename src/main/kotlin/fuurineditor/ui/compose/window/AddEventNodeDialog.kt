@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -93,7 +94,6 @@ fun AddEventNodeDialog(
                     when (selectNode) {
                         NodeType.InputController -> {
                             InputControllerNodePanel(
-                                inputControllerNode = if (eventNode is InputControllerNode) eventNode as InputControllerNode else InputControllerNode(),
                                 onChangeEventNode = {
                                     eventNode = it
                                 }
@@ -101,7 +101,6 @@ fun AddEventNodeDialog(
                         }
                         NodeType.OutputEventState -> {
                             OutputEventStatePanel(
-                                outputEventStateNode = if (eventNode is OutputEventStateNode) eventNode as OutputEventStateNode else OutputEventStateNode(),
                                 onChangeEventNode = {
                                     eventNode = it
                                 }
@@ -167,9 +166,11 @@ fun NodeItem(
     }
 }
 
+const val defaultWidth: Int = 120;
+const val defaultHeight: Int = 100;
+
 @Composable
 fun InputControllerNodePanel(
-    inputControllerNode: InputControllerNode,
     onChangeEventNode: (eventNode: InputControllerNode) -> Unit = {}
 ) {
 
@@ -191,16 +192,21 @@ fun InputControllerNodePanel(
 //            singleLine = true
 //        )
 
-        ExposedDropdownMenu(
-            InputControllerKeyType.values().toList(),
-            onValueChange = {
-                onChangeEventNode(
-                    InputControllerNode(
-                        type = it
+        with(LocalDensity.current) {
+            ExposedDropdownMenu(
+                InputControllerKeyType.values().toList(),
+                onValueChange = {
+                    onChangeEventNode(
+                        InputControllerNode(
+                            type = it,
+                            width = 120.dp.toPx(),
+                            height = 100.dp.toPx()
+                        )
                     )
-                )
-            }
-        )
+                }
+            )
+        }
+
 
     }
 
@@ -208,21 +214,24 @@ fun InputControllerNodePanel(
 
 @Composable
 fun OutputEventStatePanel(
-    outputEventStateNode: OutputEventStateNode,
     onChangeEventNode: (eventNode: OutputEventStateNode) -> Unit = {}
 ) {
 
     Text(text = "key")
-    ExposedDropdownMenu(
-        arrayListOf("moveX", "moveY"),
-        onValueChange = {
-            onChangeEventNode(
-                OutputEventStateNode(
-                    eventState = it
+    with(LocalDensity.current) {
+        ExposedDropdownMenu(
+            arrayListOf("moveX", "moveY"),
+            onValueChange = {
+                onChangeEventNode(
+                    OutputEventStateNode(
+                        eventState = it,
+                        width = 120.dp.toPx(),
+                        height = 100.dp.toPx()
+                    )
                 )
-            )
-        }
-    )
+            }
+        )
+    }
 
 }
 

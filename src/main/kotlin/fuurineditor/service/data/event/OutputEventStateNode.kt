@@ -11,6 +11,8 @@ data class OutputEventStateNode(
     override val windowColor: Color = OutputNodeColor,
     override val offsetX: Float = 0f,
     override val offsetY: Float = 0f,
+    override val width: Float = 120f,
+    override val height: Float = 100f,
     val eventState: String = "moveX",
     override val screenValue: String = eventState,
     override val nodeType: NodeType = NodeType.OUTPUT,

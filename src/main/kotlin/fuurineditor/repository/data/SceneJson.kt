@@ -147,13 +147,16 @@ fun GlobalSceneJson.toGlobalScene(sceneFile: SceneFile): GlobalScene {
                         type = InputControllerKeyType.fromString(nodeJson.type),
                         offsetX = nodeJson.offsetX,
                         offsetY = nodeJson.offsetY,
-
-                        )
+                        width = nodeJson.width,
+                        height = nodeJson.height
+                    )
                     is OutputEventStateNodeJson -> OutputEventStateNode(
                         id = UUID.fromString(nodeJson.id),
                         eventState = nodeJson.eventState,
                         offsetX = nodeJson.offsetX,
-                        offsetY = nodeJson.offsetY
+                        offsetY = nodeJson.offsetY,
+                        width = nodeJson.width,
+                        height = nodeJson.height
                     )
                     else -> throw IllegalArgumentException("Not found NodeJson Type.")
                 }
@@ -170,7 +173,7 @@ fun GlobalSceneJson.toGlobalScene(sceneFile: SceneFile): GlobalScene {
 
             //左
             for (i in 0 until eventNodePair.second.leftConnector.size) {
-                
+
                 eventNodePair.second.leftConnector[i] += eventNodePair.first.leftConnector[i].map { idString ->
                     nodeList[UUID.fromString(idString)]!!.second
                 }
@@ -209,6 +212,8 @@ fun GlobalScene.toGlobalSceneJson(): GlobalSceneJson {
                         type = node.type.type,
                         offsetX = node.offsetX,
                         offsetY = node.offsetY,
+                        width = node.width,
+                        height = node.height,
                         leftConnector = node.leftConnector.map { eventList ->
                             eventList.map { eventNode ->
                                 eventNode.id.toString()
@@ -225,6 +230,8 @@ fun GlobalScene.toGlobalSceneJson(): GlobalSceneJson {
                         eventState = node.eventState,
                         offsetX = node.offsetX,
                         offsetY = node.offsetY,
+                        width = node.width,
+                        height = node.height,
                         leftConnector = node.leftConnector.map { eventList ->
                             eventList.map { eventNode ->
                                 eventNode.id.toString()

@@ -21,6 +21,12 @@ sealed class EventNodeJson() {
     @SerialName("offset_y")
     abstract var offsetY: Float
 
+    @SerialName("width")
+    abstract var width: Float
+
+    @SerialName("height")
+    abstract var height: Float
+
     @SerialName("left_connector")
     abstract val leftConnector: Array<Array<String>>
 
@@ -40,6 +46,12 @@ data class InputControllerNodeJson(
 
     @SerialName("offset_y")
     override var offsetY: Float,
+
+    @SerialName("width")
+    override var width: Float,
+
+    @SerialName("height")
+    override var height: Float,
 
     @SerialName("input_type")
     val type: String,
@@ -64,6 +76,12 @@ data class OutputEventStateNodeJson(
 
     @SerialName("offset_y")
     override var offsetY: Float,
+
+    @SerialName("width")
+    override var width: Float,
+
+    @SerialName("height")
+    override var height: Float,
 
     @SerialName("event_state")
     val eventState: String,

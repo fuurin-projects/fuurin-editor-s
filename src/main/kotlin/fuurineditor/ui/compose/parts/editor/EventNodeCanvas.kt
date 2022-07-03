@@ -27,6 +27,7 @@ import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.event.EventNode
+import fuurineditor.service.data.event.isCollision
 import fuurineditor.ui.theme.BrightBackground
 import fuurineditor.ui.theme.ConnectLineColor
 import org.jetbrains.skia.Font
@@ -50,11 +51,7 @@ fun EventNodeCanvas(
             onDragStart = { offset ->
 
                 for (eventNode in nodeList) {
-                    if (eventNode.offsetX < offset.x
-                        && offset.x < eventNode.offsetX + 120.dp.toPx()
-                        && eventNode.offsetY < offset.y
-                        && offset.y < eventNode.offsetY + 100.dp.toPx()
-                    ) {
+                    if (eventNode.isCollision(offset.x, offset.y)) {
                         dragEventNode = eventNode
                     }
                 }
@@ -72,15 +69,16 @@ fun EventNodeCanvas(
                 dragEventNode = null
                 offsetX = 0f
                 offsetY = 0f
-            }
-        ) { change, dragAmount ->
-            change.consumeAllChanges()
-            if (dragEventNode != null) {
-                offsetX += dragAmount.x
-                offsetY += dragAmount.y
-            }
+            },
+            onDrag = { change, dragAmount ->
+                change.consumeAllChanges()
+                if (dragEventNode != null) {
+                    offsetX += dragAmount.x
+                    offsetY += dragAmount.y
+                }
 
-        }
+            }
+        )
     }) {
 
         for (eventNode in nodeList) {
@@ -107,33 +105,29 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
 
     translate(left = eventNode.offsetX + moveOffset.x, top = eventNode.offsetY + moveOffset.y) {
 
-        val width = 120
-        val height = 100
-
         //コンテンツ
         drawRoundRect(
             brush = Brush.linearGradient(colors = arrayListOf(BrightBackground, BrightBackground)),
             cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
             style = Fill,
-            size = Size(width.dp.toPx(), height.dp.toPx())
+            size = Size(eventNode.width, eventNode.height)
         )
 
         drawRoundRect(
             brush = Brush.linearGradient(colors = arrayListOf(eventNode.windowColor, eventNode.windowColor)),
             cornerRadius = CornerRadius(4.dp.toPx(), 4.dp.toPx()),
             style = Stroke(width = 2.dp.toPx(), cap = StrokeCap.Round),
-            size = Size(width.dp.toPx(), height.dp.toPx())
+            size = Size(eventNode.width, eventNode.height)
         )
 
-        val headerWidth = width
         val headerHeight = 30
         val path = Path().apply {
             moveTo(0.dp.toPx(), headerHeight.dp.toPx())
-            lineTo(headerWidth.dp.toPx(), headerHeight.dp.toPx())
-            lineTo(headerWidth.dp.toPx(), 4.dp.toPx())
+            lineTo(eventNode.width, headerHeight.dp.toPx())
+            lineTo(eventNode.width, 4.dp.toPx())
             arcTo(
                 rect = Rect(
-                    Offset((headerWidth - 8).dp.toPx(), 0.dp.toPx()),
+                    Offset(eventNode.width - 8.dp.toPx(), 0.dp.toPx()),
                     Size(8.dp.toPx(), 8.dp.toPx())
                 ),
                 startAngleDegrees = 0f,
@@ -179,8 +173,8 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
         if (eventNode.screenValue != null) {
             drawContext.canvas.nativeCanvas.drawString(
                 eventNode.screenValue!!,
-                (width / 2f - (4 * eventNode.screenValue!!.length)).dp.toPx(),
-                (height / 2f + 14).dp.toPx(),
+                eventNode.width / 2f - (4 * eventNode.screenValue!!.length).dp.toPx(),
+                eventNode.height / 2f + 14.dp.toPx(),
                 font = Font(typeface = null, size = 14.dp.toPx()),
                 paint = paint2
             )
@@ -190,7 +184,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
         if (eventNode.rightConnector.isNotEmpty()) {
             drawCircle(
                 color = Color.White,
-                center = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()),
+                center = Offset(x = eventNode.width - 1.dp.toPx(), y = eventNode.height / 2f),
                 radius = 8.dp.toPx()
             )
 
@@ -199,7 +193,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
                 startAngle = 90f,
                 sweepAngle = -180f,
                 useCenter = false,
-                topLeft = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()).minus(
+                topLeft = Offset(x = eventNode.width - 1.dp.toPx(), y = eventNode.height / 2f).minus(
                     Offset(
                         x = (16 / 2).dp.toPx(),
                         y = (16 / 2).dp.toPx()
@@ -211,7 +205,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
 
             drawCircle(
                 color = Color.Blue,
-                center = Offset(x = (width - 1).dp.toPx(), y = (height / 2f).dp.toPx()),
+                center = Offset(x = eventNode.width - 1.dp.toPx(), y = eventNode.height / 2f),
                 radius = 3.dp.toPx()
             )
         }
@@ -220,7 +214,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
         if (eventNode.leftConnector.isNotEmpty()) {
             drawCircle(
                 color = Color.White,
-                center = Offset(x = (0 + 1).dp.toPx(), y = (height / 2f).dp.toPx()),
+                center = Offset(x = (0 + 1).dp.toPx(), y = eventNode.height / 2f),
                 radius = 8.dp.toPx()
             )
 
@@ -229,7 +223,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
                 startAngle = 90f,
                 sweepAngle = 180f,
                 useCenter = false,
-                topLeft = Offset(x = (0 + 1).dp.toPx(), y = (height / 2f).dp.toPx()).minus(
+                topLeft = Offset(x = (0 + 1).dp.toPx(), y = eventNode.height / 2f).minus(
                     Offset(
                         x = (16 / 2).dp.toPx(),
                         y = (16 / 2).dp.toPx()
@@ -241,7 +235,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
 
             drawCircle(
                 color = Color.Blue,
-                center = Offset(x = (0 + 1).dp.toPx(), y = (height / 2f).dp.toPx()),
+                center = Offset(x = (0 + 1).dp.toPx(), y = eventNode.height / 2f),
                 radius = 3.dp.toPx()
             )
         }
@@ -252,10 +246,7 @@ fun DrawScope.drawEventNode(eventNode: EventNode, moveOffset: Offset) {
 }
 
 fun DrawScope.drawConnect(eventNode: EventNode, moveOffset: Offset, dragEventNode: EventNode?, dragOffset: Offset) {
-
-    val width = 120
-    val height = 100
-
+    
     translate(left = moveOffset.x, top = moveOffset.y) {
 
         for (lineList in eventNode.rightConnector) {
@@ -268,12 +259,12 @@ fun DrawScope.drawConnect(eventNode: EventNode, moveOffset: Offset, dragEventNod
                         color = ConnectLineColor,
                         strokeWidth = 4.dp.toPx(),
                         start = Offset(
-                            x = eventNode.offsetX + width.dp.toPx(),
-                            y = eventNode.offsetY + (height / 2).dp.toPx()
+                            x = eventNode.offsetX + eventNode.width,
+                            y = eventNode.offsetY + eventNode.height / 2
                         ),
                         end = Offset(
                             x = targetEventNode.offsetX - moveOffset.x,
-                            y = targetEventNode.offsetY - moveOffset.y + (height / 2).dp.toPx()
+                            y = targetEventNode.offsetY - moveOffset.y + eventNode.height / 2
                         ),
                     )
                 } else {
@@ -282,12 +273,12 @@ fun DrawScope.drawConnect(eventNode: EventNode, moveOffset: Offset, dragEventNod
                         color = ConnectLineColor,
                         strokeWidth = 4.dp.toPx(),
                         start = Offset(
-                            x = eventNode.offsetX + width.dp.toPx(),
-                            y = eventNode.offsetY + (height / 2).dp.toPx()
+                            x = eventNode.offsetX + eventNode.width,
+                            y = eventNode.offsetY + eventNode.height / 2
                         ),
                         end = Offset(
                             x = targetEventNode.offsetX - moveOffset.x + dragOffset.x,
-                            y = targetEventNode.offsetY - moveOffset.y + (height / 2).dp.toPx() + dragOffset.y
+                            y = targetEventNode.offsetY - moveOffset.y + eventNode.height / 2 + dragOffset.y
                         ),
                     )
                 }
