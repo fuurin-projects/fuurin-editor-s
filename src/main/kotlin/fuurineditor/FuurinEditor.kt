@@ -10,6 +10,7 @@ import fuurineditor.service.data.ProjectPath
 import fuurineditor.ui.LocalSpringContext
 import fuurineditor.ui.compose.LauncherWindow
 import fuurineditor.ui.compose.window.ProjectWindow
+import fuurineditor.ui.rememberApplicationContext
 import fuurineditor.ui.viewModel
 import fuurineditor.viewmodel.GlobalViewModel
 import javafx.application.Platform
@@ -52,11 +53,18 @@ object FuurinEditor {
                     for (projectState in openProjectList) {
                         //プロジェクトのパスをkeyにして重複防止をしている
                         key(projectState.path) {
-                            ProjectWindow(
-                                projectName = projectState.name,
-                                projectPath = ProjectPath(projectState.path)
-                            ) {
-                                globalViewModel.closeProject(projectState)
+
+                            //プロジェクトウィンドウ毎にDIコンテナを配置する
+                            val projectContext = rememberApplicationContext {}
+                            CompositionLocalProvider(LocalSpringContext provides projectContext) {
+
+                                ProjectWindow(
+                                    projectName = projectState.name,
+                                    projectPath = ProjectPath(projectState.path)
+                                ) {
+                                    globalViewModel.closeProject(projectState)
+                                }
+
                             }
                         }
 

@@ -26,7 +26,7 @@ import fuurineditor.viewmodel.ProjectViewModel
  */
 @Composable
 fun ProjectWindow(projectName: String, projectPath: ProjectPath, onCloseRequest: () -> Unit) {
-
+    
     val state: WindowState = rememberWindowState(
         size = DpSize(1280.dp, 720.dp), position = WindowPosition(Alignment.Center)
     )
