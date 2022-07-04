@@ -41,6 +41,7 @@ data class InputControllerNode(
         if (offsetY != other.offsetY) return false
         if (screenValue != other.screenValue) return false
         if (nodeType != other.nodeType) return false
+        if (this !== other) return false
         if (!leftConnector.contentEquals(other.leftConnector)) return false
         if (!rightConnector.contentEquals(other.rightConnector)) return false
 
