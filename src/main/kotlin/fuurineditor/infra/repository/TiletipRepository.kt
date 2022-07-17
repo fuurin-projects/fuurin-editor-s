@@ -1,8 +1,8 @@
-package fuurineditor.repository
+package fuurineditor.infra.repository
 
 import fuurineditor.property.IProjectProperty
-import fuurineditor.repository.data.IconBaseJson
-import fuurineditor.repository.data.TiletipJson
+import fuurineditor.infra.repository.data.IconBaseJson
+import fuurineditor.infra.repository.data.TiletipJson
 import fuurineditor.service.data.File
 import fuurineditor.service.data.TiletipFile
 import fuurineditor.service.data.toTiletipFile

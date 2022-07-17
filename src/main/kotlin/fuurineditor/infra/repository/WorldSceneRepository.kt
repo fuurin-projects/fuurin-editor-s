@@ -1,10 +1,10 @@
-package fuurineditor.repository
+package fuurineditor.infra.repository
 
 import fuurineditor.property.IProjectProperty
-import fuurineditor.repository.data.SceneJson
-import fuurineditor.repository.data.WorldSceneJson
-import fuurineditor.repository.data.toWorldScene
-import fuurineditor.repository.data.toWorldSceneJson
+import fuurineditor.infra.repository.data.SceneJson
+import fuurineditor.infra.repository.data.WorldSceneJson
+import fuurineditor.infra.repository.data.toWorldScene
+import fuurineditor.infra.repository.data.toWorldSceneJson
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.scene.WorldScene
 import kotlinx.serialization.decodeFromString

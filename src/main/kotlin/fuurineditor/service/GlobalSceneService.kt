@@ -1,6 +1,6 @@
 package fuurineditor.service
 
-import fuurineditor.repository.GlobalSceneRepository
+import fuurineditor.infra.repository.GlobalSceneRepository
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event
 import fuurineditor.service.data.event.EventNode

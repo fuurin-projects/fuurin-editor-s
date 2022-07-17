@@ -1,6 +1,6 @@
-package fuurineditor.repository.build.builder
+package fuurineditor.infra.repository.build.builder
 
-import fuurineditor.repository.build.data.LoaderJson
+import fuurineditor.infra.repository.build.data.LoaderJson
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component

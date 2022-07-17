@@ -1,6 +1,6 @@
 package fuurineditor.service
 
-import fuurineditor.repository.TiletipRepository
+import fuurineditor.infra.repository.TiletipRepository
 import fuurineditor.service.data.File
 import fuurineditor.ui.compose.window.RowTileTip
 import kotlinx.coroutines.flow.Flow

@@ -1,9 +1,9 @@
-package fuurineditor.repository
+package fuurineditor.infra.repository
 
 import fuurineditor.property.IProjectProperty
-import fuurineditor.repository.data.GlobalSceneJson
-import fuurineditor.repository.data.SceneJson
-import fuurineditor.repository.data.WorldSceneJson
+import fuurineditor.infra.repository.data.GlobalSceneJson
+import fuurineditor.infra.repository.data.SceneJson
+import fuurineditor.infra.repository.data.WorldSceneJson
 import fuurineditor.service.data.File
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.SceneType

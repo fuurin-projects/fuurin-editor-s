@@ -1,4 +1,4 @@
-package fuurineditor.repository.data
+package fuurineditor.infra.repository.data
 
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName

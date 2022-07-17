@@ -1,11 +1,11 @@
-package fuurineditor.repository.data
+package fuurineditor.infra.repository.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class EventJson(
-    
+
     @SerialName("name")
     val name: String,
 

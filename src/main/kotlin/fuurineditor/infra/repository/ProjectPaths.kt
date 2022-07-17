@@ -1,4 +1,4 @@
-package fuurineditor.repository
+package fuurineditor.infra.repository
 
 import java.nio.file.Path
 

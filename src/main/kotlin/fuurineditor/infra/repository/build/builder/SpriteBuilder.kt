@@ -1,7 +1,7 @@
-package fuurineditor.repository.build.builder
+package fuurineditor.infra.repository.build.builder
 
-import fuurineditor.repository.build.data.SpriteMetaJson
-import fuurineditor.repository.build.data.SpriteRowData
+import fuurineditor.infra.repository.build.data.SpriteMetaJson
+import fuurineditor.infra.repository.build.data.SpriteRowData
 import fuurineditor.service.data.TiletipFile
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

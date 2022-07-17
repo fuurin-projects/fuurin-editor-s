@@ -1,6 +1,6 @@
 package fuurineditor.service
 
-import fuurineditor.repository.WebBuildRepository
+import fuurineditor.infra.repository.WebBuildRepository
 import fuurineditor.service.data.ProjectPath
 import org.springframework.stereotype.Service
 

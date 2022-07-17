@@ -1,11 +1,11 @@
-package fuurineditor.repository
+package fuurineditor.infra.repository
 
-import fuurineditor.repository.build.builder.IconBuilder
-import fuurineditor.repository.build.builder.LoaderBuilder
-import fuurineditor.repository.build.builder.SceneBuilder
-import fuurineditor.repository.build.builder.SpriteBuilder
-import fuurineditor.repository.build.data.IconJson
-import fuurineditor.repository.build.data.SpriteRowData
+import fuurineditor.infra.repository.build.builder.IconBuilder
+import fuurineditor.infra.repository.build.builder.LoaderBuilder
+import fuurineditor.infra.repository.build.builder.SceneBuilder
+import fuurineditor.infra.repository.build.builder.SpriteBuilder
+import fuurineditor.infra.repository.build.data.IconJson
+import fuurineditor.infra.repository.build.data.SpriteRowData
 import fuurineditor.service.data.ProjectPath
 import org.springframework.stereotype.Repository
 import java.nio.file.Files

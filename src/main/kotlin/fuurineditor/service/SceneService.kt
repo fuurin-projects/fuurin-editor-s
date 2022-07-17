@@ -1,6 +1,6 @@
 package fuurineditor.service
 
-import fuurineditor.repository.SceneRepository
+import fuurineditor.infra.repository.SceneRepository
 import fuurineditor.service.data.File
 import fuurineditor.service.data.SceneFile
 import fuurineditor.ui.compose.window.RowScene

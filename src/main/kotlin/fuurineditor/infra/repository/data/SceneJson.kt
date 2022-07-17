@@ -1,4 +1,4 @@
-package fuurineditor.repository.data
+package fuurineditor.infra.repository.data
 
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event

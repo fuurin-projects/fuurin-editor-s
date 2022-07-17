@@ -1,8 +1,8 @@
-package fuurineditor.repository
+package fuurineditor.infra.repository
 
 import fuurineditor.OSChecker
-import fuurineditor.repository.data.SystemPreferenceJson
-import fuurineditor.repository.data.toProjectData
+import fuurineditor.infra.repository.data.SystemPreferenceJson
+import fuurineditor.infra.repository.data.toProjectData
 import fuurineditor.service.data.ProjectInfoData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow

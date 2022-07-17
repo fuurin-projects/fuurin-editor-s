@@ -1,6 +1,6 @@
 package fuurineditor.service
 
-import fuurineditor.repository.SystemRepository
+import fuurineditor.infra.repository.SystemRepository
 import fuurineditor.service.data.ProjectInfoData
 import kotlinx.coroutines.flow.Flow
 import org.springframework.stereotype.Service

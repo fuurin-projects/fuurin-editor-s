@@ -1,4 +1,4 @@
-package fuurineditor.repository
+package fuurineditor.infra.repository
 
 import fuurineditor.property.IProjectProperty
 import fuurineditor.service.data.ProjectData
