@@ -1,4 +1,4 @@
-package fuurineditor.repository
+package fuurineditor.infra.repository
 
 import fuurineditor.FuurinEditorSpring
 import kotlinx.coroutines.test.runTest
