@@ -46,7 +46,6 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import fuurineditor.service.data.SceneFile
-import fuurineditor.ui.LocalProjectPathContext
 import fuurineditor.ui.compose.parts.SubTab
 import fuurineditor.ui.compose.parts.ToolButton
 import fuurineditor.ui.compose.parts.VerticalDivider
@@ -65,7 +64,7 @@ val Transparent2 = Color(0xFF999999)
 @Composable
 fun WorldSceneEditor(sceneFile: SceneFile) {
 
-    val viewModel: WorldSceneEditorViewModel = viewModel(LocalProjectPathContext.current, sceneFile)
+    val viewModel: WorldSceneEditorViewModel = viewModel(sceneFile)
 
     val nowTip by viewModel.nowTip.collectAsState()
     val selectTip by viewModel.selectTip.collectAsState()

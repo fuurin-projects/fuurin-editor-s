@@ -3,7 +3,6 @@ package fuurineditor.viewmodel.editor
 import fuurineditor.debounce
 import fuurineditor.service.TiletipService
 import fuurineditor.service.WorldSceneService
-import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.TiletipFile
 import fuurineditor.service.data.scene.WorldLayer
@@ -19,7 +18,6 @@ import kotlinx.coroutines.launch
 
 @SpringViewModel
 class WorldSceneEditorViewModel(
-    private val projectPath: ProjectPath,
     private val sceneFile: SceneFile,
     private val tiletipService: TiletipService,
     private val worldSceneService: WorldSceneService
@@ -45,7 +43,7 @@ class WorldSceneEditorViewModel(
 
         println(it)
 
-        worldSceneService.saveWorldScene(projectPath = projectPath, worldScene = _worldScene.value!!)
+        worldSceneService.saveWorldScene(worldScene = _worldScene.value!!)
 
     }
 
@@ -54,9 +52,9 @@ class WorldSceneEditorViewModel(
         //ファイルを開いたときの処理
         viewModelScope.launch {
 
-            _nowTip.value = tiletipService.getTiletip(projectPath).map { file -> file as TiletipFile }.last()
+            _nowTip.value = tiletipService.getTiletip().map { file -> file as TiletipFile }.last()
 
-            _worldScene.value = worldSceneService.loadWorldScene(projectPath = projectPath, sceneFile = sceneFile)
+            _worldScene.value = worldSceneService.loadWorldScene(sceneFile = sceneFile)
 
             _layer.value.rowData = _worldScene.value!!.layer.rowData
 

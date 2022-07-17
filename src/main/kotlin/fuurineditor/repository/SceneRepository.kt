@@ -1,10 +1,10 @@
 package fuurineditor.repository
 
+import fuurineditor.property.IProjectProperty
 import fuurineditor.repository.data.GlobalSceneJson
 import fuurineditor.repository.data.SceneJson
 import fuurineditor.repository.data.WorldSceneJson
 import fuurineditor.service.data.File
-import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.SceneType
 import fuurineditor.service.data.toSceneFile
@@ -20,12 +20,22 @@ import java.nio.file.Path
 import kotlin.io.path.exists
 
 @Repository
-class SceneRepository {
+class SceneRepository(
+    private val projectProperty: IProjectProperty
+) {
 
-    fun getScene(projectPath: ProjectPath): Flow<File> {
+    /**
+     * Project内のsceneのパス
+     */
+    private val Path.scenePath: Path
+        get() {
+            return this@scenePath.resolve("src/main/scene")
+        }
+
+    fun getScene(): Flow<File> {
 
         return flow<File> {
-            val scenePath = projectPath.scene
+            val scenePath = projectProperty.projectPath.scenePath
 
             //シーンフォルダがなければ作成
             if (scenePath.exists().not()) {
@@ -42,9 +52,9 @@ class SceneRepository {
 
     private val json = Json { encodeDefaults = true }
 
-    suspend fun addScene(projectPath: ProjectPath, rowScene: RowScene): Unit {
+    suspend fun addScene(rowScene: RowScene): Unit {
 
-        val scenePath = projectPath.scene
+        val scenePath = projectProperty.projectPath.scenePath
 
         //タイルチップフォルダがなければ作成
         //シーンフォルダがなければ作成
@@ -81,9 +91,9 @@ class SceneRepository {
     }
 
 
-    suspend fun getAllSceneList(path: ProjectPath): List<SceneFile> {
+    suspend fun getAllSceneList(): List<SceneFile> {
 
-        val scenePath = path.scene
+        val scenePath = projectProperty.projectPath.scenePath
 
         //タイルチップフォルダがなければ作成
         if (scenePath.exists().not()) {
@@ -111,9 +121,9 @@ class SceneRepository {
 
     }
 
-    suspend fun loadScene(projectPath: ProjectPath, sceneFile: SceneFile): SceneJson {
+    suspend fun loadScene(sceneFile: SceneFile): SceneJson {
 
-        val filePath = projectPath.scene.resolve("${sceneFile.id.path}.json")
+        val filePath = projectProperty.projectPath.scenePath.resolve("${sceneFile.id.path}.json")
 
         val sceneJsonString = filePath.toFile().readText()
 
@@ -121,9 +131,9 @@ class SceneRepository {
 
     }
 
-    suspend fun getGlobalFile(projectPath: ProjectPath): SceneFile {
+    suspend fun getGlobalFile(): SceneFile {
 
-        val scenePath = projectPath.scene
+        val scenePath = projectProperty.projectPath.scenePath
 
         //シーンフォルダがなければ作成
         if (scenePath.exists().not()) {
@@ -133,7 +143,7 @@ class SceneRepository {
         //Globalのファイルがない場合は作成する
         if (scenePath.resolve("./global.json").exists().not()) {
             addScene(
-                projectPath, RowScene(
+                RowScene(
                     name = "global", type = SceneType.GLOBAL
                 )
             )
@@ -145,11 +155,3 @@ class SceneRepository {
     }
 
 }
-
-/**
- * Project内のsceneのパス
- */
-val ProjectPath.scene: Path
-    get() {
-        return this@scene.path.resolve("src/main/scene")
-    }

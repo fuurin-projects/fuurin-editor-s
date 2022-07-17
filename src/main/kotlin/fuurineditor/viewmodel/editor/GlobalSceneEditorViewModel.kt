@@ -32,7 +32,7 @@ class GlobalSceneEditorViewModel(
         //ファイルを開いたときの処理
         viewModelScope.launch {
 
-            _globalScene.value = globalSceneService.loadGlobalScene(projectPath = projectPath, sceneFile = sceneFile)
+            _globalScene.value = globalSceneService.loadGlobalScene(sceneFile = sceneFile)
 
 
         }
@@ -49,7 +49,7 @@ class GlobalSceneEditorViewModel(
                 )
             }
 
-            globalSceneService.saveGlobalScene(projectPath = projectPath, globalScene = _globalScene.value!!)
+            globalSceneService.saveGlobalScene(globalScene = _globalScene.value!!)
 
             onSelectEvent(event = event)
 
@@ -79,7 +79,7 @@ class GlobalSceneEditorViewModel(
                     eventList = (_globalScene.value!!.eventList - _selectEvent.value!!) + newSelectEvent
                 )
 
-                globalSceneService.saveGlobalScene(projectPath = projectPath, globalScene = _globalScene.value!!)
+                globalSceneService.saveGlobalScene(globalScene = _globalScene.value!!)
 
                 onSelectEvent(event = newSelectEvent)
 
@@ -108,9 +108,9 @@ class GlobalSceneEditorViewModel(
         )
 
         viewModelScope.launch {
-            globalSceneService.saveGlobalScene(projectPath = projectPath, globalScene = newGlobalScene)
+            globalSceneService.saveGlobalScene(globalScene = newGlobalScene)
 
-            _globalScene.value = globalSceneService.loadGlobalScene(projectPath = projectPath, sceneFile = sceneFile)
+            _globalScene.value = globalSceneService.loadGlobalScene(sceneFile = sceneFile)
             onSelectEvent(newEvent)
 
         }
@@ -123,7 +123,6 @@ class GlobalSceneEditorViewModel(
         viewModelScope.launch {
 
             globalSceneService.connectEventNode(
-                projectPath = projectPath,
                 sceneFile = sceneFile,
                 event = event,
                 from = from,
@@ -131,7 +130,7 @@ class GlobalSceneEditorViewModel(
             )
 
             _globalScene.update {
-                globalSceneService.loadGlobalScene(projectPath = projectPath, sceneFile = sceneFile)
+                globalSceneService.loadGlobalScene(sceneFile = sceneFile)
             }
             onSelectEvent(event)
 

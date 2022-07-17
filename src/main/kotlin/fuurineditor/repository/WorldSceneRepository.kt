@@ -1,10 +1,10 @@
 package fuurineditor.repository
 
+import fuurineditor.property.IProjectProperty
 import fuurineditor.repository.data.SceneJson
 import fuurineditor.repository.data.WorldSceneJson
 import fuurineditor.repository.data.toWorldScene
 import fuurineditor.repository.data.toWorldSceneJson
-import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.scene.WorldScene
 import kotlinx.serialization.decodeFromString
@@ -13,32 +13,35 @@ import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Repository
 
 @Repository
-class WorldSceneRepository {
+class WorldSceneRepository(
+    private val projectProperty: IProjectProperty
+) {
+
 
     private val json = Json {
         encodeDefaults = true;
         prettyPrint = true
     }
 
-    suspend fun loadWorldScene(projectPath: ProjectPath, sceneFile: SceneFile): WorldScene {
+    suspend fun loadWorldScene(sceneFile: SceneFile): WorldScene {
 
-        val filePath = projectPath.scene.resolve("${sceneFile.id.path}.json")
+        val filePath = projectProperty.projectPath.scenePath.resolve("${sceneFile.id.path}.json")
 
         val sceneJsonString = filePath.toFile().readText()
 
         val worldSceneJson = json.decodeFromString<SceneJson>(sceneJsonString) as WorldSceneJson
 
         val worldScene = worldSceneJson.toWorldScene(
-            projectPath.tiletip,
+            projectProperty.projectPath.tiletip,
             sceneFile
         )
         return worldScene
 
     }
 
-    suspend fun saveWorldScene(projectPath: ProjectPath, worldScene: WorldScene) {
+    suspend fun saveWorldScene(worldScene: WorldScene) {
 
-        val filePath = projectPath.scene.resolve("${worldScene.id.path}.json")
+        val filePath = projectProperty.projectPath.scenePath.resolve("${worldScene.id.path}.json")
 
         filePath.toFile().writeText(
             json.encodeToString(

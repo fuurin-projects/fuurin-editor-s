@@ -1,7 +1,6 @@
 package fuurineditor.service
 
 import fuurineditor.repository.GlobalSceneRepository
-import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event
 import fuurineditor.service.data.event.EventNode
@@ -13,25 +12,23 @@ class GlobalSceneService(
     private val globalSceneRepository: GlobalSceneRepository
 ) {
 
-    suspend fun loadGlobalScene(projectPath: ProjectPath, sceneFile: SceneFile): GlobalScene {
+    suspend fun loadGlobalScene(sceneFile: SceneFile): GlobalScene {
 
-        return globalSceneRepository.loadGlobalScene(projectPath = projectPath, sceneFile = sceneFile)
+        return globalSceneRepository.loadGlobalScene(sceneFile = sceneFile)
 
     }
 
-    suspend fun saveGlobalScene(projectPath: ProjectPath, globalScene: GlobalScene) {
-        globalSceneRepository.saveGlobalScene(projectPath = projectPath, globalScene = globalScene)
+    suspend fun saveGlobalScene(globalScene: GlobalScene) {
+        globalSceneRepository.saveGlobalScene(globalScene = globalScene)
     }
 
     suspend fun connectEventNode(
-        projectPath: ProjectPath,
         sceneFile: SceneFile,
         event: Event,
         from: EventNode,
         to: EventNode
     ) {
         globalSceneRepository.connectEventNode(
-            projectPath = projectPath,
             sceneFile = sceneFile,
             event = event,
             from = from,

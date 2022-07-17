@@ -36,7 +36,7 @@ class WebBuildRepository(
         loaderBuilder.build(outputWebRowBase)
 
         //タイルチップからスプライト画像の生成
-        val allTiletipList = tiletipRepository.getAllTiletipList(path = path)
+        val allTiletipList = tiletipRepository.getAllTiletipList()
         var spriteNumber = 0
         val spriteNameBase = "sprite_"
 

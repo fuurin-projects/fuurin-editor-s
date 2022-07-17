@@ -41,13 +41,13 @@ open class ProjectViewModel(
     private val _selectedEditor = MutableStateFlow<Editor>(EmptyEditor)
     val selectedEditor: StateFlow<Editor> = _selectedEditor
 
-    private val _projectData = projectService.getProjectData(projectPath);
+    private val _projectData = projectService.getProjectData();
     val projectData: Flow<ProjectData> = _projectData
 
-    private val _sceneList = sceneService.getScene(projectPath);
+    private val _sceneList = sceneService.getScene();
     val sceneList: Flow<File> = _sceneList
 
-    private val _tiletipList = tiletipService.getTiletip(projectPath);
+    private val _tiletipList = tiletipService.getTiletip();
     val tiletipList: Flow<File> = _tiletipList
 
     fun increment() {
@@ -68,7 +68,7 @@ open class ProjectViewModel(
 
         viewModelScope.launch {
 
-            sceneService.addScene(projectPath, rowScene)
+            sceneService.addScene(rowScene)
 
         }
 
@@ -82,7 +82,7 @@ open class ProjectViewModel(
 
         viewModelScope.launch {
 
-            tiletipService.addTiletip(projectPath, rowTileTip)
+            tiletipService.addTiletip(rowTileTip)
         }
 
     }
@@ -147,8 +147,8 @@ open class ProjectViewModel(
     fun clickGlobalScene() {
 
         viewModelScope.launch {
-            
-            val globalFile = sceneService.getGlobalFile(projectPath = projectPath)
+
+            val globalFile = sceneService.getGlobalFile()
 
             addEditor(file = globalFile)
 

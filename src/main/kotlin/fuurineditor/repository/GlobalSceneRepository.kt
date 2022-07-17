@@ -1,11 +1,11 @@
 package fuurineditor.repository
 
+import fuurineditor.property.IProjectProperty
 import fuurineditor.repository.data.EventNodeJson
 import fuurineditor.repository.data.GlobalSceneJson
 import fuurineditor.repository.data.SceneJson
 import fuurineditor.repository.data.toGlobalScene
 import fuurineditor.repository.data.toGlobalSceneJson
-import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneFile
 import fuurineditor.service.data.event.Event
 import fuurineditor.service.data.event.EventNode
@@ -14,9 +14,20 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Repository
+import java.nio.file.Path
 
 @Repository
-class GlobalSceneRepository {
+class GlobalSceneRepository(
+    private val projectProperty: IProjectProperty
+) {
+
+    /**
+     * Project内のsceneのパス
+     */
+    private val Path.scenePath: Path
+        get() {
+            return this@scenePath.resolve("src/main/scene")
+        }
 
     private val json = Json {
         encodeDefaults = true;
@@ -24,9 +35,9 @@ class GlobalSceneRepository {
         ignoreUnknownKeys = true
     }
 
-    suspend fun loadGlobalScene(projectPath: ProjectPath, sceneFile: SceneFile): GlobalScene {
+    suspend fun loadGlobalScene(sceneFile: SceneFile): GlobalScene {
 
-        val filePath = projectPath.scene.resolve("${sceneFile.id.path}.json")
+        val filePath = projectProperty.projectPath.scenePath.resolve("${sceneFile.id.path}.json")
 
         val sceneJsonString = filePath.toFile().readText()
 
@@ -40,9 +51,9 @@ class GlobalSceneRepository {
 
     }
 
-    suspend fun saveGlobalScene(projectPath: ProjectPath, globalScene: GlobalScene) {
+    suspend fun saveGlobalScene(globalScene: GlobalScene) {
 
-        val filePath = projectPath.scene.resolve("${globalScene.id.path}.json")
+        val filePath = projectProperty.projectPath.scenePath.resolve("${globalScene.id.path}.json")
 
         filePath.toFile().writeText(
             json.encodeToString(
@@ -53,14 +64,13 @@ class GlobalSceneRepository {
     }
 
     suspend fun connectEventNode(
-        projectPath: ProjectPath,
         sceneFile: SceneFile,
         event: Event,
         from: EventNode,
         to: EventNode
     ) {
 
-        val filePath = projectPath.scene.resolve("${sceneFile.id.path}.json")
+        val filePath = projectProperty.projectPath.scenePath.resolve("${sceneFile.id.path}.json")
 
         val sceneJsonString = filePath.toFile().readText()
 

@@ -6,6 +6,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.window.application
+import fuurineditor.property.FakeProjectProperty
+import fuurineditor.property.ProjectProperty
 import fuurineditor.service.data.ProjectPath
 import fuurineditor.ui.LocalSpringContext
 import fuurineditor.ui.compose.LauncherWindow
@@ -26,7 +28,11 @@ object FuurinEditor {
         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         //DI関係
-        AnnotationConfigApplicationContext(FuurinEditorSpring::class.java).use { applicationContext ->
+        val annotationConfigApplicationContext = AnnotationConfigApplicationContext()
+        annotationConfigApplicationContext.register(FuurinEditorSpring::class.java)
+        annotationConfigApplicationContext.registerBean(FakeProjectProperty::class.java, *Array<Any?>(0) { Object() })
+        annotationConfigApplicationContext.refresh()
+        annotationConfigApplicationContext.use { applicationContext ->
 
             //Compose関係
             application {
@@ -55,7 +61,10 @@ object FuurinEditor {
                         key(projectState.path) {
 
                             //プロジェクトウィンドウ毎にDIコンテナを配置する
-                            val projectContext = rememberApplicationContext {}
+                            val projectContext = rememberApplicationContext {
+                                //プロジェクト情報をDIに登録する
+                                registerBean(ProjectProperty::class.java, projectState.path)
+                            }
                             CompositionLocalProvider(LocalSpringContext provides projectContext) {
 
                                 ProjectWindow(

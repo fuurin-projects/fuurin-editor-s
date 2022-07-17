@@ -36,11 +36,11 @@ class SceneBuilder(
         }
 
         //Sceneの一覧を準備
-        val allSceneList: List<SceneFile> = sceneRepository.getAllSceneList(path)
+        val allSceneList: List<SceneFile> = sceneRepository.getAllSceneList()
 
         //FileとJsonのペアを作成
         val allSceneJsonList: List<Pair<SceneFile, SceneJson>> = allSceneList.map {
-            Pair(it, sceneRepository.loadScene(projectPath = path, it))
+            Pair(it, sceneRepository.loadScene(it))
         }
 
         //WorldSceneJsonを生成
