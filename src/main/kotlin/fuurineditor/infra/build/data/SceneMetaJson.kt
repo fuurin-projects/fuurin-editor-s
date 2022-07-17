@@ -1,4 +1,4 @@
-package fuurineditor.infra.repository.build.data
+package fuurineditor.infra.build.data
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

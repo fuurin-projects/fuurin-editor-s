@@ -1,4 +1,4 @@
-package fuurineditor.infra.repository.build.data
+package fuurineditor.infra.build.data
 
 import fuurineditor.service.data.TiletipFile
 
