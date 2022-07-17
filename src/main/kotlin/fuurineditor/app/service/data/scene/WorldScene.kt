@@ -1,6 +1,6 @@
-package fuurineditor.service.data.scene
+package fuurineditor.app.service.data.scene
 
-import fuurineditor.service.data.FileId
+import fuurineditor.app.service.data.FileId
 
 data class WorldScene(
     override val id: FileId,

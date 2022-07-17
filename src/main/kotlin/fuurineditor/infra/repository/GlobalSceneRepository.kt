@@ -6,10 +6,10 @@ import fuurineditor.infra.repository.data.GlobalSceneJson
 import fuurineditor.infra.repository.data.SceneJson
 import fuurineditor.infra.repository.data.toGlobalScene
 import fuurineditor.infra.repository.data.toGlobalSceneJson
-import fuurineditor.service.data.SceneFile
-import fuurineditor.service.data.event.Event
-import fuurineditor.service.data.event.EventNode
-import fuurineditor.service.data.scene.GlobalScene
+import fuurineditor.app.service.data.SceneFile
+import fuurineditor.app.service.data.event.Event
+import fuurineditor.app.service.data.event.EventNode
+import fuurineditor.app.service.data.scene.GlobalScene
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

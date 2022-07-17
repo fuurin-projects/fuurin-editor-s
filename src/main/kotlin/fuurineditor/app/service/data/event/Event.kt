@@ -1,4 +1,4 @@
-package fuurineditor.service.data.event
+package fuurineditor.app.service.data.event
 
 data class Event(
     var name: String,

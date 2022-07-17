@@ -13,7 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
-import fuurineditor.service.data.event.Event
+import fuurineditor.app.service.data.event.Event
 import fuurineditor.ui.theme.Background
 
 @Composable

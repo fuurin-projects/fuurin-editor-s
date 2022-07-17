@@ -1,8 +1,8 @@
-package fuurineditor.service
+package fuurineditor.app.service
 
 import fuurineditor.infra.repository.WorldSceneRepository
-import fuurineditor.service.data.SceneFile
-import fuurineditor.service.data.scene.WorldScene
+import fuurineditor.app.service.data.SceneFile
+import fuurineditor.app.service.data.scene.WorldScene
 import org.springframework.stereotype.Service
 
 @Service

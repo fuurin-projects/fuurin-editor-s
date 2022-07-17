@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import fuurineditor.service.data.SceneFile
+import fuurineditor.app.service.data.SceneFile
 import fuurineditor.ui.compose.parts.SubTab
 import fuurineditor.ui.compose.parts.ToolButton
 import fuurineditor.ui.compose.parts.VerticalDivider

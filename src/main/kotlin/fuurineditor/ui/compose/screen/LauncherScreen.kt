@@ -35,7 +35,7 @@ import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.res.loadImageBitmap
 import androidx.compose.ui.res.useResource
 import androidx.compose.ui.unit.dp
-import fuurineditor.service.data.toProjectState
+import fuurineditor.app.service.data.toProjectState
 import fuurineditor.ui.stringResource
 import fuurineditor.ui.theme.Background
 import fuurineditor.ui.theme.BrightBackground
@@ -97,7 +97,7 @@ fun LauncherScreen(
                                         launcherViewModel.deleteProjectInfo(projectInfo)
                                     }
                                 )
-                                
+
                             }
 
                         }

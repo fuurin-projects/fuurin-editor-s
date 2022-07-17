@@ -3,8 +3,8 @@ package fuurineditor.infra.build.builder
 import fuurineditor.infra.build.data.GWorldJson
 import fuurineditor.infra.build.data.WorldMetaJson
 import fuurineditor.infra.repository.data.toWorldSceneJson
-import fuurineditor.service.data.fromIndexKey
-import fuurineditor.service.data.scene.WorldScene
+import fuurineditor.app.service.data.fromIndexKey
+import fuurineditor.app.service.data.scene.WorldScene
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component

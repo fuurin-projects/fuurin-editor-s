@@ -1,7 +1,7 @@
 package fuurineditor.ui
 
 import androidx.compose.runtime.compositionLocalOf
-import fuurineditor.service.data.ProjectPath
+import fuurineditor.app.service.data.ProjectPath
 
 val LocalProjectPathContext = compositionLocalOf<ProjectPath> {
     error("ProjectPath not found")

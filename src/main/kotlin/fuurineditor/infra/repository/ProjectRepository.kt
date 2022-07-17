@@ -1,8 +1,8 @@
 package fuurineditor.infra.repository
 
 import fuurineditor.app.property.IProjectProperty
-import fuurineditor.service.data.ProjectData
-import fuurineditor.service.data.ProjectPath
+import fuurineditor.app.service.data.ProjectData
+import fuurineditor.app.service.data.ProjectPath
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.springframework.stereotype.Repository

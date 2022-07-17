@@ -1,8 +1,8 @@
-package fuurineditor.service
+package fuurineditor.app.service
 
 import fuurineditor.infra.repository.SceneRepository
-import fuurineditor.service.data.File
-import fuurineditor.service.data.SceneFile
+import fuurineditor.app.service.data.File
+import fuurineditor.app.service.data.SceneFile
 import fuurineditor.ui.compose.window.RowScene
 import kotlinx.coroutines.flow.Flow
 import org.springframework.stereotype.Service

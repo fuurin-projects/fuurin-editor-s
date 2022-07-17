@@ -8,7 +8,7 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.window.application
 import fuurineditor.app.property.FakeProjectProperty
 import fuurineditor.app.property.ProjectProperty
-import fuurineditor.service.data.ProjectPath
+import fuurineditor.app.service.data.ProjectPath
 import fuurineditor.ui.LocalSpringContext
 import fuurineditor.ui.compose.LauncherWindow
 import fuurineditor.ui.compose.window.ProjectWindow

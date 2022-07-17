@@ -1,4 +1,4 @@
-package fuurineditor.service.data.event
+package fuurineditor.app.service.data.event
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color

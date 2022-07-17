@@ -16,7 +16,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.window.Dialog
-import fuurineditor.service.data.SceneType
+import fuurineditor.app.service.data.SceneType
 import fuurineditor.ui.theme.Background
 
 @Composable

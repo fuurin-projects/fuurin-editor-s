@@ -1,4 +1,4 @@
-package fuurineditor.service.data
+package fuurineditor.app.service.data
 
 import fuurineditor.ui.data.ProjectState
 import java.nio.file.Path

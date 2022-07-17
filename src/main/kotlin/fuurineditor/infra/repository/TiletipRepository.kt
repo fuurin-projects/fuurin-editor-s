@@ -3,9 +3,9 @@ package fuurineditor.infra.repository
 import fuurineditor.app.property.IProjectProperty
 import fuurineditor.infra.repository.data.IconBaseJson
 import fuurineditor.infra.repository.data.TiletipJson
-import fuurineditor.service.data.File
-import fuurineditor.service.data.TiletipFile
-import fuurineditor.service.data.toTiletipFile
+import fuurineditor.app.service.data.File
+import fuurineditor.app.service.data.TiletipFile
+import fuurineditor.app.service.data.toTiletipFile
 import fuurineditor.ui.compose.window.RowTileTip
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

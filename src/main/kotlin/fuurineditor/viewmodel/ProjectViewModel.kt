@@ -1,12 +1,12 @@
 package fuurineditor.viewmodel
 
-import fuurineditor.service.DevGameService
-import fuurineditor.service.ProjectService
-import fuurineditor.service.SceneService
-import fuurineditor.service.TiletipService
-import fuurineditor.service.data.File
-import fuurineditor.service.data.ProjectData
-import fuurineditor.service.data.ProjectPath
+import fuurineditor.app.service.DevGameService
+import fuurineditor.app.service.ProjectService
+import fuurineditor.app.service.SceneService
+import fuurineditor.app.service.TiletipService
+import fuurineditor.app.service.data.File
+import fuurineditor.app.service.data.ProjectData
+import fuurineditor.app.service.data.ProjectPath
 import fuurineditor.ui.compose.screen.ProjectScreenUIState
 import fuurineditor.ui.compose.window.RowScene
 import fuurineditor.ui.compose.window.RowTileTip

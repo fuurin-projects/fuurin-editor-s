@@ -1,4 +1,4 @@
-package fuurineditor.service.data
+package fuurineditor.app.service.data
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.sharp.Image

@@ -1,7 +1,7 @@
 package fuurineditor.ui.data
 
-import fuurineditor.service.data.File
-import fuurineditor.service.data.FileId
+import fuurineditor.app.service.data.File
+import fuurineditor.app.service.data.FileId
 
 data class Editor(
     val file: File

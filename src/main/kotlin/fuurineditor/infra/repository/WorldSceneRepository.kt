@@ -5,8 +5,8 @@ import fuurineditor.infra.repository.data.SceneJson
 import fuurineditor.infra.repository.data.WorldSceneJson
 import fuurineditor.infra.repository.data.toWorldScene
 import fuurineditor.infra.repository.data.toWorldSceneJson
-import fuurineditor.service.data.SceneFile
-import fuurineditor.service.data.scene.WorldScene
+import fuurineditor.app.service.data.SceneFile
+import fuurineditor.app.service.data.scene.WorldScene
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

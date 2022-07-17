@@ -9,8 +9,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import fuurineditor.service.data.SceneFile
-import fuurineditor.service.data.TiletipFile
+import fuurineditor.app.service.data.SceneFile
+import fuurineditor.app.service.data.TiletipFile
 import fuurineditor.ui.compose.parts.editor.GlobalSceneEditor
 import fuurineditor.ui.compose.parts.editor.TiletipEditor
 import fuurineditor.ui.compose.parts.editor.WorldSceneEditor

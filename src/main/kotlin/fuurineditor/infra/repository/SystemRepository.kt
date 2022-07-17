@@ -3,7 +3,7 @@ package fuurineditor.infra.repository
 import fuurineditor.OSChecker
 import fuurineditor.infra.repository.data.SystemPreferenceJson
 import fuurineditor.infra.repository.data.toProjectData
-import fuurineditor.service.data.ProjectInfoData
+import fuurineditor.app.service.data.ProjectInfoData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flatMapLatest

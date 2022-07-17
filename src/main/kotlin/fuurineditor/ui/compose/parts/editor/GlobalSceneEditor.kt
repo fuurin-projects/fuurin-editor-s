@@ -31,9 +31,9 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.unit.dp
-import fuurineditor.service.data.SceneFile
-import fuurineditor.service.data.event.Event
-import fuurineditor.service.data.event.EventNode
+import fuurineditor.app.service.data.SceneFile
+import fuurineditor.app.service.data.event.Event
+import fuurineditor.app.service.data.event.EventNode
 import fuurineditor.ui.LocalProjectPathContext
 import fuurineditor.ui.compose.parts.SubTab
 import fuurineditor.ui.compose.parts.ToolButton

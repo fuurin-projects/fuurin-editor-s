@@ -13,8 +13,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.unit.dp
-import fuurineditor.service.data.TiletipFile
-import fuurineditor.service.data.toIndexKye
+import fuurineditor.app.service.data.TiletipFile
+import fuurineditor.app.service.data.toIndexKye
 import fuurineditor.ui.theme.Background
 
 @Composable

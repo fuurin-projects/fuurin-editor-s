@@ -6,7 +6,7 @@ import fuurineditor.infra.build.builder.SceneBuilder
 import fuurineditor.infra.build.builder.SpriteBuilder
 import fuurineditor.infra.build.data.IconJson
 import fuurineditor.infra.build.data.SpriteRowData
-import fuurineditor.service.data.ProjectPath
+import fuurineditor.app.service.data.ProjectPath
 import org.springframework.stereotype.Repository
 import java.nio.file.Files
 import kotlin.io.path.exists

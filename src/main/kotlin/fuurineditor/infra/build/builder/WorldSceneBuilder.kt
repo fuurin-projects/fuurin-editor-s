@@ -2,7 +2,7 @@ package fuurineditor.infra.build.builder
 
 import fuurineditor.infra.build.data.scene.GWorldSceneJson
 import fuurineditor.infra.build.data.scene.SceneJson
-import fuurineditor.service.data.scene.WorldScene
+import fuurineditor.app.service.data.scene.WorldScene
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component

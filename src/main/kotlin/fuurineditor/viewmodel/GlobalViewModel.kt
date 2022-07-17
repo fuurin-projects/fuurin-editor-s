@@ -1,8 +1,8 @@
 package fuurineditor.viewmodel
 
-import fuurineditor.service.ProjectService
-import fuurineditor.service.SystemService
-import fuurineditor.service.data.ProjectInfoData
+import fuurineditor.app.service.ProjectService
+import fuurineditor.app.service.SystemService
+import fuurineditor.app.service.data.ProjectInfoData
 import fuurineditor.ui.data.ProjectState
 import fuurineditor.viewmodel.core.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -1,6 +1,6 @@
 package fuurineditor.infra.repository.data
 
-import fuurineditor.service.data.ProjectInfoData
+import fuurineditor.app.service.data.ProjectInfoData
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

@@ -9,7 +9,7 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.unit.dp
-import fuurineditor.service.data.TiletipFile
+import fuurineditor.app.service.data.TiletipFile
 
 @Composable
 fun TiletipPanelList(

@@ -28,10 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogState
 import androidx.compose.ui.window.rememberDialogState
-import fuurineditor.service.data.event.EventNode
-import fuurineditor.service.data.event.InputControllerKeyType
-import fuurineditor.service.data.event.InputControllerNode
-import fuurineditor.service.data.event.OutputEventStateNode
+import fuurineditor.app.service.data.event.EventNode
+import fuurineditor.app.service.data.event.InputControllerKeyType
+import fuurineditor.app.service.data.event.InputControllerNode
+import fuurineditor.app.service.data.event.OutputEventStateNode
 import fuurineditor.ui.compose.parts.ExposedDropdownMenu
 import fuurineditor.ui.data.NodeType
 import fuurineditor.ui.theme.Background

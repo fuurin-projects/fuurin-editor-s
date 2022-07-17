@@ -1,6 +1,6 @@
 package fuurineditor.infra.repository.data
 
-import fuurineditor.service.data.TiletipFileStatus
+import fuurineditor.app.service.data.TiletipFileStatus
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

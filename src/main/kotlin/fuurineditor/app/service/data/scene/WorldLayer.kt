@@ -1,6 +1,6 @@
-package fuurineditor.service.data.scene
+package fuurineditor.app.service.data.scene
 
-import fuurineditor.service.data.TiletipFile
+import fuurineditor.app.service.data.TiletipFile
 
 data class WorldLayer(
     val xSize: Int, val ySize: Int

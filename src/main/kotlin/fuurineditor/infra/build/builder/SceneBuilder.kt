@@ -10,7 +10,7 @@ import fuurineditor.infra.repository.data.SceneJson
 import fuurineditor.infra.repository.data.WorldSceneJson
 import fuurineditor.infra.repository.data.toWorldScene
 import fuurineditor.infra.repository.tiletip
-import fuurineditor.service.data.SceneFile
+import fuurineditor.app.service.data.SceneFile
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component

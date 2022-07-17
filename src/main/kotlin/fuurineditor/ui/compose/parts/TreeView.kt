@@ -31,7 +31,7 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
-import fuurineditor.service.data.File
+import fuurineditor.app.service.data.File
 import fuurineditor.ui.theme.IconColor
 import fuurineditor.ui.theme.SelectColor
 import kotlinx.coroutines.CoroutineScope

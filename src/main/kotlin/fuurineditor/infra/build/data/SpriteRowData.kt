@@ -1,6 +1,6 @@
 package fuurineditor.infra.build.data
 
-import fuurineditor.service.data.TiletipFile
+import fuurineditor.app.service.data.TiletipFile
 
 data class SpriteRowData(
     val tiletipFile: TiletipFile,

@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fuurineditor.service.data.File
+import fuurineditor.app.service.data.File
 import fuurineditor.ui.compose.parts.CurrentEditor
 import fuurineditor.ui.compose.parts.EditorTab
 import fuurineditor.ui.compose.parts.FunctionPanel

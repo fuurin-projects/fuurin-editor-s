@@ -2,7 +2,7 @@ package fuurineditor.infra.build.builder
 
 import fuurineditor.infra.build.data.SpriteMetaJson
 import fuurineditor.infra.build.data.SpriteRowData
-import fuurineditor.service.data.TiletipFile
+import fuurineditor.app.service.data.TiletipFile
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Component

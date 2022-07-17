@@ -1,12 +1,12 @@
 package fuurineditor.viewmodel.editor
 
 import fuurineditor.debounce
-import fuurineditor.service.TiletipService
-import fuurineditor.service.WorldSceneService
-import fuurineditor.service.data.SceneFile
-import fuurineditor.service.data.TiletipFile
-import fuurineditor.service.data.scene.WorldLayer
-import fuurineditor.service.data.scene.WorldScene
+import fuurineditor.app.service.TiletipService
+import fuurineditor.app.service.WorldSceneService
+import fuurineditor.app.service.data.SceneFile
+import fuurineditor.app.service.data.TiletipFile
+import fuurineditor.app.service.data.scene.WorldLayer
+import fuurineditor.app.service.data.scene.WorldScene
 import fuurineditor.ui.compose.parts.editor.Slot
 import fuurineditor.viewmodel.core.SpringViewModel
 import fuurineditor.viewmodel.core.ViewModel

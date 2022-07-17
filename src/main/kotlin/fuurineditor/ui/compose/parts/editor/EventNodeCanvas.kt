@@ -29,9 +29,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.pointerMoveFilter
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
-import fuurineditor.service.data.event.EventNode
-import fuurineditor.service.data.event.isCollision
-import fuurineditor.service.data.event.offset
+import fuurineditor.app.service.data.event.EventNode
+import fuurineditor.app.service.data.event.isCollision
+import fuurineditor.app.service.data.event.offset
 import fuurineditor.ui.theme.BrightBackground
 import fuurineditor.ui.theme.ConnectLineColor
 import org.jetbrains.skia.Font

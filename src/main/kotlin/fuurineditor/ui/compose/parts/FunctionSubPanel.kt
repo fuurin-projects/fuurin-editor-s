@@ -26,7 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import fuurineditor.service.data.File
+import fuurineditor.app.service.data.File
 import fuurineditor.ui.compose.window.AddSceneDialog
 import fuurineditor.ui.compose.window.AddTileTipDialog
 import fuurineditor.ui.compose.window.RowScene

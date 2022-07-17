@@ -1,4 +1,4 @@
-package fuurineditor.service.data
+package fuurineditor.app.service.data
 
 interface File {
 
