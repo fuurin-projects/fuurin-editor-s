@@ -1,5 +1,6 @@
 package fuurineditor.repository.build.builder
 
+import fuurineditor.property.IProjectProperty
 import fuurineditor.repository.SceneRepository
 import fuurineditor.repository.WorldSceneRepository
 import fuurineditor.repository.build.data.SceneMetaJson
@@ -9,7 +10,6 @@ import fuurineditor.repository.data.SceneJson
 import fuurineditor.repository.data.WorldSceneJson
 import fuurineditor.repository.data.toWorldScene
 import fuurineditor.repository.tiletip
-import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.SceneFile
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -20,6 +20,7 @@ import kotlin.io.path.exists
 
 @Component
 class SceneBuilder(
+    private val projectProperty: IProjectProperty,
     private val worldSceneBuilder: WorldSceneBuilder,
     private val worldBuilder: WorldBuilder,
     private val sceneRepository: SceneRepository,
@@ -28,7 +29,7 @@ class SceneBuilder(
 
     private val json = Json { prettyPrint = true; encodeDefaults = true }
 
-    suspend fun build(path: ProjectPath, rowBasePath: Path, spriteData: Map<String, List<SpriteRowData>>) {
+    suspend fun build(rowBasePath: Path, spriteData: Map<String, List<SpriteRowData>>) {
 
         val sceneDirectoryPath = rowBasePath.resolve("./data/scene")
         if (sceneDirectoryPath.exists().not()) {
@@ -48,7 +49,7 @@ class SceneBuilder(
             sceneDirectoryPath,
             allSceneJsonList
                 .filter { it.second is WorldSceneJson }
-                .map { (it.second as WorldSceneJson).toWorldScene(path.tiletip, it.first) }
+                .map { (it.second as WorldSceneJson).toWorldScene(projectProperty.projectPath.tiletip, it.first) }
         )
 
         //WorldJsonの生成
@@ -56,7 +57,7 @@ class SceneBuilder(
             rowBasePath = rowBasePath,
             worldSceneList = allSceneJsonList
                 .filter { it.second is WorldSceneJson }
-                .map { (it.second as WorldSceneJson).toWorldScene(path.tiletip, it.first) }
+                .map { (it.second as WorldSceneJson).toWorldScene(projectProperty.projectPath.tiletip, it.first) }
         )
 
 

@@ -16,7 +16,6 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Repository
 import java.nio.file.Files
-import java.nio.file.Path
 import kotlin.io.path.exists
 
 @Repository
@@ -24,13 +23,6 @@ class SceneRepository(
     private val projectProperty: IProjectProperty
 ) {
 
-    /**
-     * Project内のsceneのパス
-     */
-    private val Path.scenePath: Path
-        get() {
-            return this@scenePath.resolve("src/main/scene")
-        }
 
     fun getScene(): Flow<File> {
 

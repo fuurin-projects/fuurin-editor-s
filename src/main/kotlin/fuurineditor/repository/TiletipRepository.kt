@@ -4,7 +4,6 @@ import fuurineditor.property.IProjectProperty
 import fuurineditor.repository.data.IconBaseJson
 import fuurineditor.repository.data.TiletipJson
 import fuurineditor.service.data.File
-import fuurineditor.service.data.ProjectPath
 import fuurineditor.service.data.TiletipFile
 import fuurineditor.service.data.toTiletipFile
 import fuurineditor.ui.compose.window.RowTileTip
@@ -16,7 +15,6 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Repository
 import java.nio.file.Files
-import java.nio.file.Path
 import kotlin.io.path.exists
 
 @Repository
@@ -102,11 +100,3 @@ class TiletipRepository(
 
 
 }
-
-/**
- * Project内のtiletipのパス
- */
-val ProjectPath.tiletip: Path
-    get() {
-        return this@tiletip.path.resolve("src/main/resources/assets/textures/tiletip")
-    }

@@ -78,7 +78,7 @@ class WebBuildRepository(
 
         iconBuilder.build(outputWebRowBase, spriteData)
 
-        sceneBuilder.build(path = path, rowBasePath = outputWebRowBase, spriteData = spriteData)
+        sceneBuilder.build(rowBasePath = outputWebRowBase, spriteData = spriteData)
 
 
     }

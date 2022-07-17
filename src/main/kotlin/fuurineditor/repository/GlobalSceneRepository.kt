@@ -14,20 +14,12 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import org.springframework.stereotype.Repository
-import java.nio.file.Path
 
 @Repository
 class GlobalSceneRepository(
     private val projectProperty: IProjectProperty
 ) {
 
-    /**
-     * Project内のsceneのパス
-     */
-    private val Path.scenePath: Path
-        get() {
-            return this@scenePath.resolve("src/main/scene")
-        }
 
     private val json = Json {
         encodeDefaults = true;
