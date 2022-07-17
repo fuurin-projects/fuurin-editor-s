@@ -1,4 +1,4 @@
-package fuurineditor.platform
+package fuurineditor.presen.platform
 
 import androidx.compose.ui.awt.ComposeDialog
 import com.sun.glass.ui.Application

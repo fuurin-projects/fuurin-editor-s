@@ -15,7 +15,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
-import fuurineditor.platform.fileChooser
+import fuurineditor.presen.platform.fileChooser
 import fuurineditor.presen.ui.theme.Background
 import fuurineditor.presen.ui.theme.FuurinEditorTheme
 import javafx.stage.FileChooser
