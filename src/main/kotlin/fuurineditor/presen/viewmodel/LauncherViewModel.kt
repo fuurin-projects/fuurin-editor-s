@@ -1,9 +1,9 @@
-package fuurineditor.viewmodel
+package fuurineditor.presen.viewmodel
 
 import fuurineditor.app.service.SystemService
 import fuurineditor.app.service.data.ProjectInfoData
-import fuurineditor.viewmodel.core.SpringViewModel
-import fuurineditor.viewmodel.core.ViewModel
+import fuurineditor.presen.viewmodel.core.SpringViewModel
+import fuurineditor.presen.viewmodel.core.ViewModel
 import kotlinx.coroutines.launch
 
 @SpringViewModel

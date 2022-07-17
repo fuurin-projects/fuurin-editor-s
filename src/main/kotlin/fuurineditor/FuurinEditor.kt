@@ -14,7 +14,7 @@ import fuurineditor.presen.ui.compose.LauncherWindow
 import fuurineditor.presen.ui.compose.window.ProjectWindow
 import fuurineditor.presen.ui.rememberApplicationContext
 import fuurineditor.presen.ui.viewModel
-import fuurineditor.viewmodel.GlobalViewModel
+import fuurineditor.presen.viewmodel.GlobalViewModel
 import javafx.application.Platform
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import javax.swing.UIManager

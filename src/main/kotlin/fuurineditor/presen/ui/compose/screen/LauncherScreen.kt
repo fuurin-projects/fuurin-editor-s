@@ -41,8 +41,8 @@ import fuurineditor.presen.ui.theme.Background
 import fuurineditor.presen.ui.theme.BrightBackground
 import fuurineditor.presen.ui.theme.BrightSubBackground
 import fuurineditor.presen.ui.viewModel
-import fuurineditor.viewmodel.GlobalViewModel
-import fuurineditor.viewmodel.LauncherViewModel
+import fuurineditor.presen.viewmodel.GlobalViewModel
+import fuurineditor.presen.viewmodel.LauncherViewModel
 import java.util.*
 
 

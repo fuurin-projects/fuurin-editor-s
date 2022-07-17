@@ -1,15 +1,15 @@
-package fuurineditor.viewmodel.editor
+package fuurineditor.presen.viewmodel.editor
 
-import fuurineditor.debounce
 import fuurineditor.app.service.TiletipService
 import fuurineditor.app.service.WorldSceneService
 import fuurineditor.app.service.data.SceneFile
 import fuurineditor.app.service.data.TiletipFile
 import fuurineditor.app.service.data.scene.WorldLayer
 import fuurineditor.app.service.data.scene.WorldScene
+import fuurineditor.debounce
 import fuurineditor.presen.ui.compose.parts.editor.Slot
-import fuurineditor.viewmodel.core.SpringViewModel
-import fuurineditor.viewmodel.core.ViewModel
+import fuurineditor.presen.viewmodel.core.SpringViewModel
+import fuurineditor.presen.viewmodel.core.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.last

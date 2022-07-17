@@ -1,4 +1,4 @@
-package fuurineditor.viewmodel.editor
+package fuurineditor.presen.viewmodel.editor
 
 import androidx.compose.ui.geometry.Offset
 import fuurineditor.app.service.GlobalSceneService
@@ -7,8 +7,8 @@ import fuurineditor.app.service.data.SceneFile
 import fuurineditor.app.service.data.event.Event
 import fuurineditor.app.service.data.event.EventNode
 import fuurineditor.app.service.data.scene.GlobalScene
-import fuurineditor.viewmodel.core.SpringViewModel
-import fuurineditor.viewmodel.core.ViewModel
+import fuurineditor.presen.viewmodel.core.SpringViewModel
+import fuurineditor.presen.viewmodel.core.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update

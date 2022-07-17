@@ -53,7 +53,7 @@ import fuurineditor.presen.ui.theme.Background
 import fuurineditor.presen.ui.theme.Border
 import fuurineditor.presen.ui.theme.SelectColor
 import fuurineditor.presen.ui.viewModel
-import fuurineditor.viewmodel.editor.WorldSceneEditorViewModel
+import fuurineditor.presen.viewmodel.editor.WorldSceneEditorViewModel
 
 //26.5 * 15
 

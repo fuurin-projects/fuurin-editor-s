@@ -19,7 +19,7 @@ import fuurineditor.presen.ui.LocalProjectPathContext
 import fuurineditor.presen.ui.compose.screen.ProjectScreen
 import fuurineditor.presen.ui.theme.FuurinEditorTheme
 import fuurineditor.presen.ui.viewModel
-import fuurineditor.viewmodel.ProjectViewModel
+import fuurineditor.presen.viewmodel.ProjectViewModel
 
 /**
  * プロジェクトウィンドウ

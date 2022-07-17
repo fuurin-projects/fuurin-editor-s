@@ -47,7 +47,7 @@ import fuurineditor.presen.ui.theme.BlueprintBorder
 import fuurineditor.presen.ui.theme.Border
 import fuurineditor.presen.ui.theme.BrightBackground
 import fuurineditor.presen.ui.viewModel
-import fuurineditor.viewmodel.editor.GlobalSceneEditorViewModel
+import fuurineditor.presen.viewmodel.editor.GlobalSceneEditorViewModel
 
 @Composable
 fun GlobalSceneEditor(sceneFile: SceneFile) {

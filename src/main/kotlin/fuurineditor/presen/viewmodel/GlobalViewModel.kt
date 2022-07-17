@@ -1,10 +1,10 @@
-package fuurineditor.viewmodel
+package fuurineditor.presen.viewmodel
 
 import fuurineditor.app.service.ProjectService
 import fuurineditor.app.service.SystemService
 import fuurineditor.app.service.data.ProjectInfoData
 import fuurineditor.presen.ui.data.ProjectState
-import fuurineditor.viewmodel.core.ViewModel
+import fuurineditor.presen.viewmodel.core.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

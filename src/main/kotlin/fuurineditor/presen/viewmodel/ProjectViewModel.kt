@@ -1,4 +1,4 @@
-package fuurineditor.viewmodel
+package fuurineditor.presen.viewmodel
 
 import fuurineditor.app.service.DevGameService
 import fuurineditor.app.service.ProjectService
@@ -13,8 +13,8 @@ import fuurineditor.presen.ui.compose.window.RowTileTip
 import fuurineditor.presen.ui.data.Editor
 import fuurineditor.presen.ui.data.EmptyEditor
 import fuurineditor.presen.ui.data.FunctionType
-import fuurineditor.viewmodel.core.SpringViewModel
-import fuurineditor.viewmodel.core.ViewModel
+import fuurineditor.presen.viewmodel.core.SpringViewModel
+import fuurineditor.presen.viewmodel.core.ViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
