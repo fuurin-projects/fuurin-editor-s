@@ -1,5 +1,6 @@
 package fuurineditor.infra.build.builder
 
+import fuurineditor.app.property.IProjectProperty
 import fuurineditor.infra.build.data.SceneMetaJson
 import fuurineditor.infra.build.data.SpriteRowData
 import fuurineditor.infra.build.data.scene.GWorldSceneJson
@@ -9,7 +10,6 @@ import fuurineditor.infra.repository.data.SceneJson
 import fuurineditor.infra.repository.data.WorldSceneJson
 import fuurineditor.infra.repository.data.toWorldScene
 import fuurineditor.infra.repository.tiletip
-import fuurineditor.property.IProjectProperty
 import fuurineditor.service.data.SceneFile
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

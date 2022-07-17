@@ -6,8 +6,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.ui.window.application
-import fuurineditor.property.FakeProjectProperty
-import fuurineditor.property.ProjectProperty
+import fuurineditor.app.property.FakeProjectProperty
+import fuurineditor.app.property.ProjectProperty
 import fuurineditor.service.data.ProjectPath
 import fuurineditor.ui.LocalSpringContext
 import fuurineditor.ui.compose.LauncherWindow

@@ -1,4 +1,4 @@
-package fuurineditor.property
+package fuurineditor.app.property
 
 import java.nio.file.Path
 

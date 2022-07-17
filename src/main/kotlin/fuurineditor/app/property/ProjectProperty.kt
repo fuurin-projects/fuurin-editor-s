@@ -1,4 +1,4 @@
-package fuurineditor.property
+package fuurineditor.app.property
 
 import java.nio.file.Path
 
@@ -8,7 +8,7 @@ open class ProjectProperty(
      * Projectのルートディレクトリ
      */
     override val projectPath: Path
-    
+
 ) : IProjectProperty
 
 class FakeProjectProperty : IProjectProperty {

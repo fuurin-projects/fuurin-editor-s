@@ -1,6 +1,6 @@
 package fuurineditor.infra.repository
 
-import fuurineditor.property.IProjectProperty
+import fuurineditor.app.property.IProjectProperty
 import fuurineditor.infra.repository.data.SceneJson
 import fuurineditor.infra.repository.data.WorldSceneJson
 import fuurineditor.infra.repository.data.toWorldScene

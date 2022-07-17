@@ -1,6 +1,6 @@
 package fuurineditor.infra.repository
 
-import fuurineditor.property.IProjectProperty
+import fuurineditor.app.property.IProjectProperty
 import fuurineditor.service.data.ProjectData
 import fuurineditor.service.data.ProjectPath
 import kotlinx.coroutines.flow.Flow

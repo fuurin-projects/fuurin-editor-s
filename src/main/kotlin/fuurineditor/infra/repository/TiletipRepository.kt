@@ -1,6 +1,6 @@
 package fuurineditor.infra.repository
 
-import fuurineditor.property.IProjectProperty
+import fuurineditor.app.property.IProjectProperty
 import fuurineditor.infra.repository.data.IconBaseJson
 import fuurineditor.infra.repository.data.TiletipJson
 import fuurineditor.service.data.File
