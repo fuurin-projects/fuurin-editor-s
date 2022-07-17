@@ -2,6 +2,9 @@ package fuurineditor.repository
 
 import fuurineditor.FuurinEditorSpring
 import kotlinx.coroutines.test.runTest
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig
@@ -15,6 +18,12 @@ internal class ProjectRepositoryTest {
     @Test
     fun getProjectData() {
 
+        println("aa")
+        val text = Json.encodeToString(
+            WorldSceneJson1.serializer(),
+            WorldSceneJson1(name = "aa")
+        )
+        println(text)
 
     }
 
@@ -28,3 +37,12 @@ internal class ProjectRepositoryTest {
 
     }
 }
+
+@Serializable
+data class WorldSceneJson1(
+    @SerialName("name")
+    val name: String = "test",
+
+    //@SerialName("width")
+    //val width: JsonPrimitive = 1.toJsonPrimitive(),
+)
