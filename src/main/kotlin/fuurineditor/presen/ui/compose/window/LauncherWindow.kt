@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose
+package fuurineditor.presen.ui.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -16,9 +16,9 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
 import com.sun.glass.ui.Application
 import com.sun.glass.ui.CommonDialogs
-import fuurineditor.ui.compose.screen.LauncherScreen
-import fuurineditor.ui.data.ProjectState
-import fuurineditor.ui.theme.FuurinEditorTheme
+import fuurineditor.presen.ui.compose.screen.LauncherScreen
+import fuurineditor.presen.ui.data.ProjectState
+import fuurineditor.presen.ui.theme.FuurinEditorTheme
 import javafx.application.Platform
 import javafx.embed.swing.JFXPanel
 import javafx.stage.DirectoryChooser

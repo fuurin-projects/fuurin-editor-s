@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts
+package fuurineditor.presen.ui.compose.parts
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -25,9 +25,9 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import fuurineditor.ui.data.Editor
-import fuurineditor.ui.theme.IconColor
-import fuurineditor.ui.theme.SelectColor
+import fuurineditor.presen.ui.data.Editor
+import fuurineditor.presen.ui.theme.IconColor
+import fuurineditor.presen.ui.theme.SelectColor
 
 @Composable
 fun EditorTab(

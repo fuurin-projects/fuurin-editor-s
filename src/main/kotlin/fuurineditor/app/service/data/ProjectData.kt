@@ -1,6 +1,6 @@
 package fuurineditor.app.service.data
 
-import fuurineditor.ui.data.ProjectState
+import fuurineditor.presen.ui.data.ProjectState
 import java.nio.file.Path
 
 data class ProjectData(

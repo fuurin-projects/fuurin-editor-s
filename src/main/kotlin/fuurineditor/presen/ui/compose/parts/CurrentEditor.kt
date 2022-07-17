@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts
+package fuurineditor.presen.ui.compose.parts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -11,12 +11,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import fuurineditor.app.service.data.SceneFile
 import fuurineditor.app.service.data.TiletipFile
-import fuurineditor.ui.compose.parts.editor.GlobalSceneEditor
-import fuurineditor.ui.compose.parts.editor.TiletipEditor
-import fuurineditor.ui.compose.parts.editor.WorldSceneEditor
-import fuurineditor.ui.data.Editor
-import fuurineditor.ui.data.EmptyEditor
-import fuurineditor.ui.theme.Background
+import fuurineditor.presen.ui.compose.parts.editor.GlobalSceneEditor
+import fuurineditor.presen.ui.compose.parts.editor.TiletipEditor
+import fuurineditor.presen.ui.compose.parts.editor.WorldSceneEditor
+import fuurineditor.presen.ui.data.Editor
+import fuurineditor.presen.ui.data.EmptyEditor
+import fuurineditor.presen.ui.theme.Background
 
 @Composable
 fun CurrentEditor(

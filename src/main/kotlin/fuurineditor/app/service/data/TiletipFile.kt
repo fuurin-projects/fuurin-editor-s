@@ -7,8 +7,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.loadImageBitmap
 import fuurineditor.infra.repository.data.TiletipJson
 import fuurineditor.infra.repository.data.toTiletipFileStatus
-import fuurineditor.ui.compose.parts.CustomFileIcon
-import fuurineditor.ui.compose.parts.CustomTreeNodeFile
+import fuurineditor.presen.ui.compose.parts.CustomFileIcon
+import fuurineditor.presen.ui.compose.parts.CustomTreeNodeFile
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.FilenameFilter

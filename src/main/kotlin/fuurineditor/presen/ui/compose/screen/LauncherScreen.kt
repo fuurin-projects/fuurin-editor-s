@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.screen
+package fuurineditor.presen.ui.compose.screen
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.Image
@@ -36,11 +36,11 @@ import androidx.compose.ui.res.loadImageBitmap
 import androidx.compose.ui.res.useResource
 import androidx.compose.ui.unit.dp
 import fuurineditor.app.service.data.toProjectState
-import fuurineditor.ui.stringResource
-import fuurineditor.ui.theme.Background
-import fuurineditor.ui.theme.BrightBackground
-import fuurineditor.ui.theme.BrightSubBackground
-import fuurineditor.ui.viewModel
+import fuurineditor.presen.ui.stringResource
+import fuurineditor.presen.ui.theme.Background
+import fuurineditor.presen.ui.theme.BrightBackground
+import fuurineditor.presen.ui.theme.BrightSubBackground
+import fuurineditor.presen.ui.viewModel
 import fuurineditor.viewmodel.GlobalViewModel
 import fuurineditor.viewmodel.LauncherViewModel
 import java.util.*

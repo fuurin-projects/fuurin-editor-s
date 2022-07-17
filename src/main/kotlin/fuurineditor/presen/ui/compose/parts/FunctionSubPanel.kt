@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts
+package fuurineditor.presen.ui.compose.parts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -27,13 +27,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fuurineditor.app.service.data.File
-import fuurineditor.ui.compose.window.AddSceneDialog
-import fuurineditor.ui.compose.window.AddTileTipDialog
-import fuurineditor.ui.compose.window.RowScene
-import fuurineditor.ui.compose.window.RowTileTip
-import fuurineditor.ui.data.FunctionType
-import fuurineditor.ui.theme.Background
-import fuurineditor.ui.theme.Border
+import fuurineditor.presen.ui.compose.window.AddSceneDialog
+import fuurineditor.presen.ui.compose.window.AddTileTipDialog
+import fuurineditor.presen.ui.compose.window.RowScene
+import fuurineditor.presen.ui.compose.window.RowTileTip
+import fuurineditor.presen.ui.data.FunctionType
+import fuurineditor.presen.ui.theme.Background
+import fuurineditor.presen.ui.theme.Border
 
 @Composable
 fun FunctionSubPanel(

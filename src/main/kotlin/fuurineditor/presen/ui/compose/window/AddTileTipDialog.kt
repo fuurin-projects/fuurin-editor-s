@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.window
+package fuurineditor.presen.ui.compose.window
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,8 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
 import fuurineditor.platform.fileChooser
-import fuurineditor.ui.theme.Background
-import fuurineditor.ui.theme.FuurinEditorTheme
+import fuurineditor.presen.ui.theme.Background
+import fuurineditor.presen.ui.theme.FuurinEditorTheme
 import javafx.stage.FileChooser
 import kotlinx.coroutines.launch
 import java.nio.file.Path

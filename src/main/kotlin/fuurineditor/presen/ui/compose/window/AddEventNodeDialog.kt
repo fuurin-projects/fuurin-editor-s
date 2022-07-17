@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.window
+package fuurineditor.presen.ui.compose.window
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,12 +32,12 @@ import fuurineditor.app.service.data.event.EventNode
 import fuurineditor.app.service.data.event.InputControllerKeyType
 import fuurineditor.app.service.data.event.InputControllerNode
 import fuurineditor.app.service.data.event.OutputEventStateNode
-import fuurineditor.ui.compose.parts.ExposedDropdownMenu
-import fuurineditor.ui.data.NodeType
-import fuurineditor.ui.theme.Background
-import fuurineditor.ui.theme.Border
-import fuurineditor.ui.theme.BrightBackground
-import fuurineditor.ui.theme.SelectColor
+import fuurineditor.presen.ui.compose.parts.ExposedDropdownMenu
+import fuurineditor.presen.ui.data.NodeType
+import fuurineditor.presen.ui.theme.Background
+import fuurineditor.presen.ui.theme.Border
+import fuurineditor.presen.ui.theme.BrightBackground
+import fuurineditor.presen.ui.theme.SelectColor
 
 @Composable
 fun AddEventNodeDialog(

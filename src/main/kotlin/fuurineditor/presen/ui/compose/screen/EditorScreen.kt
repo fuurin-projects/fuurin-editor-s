@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.screen
+package fuurineditor.presen.ui.compose.screen
 
 import androidx.compose.runtime.Composable
 

@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose
+package fuurineditor.presen.ui.compose
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
@@ -11,7 +11,7 @@ import androidx.compose.ui.window.DialogState
 import androidx.compose.ui.window.WindowPosition
 import androidx.compose.ui.window.WindowSize
 import androidx.compose.ui.window.rememberDialogState
-import fuurineditor.ui.theme.FuurinEditorTheme
+import fuurineditor.presen.ui.theme.FuurinEditorTheme
 
 @Composable
 fun NewGameProjectWindow(onCloseRequest: () -> Unit = {}) {
@@ -33,7 +33,7 @@ fun NewGameProjectWindow(onCloseRequest: () -> Unit = {}) {
                 Text("aaa");
             }
         }
-        
+
     }
 
 }

@@ -2,7 +2,7 @@ package fuurineditor.app.service
 
 import fuurineditor.infra.repository.TiletipRepository
 import fuurineditor.app.service.data.File
-import fuurineditor.ui.compose.window.RowTileTip
+import fuurineditor.presen.ui.compose.window.RowTileTip
 import kotlinx.coroutines.flow.Flow
 import org.springframework.stereotype.Service
 

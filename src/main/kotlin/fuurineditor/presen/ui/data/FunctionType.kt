@@ -1,4 +1,4 @@
-package fuurineditor.ui.data
+package fuurineditor.presen.ui.data
 
 sealed class FunctionType(val name: String) {
     object General : FunctionType("general")

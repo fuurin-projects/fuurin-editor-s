@@ -7,7 +7,7 @@ import fuurineditor.app.service.data.SceneFile
 import fuurineditor.app.service.data.TiletipFile
 import fuurineditor.app.service.data.scene.WorldLayer
 import fuurineditor.app.service.data.scene.WorldScene
-import fuurineditor.ui.compose.parts.editor.Slot
+import fuurineditor.presen.ui.compose.parts.editor.Slot
 import fuurineditor.viewmodel.core.SpringViewModel
 import fuurineditor.viewmodel.core.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

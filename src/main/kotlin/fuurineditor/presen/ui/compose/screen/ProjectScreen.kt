@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.screen
+package fuurineditor.presen.ui.compose.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -17,20 +17,20 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import fuurineditor.app.service.data.File
-import fuurineditor.ui.compose.parts.CurrentEditor
-import fuurineditor.ui.compose.parts.EditorTab
-import fuurineditor.ui.compose.parts.FunctionPanel
-import fuurineditor.ui.compose.parts.FunctionSubPanel
-import fuurineditor.ui.compose.parts.ToolButton
-import fuurineditor.ui.compose.parts.VerticalDivider
-import fuurineditor.ui.compose.window.RowScene
-import fuurineditor.ui.compose.window.RowTileTip
-import fuurineditor.ui.data.Editor
-import fuurineditor.ui.data.FunctionType
-import fuurineditor.ui.theme.Background
-import fuurineditor.ui.theme.Border
-import fuurineditor.ui.theme.IconGreenColor
-import fuurineditor.ui.theme.IconRedColor
+import fuurineditor.presen.ui.compose.parts.CurrentEditor
+import fuurineditor.presen.ui.compose.parts.EditorTab
+import fuurineditor.presen.ui.compose.parts.FunctionPanel
+import fuurineditor.presen.ui.compose.parts.FunctionSubPanel
+import fuurineditor.presen.ui.compose.parts.ToolButton
+import fuurineditor.presen.ui.compose.parts.VerticalDivider
+import fuurineditor.presen.ui.compose.window.RowScene
+import fuurineditor.presen.ui.compose.window.RowTileTip
+import fuurineditor.presen.ui.data.Editor
+import fuurineditor.presen.ui.data.FunctionType
+import fuurineditor.presen.ui.theme.Background
+import fuurineditor.presen.ui.theme.Border
+import fuurineditor.presen.ui.theme.IconGreenColor
+import fuurineditor.presen.ui.theme.IconRedColor
 
 data class ProjectScreenUIState(
     val functionType: FunctionType = FunctionType.General

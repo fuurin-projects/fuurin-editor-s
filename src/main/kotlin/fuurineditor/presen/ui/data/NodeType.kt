@@ -1,4 +1,4 @@
-package fuurineditor.ui.data
+package fuurineditor.presen.ui.data
 
 
 sealed class NodeType(val name: String) {

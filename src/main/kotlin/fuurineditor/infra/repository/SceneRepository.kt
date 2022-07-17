@@ -8,7 +8,7 @@ import fuurineditor.app.service.data.File
 import fuurineditor.app.service.data.SceneFile
 import fuurineditor.app.service.data.SceneType
 import fuurineditor.app.service.data.toSceneFile
-import fuurineditor.ui.compose.window.RowScene
+import fuurineditor.presen.ui.compose.window.RowScene
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.decodeFromString

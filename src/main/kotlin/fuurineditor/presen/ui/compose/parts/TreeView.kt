@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts
+package fuurineditor.presen.ui.compose.parts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,8 +32,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
 import fuurineditor.app.service.data.File
-import fuurineditor.ui.theme.IconColor
-import fuurineditor.ui.theme.SelectColor
+import fuurineditor.presen.ui.theme.IconColor
+import fuurineditor.presen.ui.theme.SelectColor
 import kotlinx.coroutines.CoroutineScope
 
 @Composable

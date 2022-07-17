@@ -1,4 +1,4 @@
-package fuurineditor.ui.theme
+package fuurineditor.presen.ui.theme
 
 import androidx.compose.desktop.DesktopTheme
 import androidx.compose.foundation.isSystemInDarkTheme

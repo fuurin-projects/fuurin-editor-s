@@ -9,11 +9,11 @@ import androidx.compose.ui.window.application
 import fuurineditor.app.property.FakeProjectProperty
 import fuurineditor.app.property.ProjectProperty
 import fuurineditor.app.service.data.ProjectPath
-import fuurineditor.ui.LocalSpringContext
-import fuurineditor.ui.compose.LauncherWindow
-import fuurineditor.ui.compose.window.ProjectWindow
-import fuurineditor.ui.rememberApplicationContext
-import fuurineditor.ui.viewModel
+import fuurineditor.presen.ui.LocalSpringContext
+import fuurineditor.presen.ui.compose.LauncherWindow
+import fuurineditor.presen.ui.compose.window.ProjectWindow
+import fuurineditor.presen.ui.rememberApplicationContext
+import fuurineditor.presen.ui.viewModel
 import fuurineditor.viewmodel.GlobalViewModel
 import javafx.application.Platform
 import org.springframework.context.annotation.AnnotationConfigApplicationContext

@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts
+package fuurineditor.presen.ui.compose.parts
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import fuurineditor.ui.theme.IconColor
+import fuurineditor.presen.ui.theme.IconColor
 
 @Composable
 fun ToolButton(

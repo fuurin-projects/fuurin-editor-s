@@ -1,4 +1,4 @@
-package fuurineditor.ui.theme
+package fuurineditor.presen.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

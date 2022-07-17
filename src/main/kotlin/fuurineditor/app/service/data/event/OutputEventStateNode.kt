@@ -2,7 +2,7 @@ package fuurineditor.app.service.data.event
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import fuurineditor.ui.theme.OutputNodeColor
+import fuurineditor.presen.ui.theme.OutputNodeColor
 import java.util.*
 
 data class OutputEventStateNode(

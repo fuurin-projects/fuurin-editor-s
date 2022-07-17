@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose
+package fuurineditor.presen.ui.compose
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,7 +48,7 @@ fun BrowserWindow(url: String, onCloseRequest: () -> Unit = {}) {
                     }
                 }
             })
-            
+
 
         }
 

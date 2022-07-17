@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.window
+package fuurineditor.presen.ui.compose.window
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -15,10 +15,10 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.rememberWindowState
 import fuurineditor.app.service.data.ProjectData
 import fuurineditor.app.service.data.ProjectPath
-import fuurineditor.ui.LocalProjectPathContext
-import fuurineditor.ui.compose.screen.ProjectScreen
-import fuurineditor.ui.theme.FuurinEditorTheme
-import fuurineditor.ui.viewModel
+import fuurineditor.presen.ui.LocalProjectPathContext
+import fuurineditor.presen.ui.compose.screen.ProjectScreen
+import fuurineditor.presen.ui.theme.FuurinEditorTheme
+import fuurineditor.presen.ui.viewModel
 import fuurineditor.viewmodel.ProjectViewModel
 
 /**

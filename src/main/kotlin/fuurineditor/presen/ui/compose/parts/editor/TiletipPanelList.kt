@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts.editor
+package fuurineditor.presen.ui.compose.parts.editor
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

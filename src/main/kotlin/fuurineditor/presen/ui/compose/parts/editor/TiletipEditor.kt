@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts.editor
+package fuurineditor.presen.ui.compose.parts.editor
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.unit.dp
 import fuurineditor.app.service.data.TiletipFile
 import fuurineditor.app.service.data.toIndexKye
-import fuurineditor.ui.theme.Background
+import fuurineditor.presen.ui.theme.Background
 
 @Composable
 fun TiletipEditor(file: TiletipFile) {

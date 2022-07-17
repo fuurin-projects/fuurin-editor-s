@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts.editor
+package fuurineditor.presen.ui.compose.parts.editor
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectDragGestures
@@ -32,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import fuurineditor.app.service.data.event.EventNode
 import fuurineditor.app.service.data.event.isCollision
 import fuurineditor.app.service.data.event.offset
-import fuurineditor.ui.theme.BrightBackground
-import fuurineditor.ui.theme.ConnectLineColor
+import fuurineditor.presen.ui.theme.BrightBackground
+import fuurineditor.presen.ui.theme.ConnectLineColor
 import org.jetbrains.skia.Font
 import org.jetbrains.skia.Paint
 

@@ -2,7 +2,7 @@ package fuurineditor.app.service.data.event
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import fuurineditor.ui.theme.InputNodeColor
+import fuurineditor.presen.ui.theme.InputNodeColor
 import java.util.*
 
 data class InputControllerNode(

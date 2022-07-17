@@ -6,7 +6,7 @@ import fuurineditor.infra.repository.data.TiletipJson
 import fuurineditor.app.service.data.File
 import fuurineditor.app.service.data.TiletipFile
 import fuurineditor.app.service.data.toTiletipFile
-import fuurineditor.ui.compose.window.RowTileTip
+import fuurineditor.presen.ui.compose.window.RowTileTip
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

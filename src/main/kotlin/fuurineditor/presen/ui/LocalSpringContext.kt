@@ -1,4 +1,4 @@
-package fuurineditor.ui
+package fuurineditor.presen.ui
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import org.springframework.context.support.GenericApplicationContext

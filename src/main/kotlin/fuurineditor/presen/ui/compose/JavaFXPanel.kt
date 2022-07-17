@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose
+package fuurineditor.presen.ui.compose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect

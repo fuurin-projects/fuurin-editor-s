@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts.editor
+package fuurineditor.presen.ui.compose.parts.editor
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -34,19 +34,19 @@ import androidx.compose.ui.unit.dp
 import fuurineditor.app.service.data.SceneFile
 import fuurineditor.app.service.data.event.Event
 import fuurineditor.app.service.data.event.EventNode
-import fuurineditor.ui.LocalProjectPathContext
-import fuurineditor.ui.compose.parts.SubTab
-import fuurineditor.ui.compose.parts.ToolButton
-import fuurineditor.ui.compose.parts.TreeNode
-import fuurineditor.ui.compose.parts.VerticalDivider
-import fuurineditor.ui.compose.window.AddEventDialog
-import fuurineditor.ui.compose.window.AddEventNodeDialog
-import fuurineditor.ui.theme.Background
-import fuurineditor.ui.theme.BlueprintBackground
-import fuurineditor.ui.theme.BlueprintBorder
-import fuurineditor.ui.theme.Border
-import fuurineditor.ui.theme.BrightBackground
-import fuurineditor.ui.viewModel
+import fuurineditor.presen.ui.LocalProjectPathContext
+import fuurineditor.presen.ui.compose.parts.SubTab
+import fuurineditor.presen.ui.compose.parts.ToolButton
+import fuurineditor.presen.ui.compose.parts.TreeNode
+import fuurineditor.presen.ui.compose.parts.VerticalDivider
+import fuurineditor.presen.ui.compose.window.AddEventDialog
+import fuurineditor.presen.ui.compose.window.AddEventNodeDialog
+import fuurineditor.presen.ui.theme.Background
+import fuurineditor.presen.ui.theme.BlueprintBackground
+import fuurineditor.presen.ui.theme.BlueprintBorder
+import fuurineditor.presen.ui.theme.Border
+import fuurineditor.presen.ui.theme.BrightBackground
+import fuurineditor.presen.ui.viewModel
 import fuurineditor.viewmodel.editor.GlobalSceneEditorViewModel
 
 @Composable

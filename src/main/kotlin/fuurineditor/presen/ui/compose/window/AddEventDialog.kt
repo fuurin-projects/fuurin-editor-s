@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.window
+package fuurineditor.presen.ui.compose.window
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -14,7 +14,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
 import fuurineditor.app.service.data.event.Event
-import fuurineditor.ui.theme.Background
+import fuurineditor.presen.ui.theme.Background
 
 @Composable
 fun AddEventDialog(

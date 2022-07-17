@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts
+package fuurineditor.presen.ui.compose.parts
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -20,9 +20,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import fuurineditor.ui.data.FunctionType
-import fuurineditor.ui.theme.FunctionIconColor
-import fuurineditor.ui.theme.SelectColor
+import fuurineditor.presen.ui.data.FunctionType
+import fuurineditor.presen.ui.theme.FunctionIconColor
+import fuurineditor.presen.ui.theme.SelectColor
 
 @Composable
 fun FunctionPanel(

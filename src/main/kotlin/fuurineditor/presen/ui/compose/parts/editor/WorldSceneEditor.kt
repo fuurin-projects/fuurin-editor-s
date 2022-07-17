@@ -1,4 +1,4 @@
-package fuurineditor.ui.compose.parts.editor
+package fuurineditor.presen.ui.compose.parts.editor
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -46,13 +46,13 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import fuurineditor.app.service.data.SceneFile
-import fuurineditor.ui.compose.parts.SubTab
-import fuurineditor.ui.compose.parts.ToolButton
-import fuurineditor.ui.compose.parts.VerticalDivider
-import fuurineditor.ui.theme.Background
-import fuurineditor.ui.theme.Border
-import fuurineditor.ui.theme.SelectColor
-import fuurineditor.ui.viewModel
+import fuurineditor.presen.ui.compose.parts.SubTab
+import fuurineditor.presen.ui.compose.parts.ToolButton
+import fuurineditor.presen.ui.compose.parts.VerticalDivider
+import fuurineditor.presen.ui.theme.Background
+import fuurineditor.presen.ui.theme.Border
+import fuurineditor.presen.ui.theme.SelectColor
+import fuurineditor.presen.ui.viewModel
 import fuurineditor.viewmodel.editor.WorldSceneEditorViewModel
 
 //26.5 * 15
