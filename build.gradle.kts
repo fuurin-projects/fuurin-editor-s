@@ -5,7 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.serialization") version "1.6.10"
-    id("org.jetbrains.compose") version "1.0.1"
+    id("org.jetbrains.compose") version "1.1.1"
     id("org.openjfx.javafxplugin") version "0.0.8"
 }
 
@@ -19,9 +19,13 @@ repositories {
 }
 
 dependencies {
+
     testImplementation(kotlin("test"))
     implementation(compose.desktop.currentOs)
-    implementation("org.jetbrains.compose.material:material-icons-extended-desktop:1.0.1")
+    implementation("org.jetbrains.compose.material:material-icons-extended-desktop:1.1.1")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.2")
 
     implementation("org.springframework:spring-context:5.3.13")
 
