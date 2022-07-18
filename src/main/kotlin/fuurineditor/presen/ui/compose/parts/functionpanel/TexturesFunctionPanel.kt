@@ -25,6 +25,7 @@ import fuurineditor.presen.ui.compose.parts.CustomTreeNode
 import fuurineditor.presen.ui.compose.parts.ToolButton
 import fuurineditor.presen.ui.compose.parts.TreeNode
 import fuurineditor.presen.ui.compose.parts.TreeView
+import fuurineditor.presen.ui.compose.window.AddCharacterTipDialog
 import fuurineditor.presen.ui.compose.window.AddTileTipDialog
 import fuurineditor.presen.ui.compose.window.RowTileTip
 import fuurineditor.presen.ui.theme.Background
@@ -49,13 +50,24 @@ fun TexturesFunctionPanel(
             })
     }
 
+    var addCharacterTipDialog by remember { mutableStateOf(false) }
+
+    if (addCharacterTipDialog) {
+        AddCharacterTipDialog(
+            onCloseRequest = {
+                addCharacterTipDialog = false
+            })
+    }
+
     Row(
         modifier = Modifier.height(28.dp).fillMaxWidth().background(Background)
     ) {
         ToolButton(imageVector = Icons.Sharp.AddPhotoAlternate, onClick = {
             addTiletipDialog = true
         })
-        ToolButton(imageVector = Icons.Sharp.PersonAdd, modifier = Modifier.offset(x = (-2).dp))
+        ToolButton(imageVector = Icons.Sharp.PersonAdd, modifier = Modifier.offset(x = (-2).dp), onClick = {
+            addCharacterTipDialog = true
+        })
     }
 
     Divider(color = Border, thickness = 1.dp)
