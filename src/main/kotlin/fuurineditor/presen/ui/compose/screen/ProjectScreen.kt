@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import fuurineditor.app.service.data.File
 import fuurineditor.presen.ui.compose.parts.CurrentEditor
 import fuurineditor.presen.ui.compose.parts.EditorTab
+import fuurineditor.presen.ui.compose.parts.FunctionCurrentPanel
 import fuurineditor.presen.ui.compose.parts.FunctionPanel
-import fuurineditor.presen.ui.compose.parts.FunctionSubPanel
 import fuurineditor.presen.ui.compose.parts.ToolButton
 import fuurineditor.presen.ui.compose.parts.VerticalDivider
 import fuurineditor.presen.ui.compose.window.RowScene
@@ -77,7 +77,7 @@ fun ProjectScreen(
 
             VerticalDivider(color = Border, thickness = 1.dp)
 
-            FunctionSubPanel(
+            FunctionCurrentPanel(
                 modifier = Modifier.fillMaxHeight().width(160.dp),
                 functionType = usState.functionType,
                 sceneList = sceneList,
