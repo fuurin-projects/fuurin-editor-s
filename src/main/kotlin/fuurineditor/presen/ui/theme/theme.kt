@@ -4,10 +4,12 @@ import androidx.compose.foundation.LocalScrollbarStyle
 import androidx.compose.foundation.ScrollbarStyle
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Typography
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
 private val LightColorPalette = lightColors(
@@ -21,8 +23,12 @@ fun FuurinEditorTheme(
     content: @Composable() () -> Unit
 ) {
 
+
     MaterialTheme(
         colors = LightColorPalette,
+        typography = Typography(
+            body1 = TextStyle.Default
+        ),
     ) {
 
         CompositionLocalProvider(
@@ -40,3 +46,4 @@ fun FuurinEditorTheme(
     }
 
 }
+
