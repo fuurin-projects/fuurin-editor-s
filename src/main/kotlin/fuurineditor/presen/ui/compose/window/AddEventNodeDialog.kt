@@ -83,6 +83,14 @@ fun AddEventNodeDialog(
                             selectNode = NodeType.OutputEventState
                         })
 
+                    NodeItem(
+                        NodeType.OutputEventTexture.name,
+                        selectNode = selectNode == NodeType.OutputEventTexture,
+                        onClock = {
+                            eventNode = null
+                            selectNode = NodeType.OutputEventTexture
+                        })
+
                 }
 
 
@@ -101,6 +109,13 @@ fun AddEventNodeDialog(
                         }
                         NodeType.OutputEventState -> {
                             OutputEventStatePanel(
+                                onChangeEventNode = {
+                                    eventNode = it
+                                }
+                            )
+                        }
+                        NodeType.OutputEventTexture -> {
+                            OutputEventTexturePanel(
                                 onChangeEventNode = {
                                     eventNode = it
                                 }
@@ -232,6 +247,15 @@ fun OutputEventStatePanel(
             }
         )
     }
+
+}
+
+@Composable
+fun OutputEventTexturePanel(
+    onChangeEventNode: (eventNode: OutputEventStateNode) -> Unit = {}
+) {
+
+    Text(text = "image")
 
 }
 
