@@ -4,31 +4,31 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import java.util.*
 
-interface EventNode {
+abstract class EventNode {
 
-    val id: UUID
+    abstract val id: UUID
 
-    val nodeTypeName: String
+    abstract val nodeTypeName: String
 
-    val nodeType: NodeType
+    abstract val nodeType: NodeType
 
-    val windowColor: Color
+    abstract val windowColor: Color
 
-    val offsetX: Float
+    abstract val offsetX: Float
 
-    val offsetY: Float
+    abstract val offsetY: Float
 
-    val width: Float
+    abstract val width: Float
 
-    val height: Float
+    abstract val height: Float
 
-    fun copyWithOffset(offset: Offset): EventNode
+    abstract fun copyWithOffset(offset: Offset): EventNode
 
-    val screenValue: String?
+    abstract val screenValue: String?
 
-    val leftConnector: Array<List<EventNode>>
+    abstract val leftConnector: Array<List<EventNode>>
 
-    val rightConnector: Array<List<EventNode>>
+    abstract val rightConnector: Array<List<EventNode>>
 
 }
 

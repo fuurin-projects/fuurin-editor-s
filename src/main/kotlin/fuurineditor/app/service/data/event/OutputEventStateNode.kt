@@ -18,7 +18,7 @@ data class OutputEventStateNode(
     override val nodeType: NodeType = NodeType.OUTPUT,
     override val leftConnector: Array<List<EventNode>> = arrayOf(mutableListOf()),
     override val rightConnector: Array<List<EventNode>> = arrayOf(),
-) : EventNode {
+) : EventNode() {
 
     override fun copyWithOffset(offset: Offset): EventNode {
         return copy(offsetX = offset.x, offsetY = offset.y)

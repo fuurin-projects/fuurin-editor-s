@@ -18,7 +18,7 @@ data class InputControllerNode(
     override val nodeType: NodeType = NodeType.INPUT,
     override val leftConnector: Array<List<EventNode>> = arrayOf(),
     override val rightConnector: Array<List<EventNode>> = arrayOf(mutableListOf()),
-) : EventNode {
+) : EventNode() {
 
     override fun copyWithOffset(offset: Offset): EventNode {
         return copy(
